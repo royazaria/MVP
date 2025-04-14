@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ePro AI | Professional Etsy Listings Generator</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Typed.js - For animated text -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --etsy-orange: #F56400;
+      --etsy-background: #F3F1E8;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--etsy-background);
+      scroll-behavior: smooth;
+    }
+    .typed-cursor {
+      color: var(--etsy-orange);
+      font-weight: bold;
+    }
+    /* Fixed height container for typed text to prevent layout shifts */
+    .typed-container {
+      min-height: 140px; /* Increased height for mobile */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (min-width: 768px) {
+      .typed-container {
+        min-height: 180px; /* Increased height for desktop */
+      }
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    .testimonial-card {
+      transition: all 0.3s ease;
+    }
+    .testimonial-card:hover {
+      transform: scale(1.02);
+    }
+    .pricing-card {
+      transition: all 0.3s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.08);
+    }
+    .pricing-card.featured {
+      position: relative;
+      border: 2px solid var(--etsy-orange);
+    }
+    .pricing-card.featured::before {
+      content: "Most Popular";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--etsy-orange);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* Mobile responsiveness fixes */
+    @media (max-width: 768px) {
+      /* Make the vertical line more visible on mobile */
+      .absolute.left-1\/2.top-0.bottom-0.w-1.bg-gray-200 {
+        width: 2px !important;
+        background-color: #F56400 !important;
+        opacity: 0.3;
+      }
+      
+      /* Ensure the numbered circles stand out */
+      .absolute.left-1\/2.transform.-translate-x-1\/2.bg-\[\#F56400\].text-white.w-12.h-12.rounded-full {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.5rem !important;
+        z-index: 20 !important;
+        border: 4px solid white !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+      }
+      
+      /* Improve spacing between steps on mobile */
+      .flex.flex-col.md\:flex-row.items-center.mb-16.md\:mb-24.relative,
+      .flex.flex-col.md\:flex-row-reverse.items-center.mb-16.md\:mb-24.relative {
+        margin-bottom: 3rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+      
+      /* Make the step content boxes wider on mobile */
+      .bg-\[\#F3F1E8\].p-6.rounded-xl.shadow-sm.max-w-md {
+        max-width: 100% !important;
+        margin-bottom: 1.5rem !important;
+      }
+      
+      /* Improve spacing and alignment for the step title and content */
+      .text-xl.font-bold.mb-3.text-\[\#F56400\] {
+        font-size: 1.25rem !important;
+        line-height: 1.5 !important;
+      }
+    }
+
+    /* Fix image display on small screens */
+    @media (max-width: 480px) {
+      .w-full.object-cover {
+        height: auto !important;
+        min-height: 200px !important;
+      }
+      
+      /* Make the step numbers more visible */
+      .absolute.left-1\/2.transform.-translate-x-1\/2.bg-\[\#F56400\].text-white.w-12.h-12.rounded-full {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.25rem !important;
+      }
+      
+      /* Stack all elements vertically with proper alignment */
+      .md\:w-1\/2 {
+        width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      /* Fix for the ROI calculator on mobile */
+      .md\:grid-cols-2.gap-12 {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Better mobile spacing for sections */
+      .py-20 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+      }
+
+      /* Improve readability of text on mobile */
+      .text-3xl.md\:text-5xl {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+      }
+
+      /* Make mobile cards full width */
+      .md\:grid-cols-3.gap-8 > div,
+      .md\:grid-cols-4.gap-4 > div {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 sticky top-0 z-50">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <a href="#" class="flex items-center">
+        <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500">ePro</span>
+        <span class="text-xl font-bold ml-1">AI</span>
+        <span class="ml-2 bg-[#F56400] text-white text-xs px-2 py-1 rounded-full">BETA</span>
+      </a>
+      
+      <div class="hidden md:flex space-x-8">
+        <a href="#how-it-works" class="font-medium hover:text-[#F56400] transition-colors">How It Works</a>
+        <a href="#calculator-section" class="font-medium hover:text-[#F56400] transition-colors">Worth it?</a>
+        <a href="#pricing" class="font-medium hover:text-[#F56400] transition-colors">Pricing</a>
+        <a href="#faq-section" class="font-medium hover:text-[#F56400] transition-colors">FAQ</a>
+      </div>
+      
+      <a href="#dashboard" class="bg-gradient-to-r from-[#F56400] to-yellow-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-gradient-to-r hover:from-[#E05000] hover:to-[#D48200] transition-all duration-300">
+        Go to Dashboard
+      </a>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="py-20 md:py-32 flex items-center justify-center px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#F3F1E8] to-white opacity-50"></div>
+    <!-- Animated gradient accent -->
+    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-5"></div>
+    <!-- Animated accent shapes -->
+    <div class="absolute top-20 right-20 w-64 h-64 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full filter blur-3xl opacity-5 animate-pulse"></div>
+    
+    <div class="relative z-10 text-center max-w-4xl mx-auto">
+      <span class="text-[#F56400] font-semibold">Introducing the Etsy Seller's Secret Weapon</span>
+      <h1 class="text-4xl md:text-6xl font-black mt-4 mb-6 tracking-tight">
+        <div class="typed-container">
+          <span id="typed-headline"></span>
+        </div>
+      </h1>
+      <p class="text-lg md:text-2xl mb-12 text-gray-700 font-medium max-w-3xl mx-auto">
+        Transform your product photos into professional studio-quality listings with AI-optimized content, targeted SEO, and perfect keywords - all in minutes.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#dashboard" class="bg-gradient-to-r from-[#F56400] to-yellow-500 text-white px-8 py-4 text-lg font-bold rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          Start Creating
+        </a>
+        <a href="#process-showcase" class="bg-white text-gray-800 px-8 py-4 text-lg font-bold rounded-xl hover:bg-gray-100 transition-colors border border-gray-200">
+          See How It Works
+        </a>
+      </div>
+      <p class="text-gray-500 mt-6">Join 100+ Etsy sellers using ePro AI</p>
+    </div>
+  </section>
+
+  <!-- Feature Cards Section -->
+  <section class="py-16 bg-white px-6">
+    <div class="container mx-auto max-w-6xl">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Features That Transform Your Etsy Business</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature Card 1 -->
+        <div class="bg-white rounded-xl p-6 shadow-sm group hover:shadow-lg hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <!-- Gradient border effect -->
+          <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#F56400] rounded-xl transition-all duration-300"></div>
+          <!-- Gradient accent -->
+          <div class="absolute -right-10 -top-10 w-20 h-20 rounded-full bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-0 group-hover:opacity-10 transition-all duration-500 group-hover:scale-150"></div>
+          
+          <div class="w-14 h-14 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full flex items-center justify-center mb-6 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">AI-Powered Images</h3>
+          <p class="text-gray-600">Transform basic photos into professional studio-quality images in seconds, without expensive photography.</p>
+        </div>
+        
+        <!-- Feature Card 2 -->
+        <div class="bg-white rounded-xl p-6 shadow-sm group hover:shadow-lg hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#F56400] rounded-xl transition-all duration-300"></div>
+          <div class="absolute -right-10 -top-10 w-20 h-20 rounded-full bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-0 group-hover:opacity-10 transition-all duration-500 group-hover:scale-150"></div>
+          
+          <div class="w-14 h-14 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full flex items-center justify-center mb-6 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">SEO Optimization</h3>
+          <p class="text-gray-600">Data-driven titles and tags based on real Etsy search trends to help your listings rank higher and get more views.</p>
+        </div>
+        
+        <!-- Feature Card 3 -->
+        <div class="bg-white rounded-xl p-6 shadow-sm group hover:shadow-lg hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#F56400] rounded-xl transition-all duration-300"></div>
+          <div class="absolute -right-10 -top-10 w-20 h-20 rounded-full bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-0 group-hover:opacity-10 transition-all duration-500 group-hover:scale-150"></div>
+          
+          <div class="w-14 h-14 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full flex items-center justify-center mb-6 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Save Hours Weekly</h3>
+          <p class="text-gray-600">Create complete professional listings in 2 minutes instead of hours, freeing your time to focus on creating more products.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Visualization Section -->
+  <section id="how-it-works" class="py-20 bg-white px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16">
+        <span class="inline-block px-4 py-1 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white font-semibold rounded-full text-sm mb-3">SIMPLE & FAST</span>
+        <h2 class="text-3xl md:text-4xl font-bold">How It Works</h2>
+        <p class="text-xl text-gray-600 mt-4 max-w-3xl mx-auto">
+          Watch how quickly your basic product photos transform into professional Etsy listings
+        </p>
+      </div>
+      
+      <!-- Process Flowchart -->
+      <div id="process-showcase" class="relative">
+        <!-- Vertical connecting line -->
+        <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 transform -translate-x-1/2 hidden md:block opacity-30"></div>
+        
+        <!-- Step 1: Upload Photo -->
+        <div class="flex flex-col md:flex-row items-center mb-16 md:mb-24 relative">
+          <div class="md:w-1/2 flex justify-end pr-0 md:pr-12 mb-8 md:mb-0">
+            <div class="bg-[#F3F1E8] p-6 rounded-xl shadow-sm max-w-md relative group hover:shadow-lg transition-all duration-300">
+              <!-- Subtle gradient accent that appears on hover -->
+              <div class="absolute inset-0 bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
+              
+              <h3 class="text-xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500">1. Choose Your Package</h3>
+              <p class="text-gray-700">Select from Standard (1 token), Professional (2 tokens), or Premium (5 tokens) packages based on your needs. Each level offers different features from SEO optimization to high-quality images and videos.</p>
+              <div class="mt-4 text-gray-500 text-sm italic">Time: 10 seconds</div>
+            </div>
+          </div>
+          
+          <!-- Process step number with animated gradient -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-4 border-white z-10 hover:scale-110 transition-transform duration-300 shadow-lg">1</div>
+          
+          <div class="md:w-1/2 pl-0 md:pl-12">
+            <div class="bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-sm group hover:shadow-lg transition-all duration-300">
+              <!-- Package selection UI mockup -->
+              <div class="p-6">
+                <h4 class="font-bold text-lg mb-4">Select Your Package</h4>
+                <div class="space-y-4">
+                  <div class="flex items-center p-3 border rounded-lg hover:border-[#F56400] transition-colors cursor-pointer">
+                    <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                      <div class="w-3 h-3 bg-[#F56400] rounded-full"></div>
+                    </div>
+                    <div>
+                      <p class="font-medium">Standard (1 Token)</p>
+                      <p class="text-sm text-gray-500">SEO optimization without images</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center p-3 border-2 border-[#F56400] rounded-lg bg-gradient-to-r from-[#F56400] to-yellow-500 bg-opacity-5 cursor-pointer">
+                    <div class="w-5 h-5 rounded-full border-2 border-[#F56400] flex items-center justify-center mr-3">
+                      <div class="w-3 h-3 bg-[#F56400] rounded-full"></div>
+                    </div>
+                    <div>
+                      <p class="font-medium">Professional (2 Tokens)</p>
+                      <p class="text-sm text-gray-500">SEO + 5 studio-quality images</p>
+                    </div>
+                    <div class="ml-auto bg-[#F56400] text-white text-xs px-2 py-1 rounded-full">
+                      Popular
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center p-3 border rounded-lg hover:border-[#F56400] transition-colors cursor-pointer">
+                    <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                      <div class="w-0 h-0"></div>
+                    </div>
+                    <div>
+                      <p class="font-medium">Premium (5 Tokens)</p>
+                      <p class="text-sm text-gray-500">SEO + 8 images + product video</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 2: Upload Product -->
+        <div class="flex flex-col md:flex-row-reverse items-center mb-16 md:mb-24 relative">
+          <div class="md:w-1/2 flex justify-start pl-0 md:pl-12 mb-8 md:mb-0">
+            <div class="bg-[#F3F1E8] p-6 rounded-xl shadow-sm max-w-md relative group hover:shadow-lg transition-all duration-300">
+              <!-- Subtle gradient accent that appears on hover -->
+              <div class="absolute inset-0 bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
+              
+              <h3 class="text-xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500">2. Upload Your Products</h3>
+              <p class="text-gray-700">Upload your product photo via drag-and-drop or file selection. For bulk processing, upload a CSV file with up to 50 products including image links, materials, sizes, and categories.</p>
+              <div class="mt-4 text-gray-500 text-sm italic">Time: 30 seconds</div>
+            </div>
+          </div>
+          
+          <!-- Process step number with animated gradient -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-4 border-white z-10 hover:scale-110 transition-transform duration-300 shadow-lg">2</div>
+          
+          <div class="md:w-1/2 pr-0 md:pr-12">
+            <div class="bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-sm group hover:shadow-lg transition-all duration-300">
+              <!-- Upload UI mockup -->
+              <div class="p-6">
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-[#F56400] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  </svg>
+                  <p class="mt-4 font-medium">Drag & drop your files here</p>
+                  <p class="text-sm text-gray-500 mt-2">or</p>
+                  <button class="mt-4 px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors">
+                    Browse Files
+                  </button>
+                  <p class="mt-4 text-xs text-gray-400">Supports: JPG, PNG, CSV (for bulk upload)</p>
+                </div>
+                
+                <div class="mt-6">
+                  <h5 class="font-medium mb-2">For bulk uploads:</h5>
+                  <div class="bg-gray-50 p-4 rounded-lg text-sm">
+                    <p class="text-gray-700">CSV must include:</p>
+                    <ul class="list-disc pl-5 mt-2 text-gray-600 space-y-1">
+                      <li>Image link</li>
+                      <li>Material description</li>
+                      <li>Size information</li>
+                      <li>Basic product description</li>
+                      <li>Category (from Etsy's official list)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 3: Generate Output -->
+        <div class="flex flex-col md:flex-row items-center mb-16 md:mb-24 relative">
+          <div class="md:w-1/2 flex justify-end pr-0 md:pr-12 mb-8 md:mb-0">
+            <div class="bg-[#F3F1E8] p-6 rounded-xl shadow-sm max-w-md relative group hover:shadow-lg transition-all duration-300">
+              <!-- Subtle gradient accent that appears on hover -->
+              <div class="absolute inset-0 bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
+              
+              <h3 class="text-xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500">3. Generate Results</h3>
+              <p class="text-gray-700">Click the Generate button and watch as our AI creates optimized listings. Tokens are automatically deducted, and a real-time progress bar shows each step of the creation process.</p>
+              <div class="mt-4 text-gray-500 text-sm italic">Time: 15 seconds</div>
+            </div>
+          </div>
+          
+          <!-- Process step number with animated gradient -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-4 border-white z-10 hover:scale-110 transition-transform duration-300 shadow-lg">3</div>
+          
+          <div class="md:w-1/2 pl-0 md:pl-12">
+            <div class="relative bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-sm p-6 group hover:shadow-lg transition-all duration-300">
+              <div class="mb-6">
+                <div class="flex justify-between items-center mb-2">
+                  <h5 class="font-medium">Generation in progress</h5>
+                  <span class="text-sm text-gray-500">2 tokens used</span>
+                </div>
+                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="w-3/4 h-full bg-gradient-to-r from-[#F56400] to-yellow-500"></div>
+                </div>
+              </div>
+              
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-[#F56400] text-white flex items-center justify-center text-xs mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                  <span class="text-gray-700">Analyzing product</span>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-[#F56400] text-white flex items-center justify-center text-xs mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <span class="text-gray-700">Creating SEO title</span>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-6 h-6 rounded-full bg-[#F56400] text-white flex items-center justify-center text-xs mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <span class="text-gray-700">Writing product description</span>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-6 h-6 rounded-full bg-gray-200 text-white flex items-center justify-center text-xs mr-3 animate-pulse">
+                  <div class="w-2 h-2 bg-[#F56400] rounded-full"></div>
+                </div>
+                <span class="text-gray-700">Generating images</span>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-6 h-6 rounded-full bg-gray-200 text-gray-400 flex items-center justify-center text-xs mr-3">
+                  <span class="text-xs">5</span>
+                </div>
+                <span class="text-gray-400">Running quality check</span>
+              </div>
+            </div>
+            
+            <div class="mt-4 flex justify-end">
+              <button class="text-gray-500 text-sm hover:text-[#F56400] transition-colors">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      <!-- Step 4: View Results -->
+      <div class="flex flex-col md:flex-row-reverse items-center mb-16 md:mb-24 relative">
+        <div class="md:w-1/2 flex justify-start pl-0 md:pl-12 mb-8 md:mb-0">
+          <div class="bg-[#F3F1E8] p-6 rounded-xl shadow-sm max-w-md relative group hover:shadow-lg transition-all duration-300">
+            <!-- Subtle gradient accent that appears on hover -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
+            
+            <h3 class="text-xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500">4. View & Manage Results</h3>
+            <p class="text-gray-700">Browse your generated listings in a clean grid format. Each result includes title, description, tags, images, and videos (depending on your package). Download, share, save to favorites, or generate new variations with a click.</p>
+            <div class="mt-4 text-gray-500 text-sm italic">Time: 5 seconds</div>
+          </div>
+        </div>
+        
+        <!-- Process step number with animated gradient -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-4 border-white z-10 hover:scale-110 transition-transform duration-300 shadow-lg">4</div>
+        
+        <div class="md:w-1/2 pr-0 md:pr-12">
+          <div class="bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-sm group hover:shadow-lg transition-all duration-300">
+            <!-- Results UI mockup -->
+            <div class="border-b border-gray-200 p-4 flex justify-between items-center">
+              <h4 class="font-bold">Your Generated Listings</h4>
+              <div class="flex items-center space-x-2">
+                <button class="text-gray-500 hover:text-[#F56400] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+                  </svg>
+                </button>
+                <button class="text-gray-500 hover:text-[#F56400] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="p-4 grid grid-cols-2 gap-4">
+              <!-- Result Item 1 -->
+              <div class="border rounded-lg overflow-hidden hover:border-[#F56400] transition-colors cursor-pointer">
+                <div class="h-32 bg-gray-100">
+                  <!-- Product image placeholder -->
+                  <div class="w-full h-full flex items-center justify-center text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="p-3">
+                  <h5 class="font-medium text-sm truncate">Handmade Ceramic Mug</h5>
+                  <div class="flex items-center mt-2 text-xs text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                    </svg>
+                    <span>Professional | 2 tokens</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Result Item 2 -->
+              <div class="border rounded-lg overflow-hidden hover:border-[#F56400] transition-colors cursor-pointer">
+                <div class="h-32 bg-gray-100">
+                  <!-- Product image placeholder -->
+                  <div class="w-full h-full flex items-center justify-center text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="p-3">
+                  <h5 class="font-medium text-sm truncate">Wooden Cutting Board</h5>
+                  <div class="flex items-center mt-2 text-xs text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                    </svg>
+                    <span>Professional | 2 tokens</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 border-t border-gray-200 flex justify-between">
+              <button class="text-gray-500 hover:text-[#F56400] transition-colors text-sm">
+                Show all results
+              </button>
+              <div class="flex space-x-3">
+                <button class="text-sm text-[#F56400] hover:text-[#E05000] transition-colors flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                  </svg>
+                  <span>Download All</span>
+                </button>
+                <button class="text-sm text-[#F56400] hover:text-[#E05000] transition-colors flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                  <span>Share</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      <!-- Step 5: Upload to Etsy -->
+      <div class="flex flex-col md:flex-row items-center relative">
+        <div class="md:w-1/2 flex justify-end pr-0 md:pr-12 mb-8 md:mb-0">
+          <div class="bg-[#F3F1E8] p-6 rounded-xl shadow-sm max-w-md relative group hover:shadow-lg transition-all duration-300">
+            <!-- Subtle gradient accent that appears on hover -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
+            
+            <h3 class="text-xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500">5. Upload to Etsy</h3>
+            <p class="text-gray-700">Copy and paste your optimized content directly into Etsy, upload your enhanced images, and publish your professional listing in seconds. Your high-converting listing is ready to attract customers!</p>
+            <div class="mt-4 text-gray-500 text-sm italic">Time: Less than 1 minute</div>
+          </div>
+        </div>
+        
+        <!-- Process step number with animated gradient -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-4 border-white z-10 hover:scale-110 transition-transform duration-300 shadow-lg">5</div>
+        
+        <div class="md:w-1/2 pl-0 md:pl-12">
+          <div class="bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-sm p-5 group hover:shadow-lg transition-all duration-300 relative">
+            <!-- Etsy-like interface mockup -->
+            <div class="flex items-center gap-3 pb-3 border-b border-gray-200">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#F56400]" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <div>
+                <p class="font-semibold text-gray-800">Published to Etsy successfully!</p>
+                <p class="text-xs text-gray-500">Your listing is now live on the Etsy marketplace</p>
+              </div>
+            </div>
+
+            <div class="mt-4 bg-gray-50 p-4 rounded-lg">
+              <div class="flex items-start gap-4">
+                <div class="w-1/3">
+                  <div class="bg-gray-200 aspect-square rounded-md"></div>
+                </div>
+                <div class="w-2/3">
+                  <h5 class="font-medium">Handmade Ceramic Coffee Mug - Minimalist Design</h5>
+                  <p class="text-sm text-gray-600 mt-2 line-clamp-3">Beautiful handcrafted ceramic mug perfect for your morning coffee or tea. Features a minimal design with high-quality glazing that's both microwave and dishwasher safe.</p>
+                  <div class="mt-3 flex items-center text-sm text-[#F56400]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    <span>Optimized for maximum visibility</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-4 pt-4 border-t border-gray-200">
+                <div class="flex justify-between items-center">
+                  <div class="text-sm">
+                    <span class="text-gray-600">Status:</span>
+                    <span class="font-medium text-green-600 ml-1">Active</span>
+                  </div>
+                  <a href="#" class="text-sm text-[#F56400] hover:text-[#E05000] transition-colors">View on Etsy →</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-4 flex justify-end">
+              <button class="px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors text-sm">
+                Create Another Listing
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process steps summary -->
+    <div class="mt-16 max-w-4xl mx-auto">
+      <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+        <div class="grid md:grid-cols-5 gap-4 text-center">
+          <div class="p-3 group">
+            <div class="w-10 h-10 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 text-white group-hover:scale-110 transition-transform duration-300">
+              <span class="font-bold">1</span>
+            </div>
+            <h4 class="font-medium text-sm mb-1 group-hover:text-[#F56400] transition-colors">Choose Package</h4>
+          </div>
+
+          <div class="p-3 group">
+            <div class="w-10 h-10 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 text-white group-hover:scale-110 transition-transform duration-300">
+              <span class="font-bold">2</span>
+            </div>
+            <h4 class="font-medium text-sm mb-1 group-hover:text-[#F56400] transition-colors">Upload Products</h4>
+          </div>
+
+          <div class="p-3 group">
+            <div class="w-10 h-10 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 text-white group-hover:scale-110 transition-transform duration-300">
+              <span class="font-bold">3</span>
+            </div>
+            <h4 class="font-medium text-sm mb-1 group-hover:text-[#F56400] transition-colors">Generate Results</h4>
+          </div>
+
+          <div class="p-3 group">
+            <div class="w-10 h-10 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 text-white group-hover:scale-110 transition-transform duration-300">
+              <span class="font-bold">4</span>
+            </div>
+            <h4 class="font-medium text-sm mb-1 group-hover:text-[#F56400] transition-colors">View & Save</h4>
+          </div>
+
+          <div class="p-3 group">
+            <div class="w-10 h-10 bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 text-white group-hover:scale-110 transition-transform duration-300">
+              <span class="font-bold">5</span>
+            </div>
+            <h4 class="font-medium text-sm mb-1 group-hover:text-[#F56400] transition-colors">Publish to Etsy</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Process Time Summary -->
+    <div class="mt-12 text-center">
+      <a href="#dashboard" class="inline-block bg-gradient-to-r from-[#F56400] to-yellow-500 text-white px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+        <p class="font-bold text-xl">Total Process Time: <span class="animate-pulse">Just 2 Minutes</span></p>
+        <p class="text-sm mt-1">(Compared to 2+ hours with traditional methods)</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section id="pricing" class="py-20 bg-white px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <span class="inline-block px-4 py-1 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white font-semibold rounded-full text-sm mb-3">SIMPLE PRICING</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Choose Your Perfect Plan</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Pay only for what you use with our flexible token-based pricing
+        </p>
+      </div>
+      
+      <p class="text-center text-gray-500 mb-10">Each token equals $1 USD. Purchase tokens in packages for discounted rates.</p>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Standard Plan -->
+        <div class="bg-white p-8 rounded-xl shadow-sm pricing-card border border-gray-200 group hover:shadow-lg hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <!-- Gradient accent that appears on hover -->
+          <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+          
+          <h3 class="text-2xl font-bold mb-2">Standard</h3>
+          <p class="text-gray-600 mb-6">Essential content for basic listings</p>
+          <p class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500 mb-4 group-hover:scale-110 transition-transform duration-300">1<span class="text-lg font-normal text-gray-500">/token</span></p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>SEO-optimized product title</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>High-quality product descriptions</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>13 optimized search tags</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-gray-400">No product images</span>
+            </li>
+          </ul>
+          <a href="#dashboard" class="block text-center bg-gray-100 text-gray-800 font-medium py-3 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 group-hover:text-white transition-all duration-300">
+            Get Started
+          </a>
+        </div>
+        
+        <!-- Professional Plan (Featured) -->
+        <div class="bg-white p-8 pt-10 rounded-xl shadow-md pricing-card border-2 border-[#F56400] featured relative transform md:-translate-y-4 hover:shadow-xl hover:-translate-y-6 transition-all duration-300 overflow-hidden">
+          <!-- "Most Popular" badge with gradient -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-md z-10">
+            Most Popular
+          </div>
+          
+          <h3 class="text-2xl font-bold mb-2">Professional</h3>
+          <p class="text-gray-600 mb-6">Studio quality with precise SEO</p>
+          <p class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500 mb-4 group-hover:scale-110 transition-transform duration-300">2<span class="text-lg font-normal text-gray-500">/tokens</span></p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>Everything in Standard plan</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>5 studio-quality product images</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>Model showcase (where applicable)</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-gray-400">No product videos</span>
+            </li>
+          </ul>
+          <a href="#dashboard" class="block text-center bg-gradient-to-r from-[#F56400] to-yellow-500 text-white font-medium py-3 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:translate-y-0">
+            Most Popular
+          </a>
+          
+          <!-- Animated accent -->
+          <div class="absolute -left-20 -bottom-20 w-40 h-40 rounded-full bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
+        </div>
+        
+        <!-- Premium Plan -->
+        <div class="bg-white p-8 rounded-xl shadow-sm pricing-card border border-gray-200 group hover:shadow-lg hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <!-- Gradient accent that appears on hover -->
+          <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+          
+          <h3 class="text-2xl font-bold mb-2">Premium</h3>
+          <p class="text-gray-600 mb-6">Ultra-realistic with detailed analysis</p>
+          <p class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500 mb-4 group-hover:scale-110 transition-transform duration-300">5<span class="text-lg font-normal text-gray-500">/tokens</span></p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>Everything in Professional plan</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>8 ultra-realistic product images</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>Multiple lifestyle image variations</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>Product creation video</span>
+            </li>
+          </ul>
+          <a href="#dashboard" class="block text-center bg-gray-100 text-gray-800 font-medium py-3 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 group-hover:text-white transition-all duration-300">
+            Get Started
+          </a>
+        </div>
+      </div>
+      
+      <!-- Token Packages -->
+      <div class="mt-16">
+        <h3 class="text-2xl font-bold text-center mb-8">Token Packages</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <!-- Package 1 -->
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            <h4 class="font-bold text-lg mb-2">Starter</h4>
+            <p class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500 mb-2">50</p>
+            <p class="text-gray-600 mb-4">Tokens</p>
+            <p class="text-lg font-bold mb-4">$45 <span class="text-gray-500 text-sm">($0.90/token)</span></p>
+            <a href="#dashboard" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 group-hover:text-white transition-all duration-300">
+              Purchase
+            </a>
+          </div>
+          
+          <!-- Package 2 -->
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            <h4 class="font-bold text-lg mb-2">Growth</h4>
+            <p class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500 mb-2">100</p>
+            <p class="text-gray-600 mb-4">Tokens</p>
+            <p class="text-lg font-bold mb-4">$80 <span class="text-gray-500 text-sm">($0.80/token)</span></p>
+            <a href="#dashboard" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 group-hover:text-white transition-all duration-300">
+              Purchase
+            </a>
+          </div>
+          
+          <!-- Package 3 (Popular) -->
+          <div class="bg-white p-6 pt-8 rounded-xl shadow-md border-2 border-[#F56400] text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <!-- Popular badge -->
+            <div class="absolute top-0 right-0 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white text-xs px-3 py-1.5 rounded-bl-lg font-bold z-10">BEST VALUE</div>
+            
+            <h4 class="font-bold text-lg mb-2">Pro</h4>
+            <p class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500 mb-2">250</p>
+            <p class="text-gray-600 mb-4">Tokens</p>
+            <p class="text-lg font-bold mb-4">$175 <span class="text-gray-500 text-sm">($0.70/token)</span></p>
+            <a href="#dashboard" class="block text-center bg-gradient-to-r from-[#F56400] to-yellow-500 text-white text-sm font-medium py-2 px-4 rounded-lg hover:shadow-lg transition-all duration-300">
+              Purchase
+            </a>
+          </div>
+          
+          <!-- Package 4 -->
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            <h4 class="font-bold text-lg mb-2">Enterprise</h4>
+            <p class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500 mb-2">500</p>
+            <p class="text-gray-600 mb-4">Tokens</p>
+            <p class="text-lg font-bold mb-4">$300 <span class="text-gray-500 text-sm">($0.60/token)</span></p>
+            <a href="#dashboard" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 group-hover:text-white transition-all duration-300">
+              Purchase
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq-section" class="py-20 bg-white px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-16">
+        <span class="inline-block px-4 py-1 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white font-semibold rounded-full text-sm mb-3">COMMON QUESTIONS</span>
+        <h2 class="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+        <!-- FAQ Item 1 -->
+        <div class="relative group">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+          
+          <div class="pl-4">
+            <h3 class="text-xl font-bold mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 transition-all duration-300">How does ePro AI actually work?</h3>
+            <p class="text-gray-700">Upload a single product photo, and our AI analyzes your image, then taps into our proprietary database of winning Etsy listings. The system identifies what's working in your specific category and generates optimized titles, descriptions, tags, and images specifically designed to maximize visibility and sales.</p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 2 -->
+        <div class="relative group">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+          
+          <div class="pl-4">
+            <h3 class="text-xl font-bold mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 transition-all duration-300">How much time will this actually save me?</h3>
+            <p class="text-gray-700">Our average user reports saving 7-10 hours every week! If you're adding just one new product daily, you're currently spending 1-2 hours per listing on photography, editing, keyword research, and writing descriptions. ePro AI reduces this entire process to 2-5 minutes per listing.</p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 3 -->
+        <div class="relative group">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+          
+          <div class="pl-4">
+            <h3 class="text-xl font-bold mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 transition-all duration-300">What does a token actually get me?</h3>
+            <p class="text-gray-700">Tokens are your flexible currency within ePro AI. Each token equals $1 USD. Our Standard plan (1 token) delivers SEO-optimized titles, descriptions and tags, while Professional (2 tokens) adds 5 studio-quality images, and Premium (5 tokens) includes 8 images plus a product creation video.</p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 4 -->
+        <div class="relative group">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+          
+          <div class="pl-4">
+            <h3 class="text-xl font-bold mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-yellow-500 transition-all duration-300">Can I edit the content after it's generated?</h3>
+            <p class="text-gray-700">Yes! While most users find our AI-generated content ready to use immediately, you have complete control to personalize any aspect. Our system provides you with editable text files and high-resolution images that you can tweak before uploading to Etsy.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- FAQ Summary Call to Action -->
+      <div class="mt-16 text-center">
+        <div class="inline-block bg-[#F3F1E8] px-8 py-6 rounded-xl border-l-4 border-[#F56400]">
+          <h3 class="text-xl font-bold mb-2">Still have questions?</h3>
+          <p class="text-gray-700 mb-4">Our support team is ready to help you get started</p>
+          <a href="mailto:support@eproai.com" class="inline-block bg-gradient-to-r from-[#F56400] to-yellow-500 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+            Contact Support
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Preview Section -->
+  <section id="dashboard" class="py-20 bg-gradient-to-b from-[#F3F1E8] to-white px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16">
+        <span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">START CREATING</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Your ePro AI Dashboard</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          Simple, intuitive, and powerful - start creating professional Etsy listings in minutes
+        </p>
+        
+        <!-- Dashboard Mockup -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-5xl mx-auto">
+          <!-- Dashboard Header -->
+          <div class="bg-gray-50 p-4 flex justify-between items-center border-b border-gray-200">
+            <div class="flex items-center">
+              <div class="flex items-center">
+                <span class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-500">ePro</span>
+                <span class="text-lg font-bold ml-1">AI</span>
+              </div>
+              <div class="h-8 border-l border-gray-300 mx-4"></div>
+              <span class="text-gray-700">Dashboard</span>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+              <div class="bg-[#F3F1E8] px-3 py-1 rounded-lg flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#F56400] mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="text-sm font-medium">48 Tokens</span>
+              </div>
+              <button class="bg-[#F56400] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#E05000] transition-colors">
+                Add Tokens
+              </button>
+              <div class="w-8 h-8 bg-gray-200 rounded-full"></div>
+            </div>
+          </div>
+          
+          <!-- Dashboard Content -->
+          <div class="p-6">
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8">
+              <h3 class="text-xl font-bold mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#F56400] mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Create New Listing
+              </h3>
+              
+              <div class="bg-white p-4 rounded-lg border border-gray-200">
+                <div class="flex items-center justify-between mb-4">
+                  <h4 class="font-medium">Choose Package</h4>
+                  <div class="flex items-center space-x-2 text-sm text-gray-500">
+                    <span>Your tokens:</span>
+                    <span class="font-medium">48</span>
+                  </div>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4">
+                  <!-- Standard Package -->
+                  <div class="border rounded-lg p-4 hover:border-[#F56400] transition-colors cursor-pointer">
+                    <div class="flex justify-between items-start mb-2">
+                      <h5 class="font-medium">Standard</h5>
+                      <div class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-medium">
+                        1 Token
+                      </div>
+                    </div>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                      <li>• SEO Title</li>
+                      <li>• Description</li>
+                      <li>• 13 Tags</li>
+                    </ul>
+                    <p class="text-xs text-gray-500">No images included</p>
+                  </div>
+                  
+                  <!-- Professional Package -->
+                  <div class="border-2 border-[#F56400] rounded-lg p-4 cursor-pointer relative bg-gradient-to-r from-orange-50 to-yellow-50">
+                    <div class="absolute -top-2 right-4 bg-[#F56400] text-white text-xs px-2 py-0.5 rounded-full">
+                      Popular
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                      <h5 class="font-medium">Professional</h5>
+                      <div class="bg-[#F56400] bg-opacity-10 text-[#F56400] px-2 py-1 rounded text-xs font-medium">
+                        2 Tokens
+                      </div>
+                    </div>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                      <li>• SEO Title</li>
+                      <li>• Description</li>
+                      <li>• 13 Tags</li>
+                      <li>• 5 Quality Images</li>
+                    </ul>
+                    <p class="text-xs text-gray-500">Most chosen option</p>
+                  </div>
+                  
+                  <!-- Premium Package -->
+                  <div class="border rounded-lg p-4 hover:border-[#F56400] transition-colors cursor-pointer">
+                    <div class="flex justify-between items-start mb-2">
+                      <h5 class="font-medium">Premium</h5>
+                      <div class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-medium">
+                        5 Tokens
+                      </div>
+                    </div>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                      <li>• SEO Title</li>
+                      <li>• Description</li>
+                      <li>• 13 Tags</li>
+                      <li>• 8 Quality Images</li>
+                      <li>• Product Video</li>
+                    </ul>
+                    <p class="text-xs text-gray-500">Best for high-value items</p>
+                  </div>
+                </div>
+                
+                <div class="mt-6">
+                  <div class="border-t border-gray-200 pt-6">
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="font-medium">Upload Product</h4>
+                      <button class="text-sm text-[#F56400] hover:underline flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        Bulk Upload (CSV)
+                      </button>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                      <!-- Upload Area -->
+                      <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#F56400] transition-colors flex flex-col items-center justify-center h-48">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p class="mt-4 text-sm text-gray-500">Drag & drop your product photo here</p>
+                        <button class="mt-4 px-4 py-2 bg-[#F56400] text-white rounded-lg text-sm hover:bg-[#E05000] transition-colors">
+                          Browse Files
+                        </button>
+                      </div>
+                      
+                      <!-- Product Details -->
+                      <div>
+                        <div class="space-y-4">
+                          <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Product Category</label>
+                            <select class="w-full border-gray-300 rounded-lg px-3 py-2 text-sm">
+                              <option>Select from Etsy categories...</option>
+                              <option>Clothing</option>
+                              <option>Home & Living</option>
+                              <option>Jewelry</option>
+                            </select>
+                          </div>
+                          
+                          <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Materials</label>
+                            <input type="text" class="w-full border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., cotton, wood, ceramic">
+                          </div>
+                          
+                          <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Product Size/Dimensions</label>
+                            <input type="text" class="w-full border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., S, M, L or 10x12 inches">
+                          </div>
+                          
+                          <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Basic Description</label>
+                            <textarea class="w-full border-gray-300 rounded-lg px-3 py-2 text-sm" rows="3" placeholder="Brief description of your product..."></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-end">
+                      <button class="bg-gradient-to-r from-[#F56400] to-yellow-500 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                        Generate Listing
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Recent Listings -->
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Recent Listings</h3>
+                <button class="text-sm text-[#F56400] hover:underline">View All</button>
+              </div>
+              
+              <div class="grid grid-cols-3 gap-4">
+                <!-- Recent Listing 1 -->
+                <div class="border rounded-lg overflow-hidden hover:shadow-md transition-all duration-300">
+                  <div class="h-40 bg-gray-100">
+                    <!-- Placeholder for product image -->
+                  </div>
+                  <div class="p-3">
+                    <h5 class="font-medium text-sm truncate">Handmade Ceramic Mug</h5>
+                    <div class="flex justify-between items-center mt-2">
+                      <span class="text-xs text-gray-500">2 days ago</span>
+                      <div class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">
+                        Completed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Recent Listing 2 -->
+                <div class="border rounded-lg overflow-hidden hover:shadow-md transition-all duration-300">
+                  <div class="h-40 bg-gray-100">
+                    <!-- Placeholder for product image -->
+                  </div>
+                  <div class="p-3">
+                    <h5 class="font-medium text-sm truncate">Wooden Cutting Board</h5>
+                    <div class="flex justify-between items-center mt-2">
+                      <span class="text-xs text-gray-500">3 days ago</span>
+                      <div class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">
+                        Completed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Recent Listing 3 -->
+                <div class="border rounded-lg overflow-hidden hover:shadow-md transition-all duration-300">
+                  <div class="h-40 bg-gray-100">
+                    <!-- Placeholder for product image -->
+                  </div>
+                  <div class="p-3">
+                    <h5 class="font-medium text-sm truncate">Handcrafted Leather Wallet</h5>
+                    <div class="flex justify-between items-center mt-2">
+                      <span class="text-xs text-gray-500">5 days ago</span>
+                      <div class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">
+                        Completed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="mt-12">
+          <button class="bg-gradient-to-r from-[#F56400] to-yellow-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+            Start Creating Now
+          </button>
+          <p class="mt-4 text-gray-500">No credit card required for signup</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center mb-4">
+            <span class="text-2xl font-bold text-[#F56400]">ePro</span>
+            <span class="text-xl font-bold ml-1">AI</span>
+            <span class="ml-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full">BETA</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Transforming Etsy stores with AI-powered product listings and optimized content.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Product</h3>
+          <ul class="space-y-2">
+            <li><a href="#how-it-works" class="text-gray-400 hover:text-white transition-colors">How It Works</a></li>
+            <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="#faq-section" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Legal</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a></li>
+            <li><a href="mailto:support@eproai.com" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+        <p>&copy; 2025 ePro AI. All rights reserved. Operated by Aetophis.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Typed.js initialization
+      new Typed('#typed-headline', {
+        strings: [
+          'COMPLETE ETSY LISTINGS FROM ONE PHOTO', 
+          'PROFESSIONAL STORE IN JUST MINUTES', 
+          'FROM PRODUCT PHOTO TO READY-TO-SELL'
+        ],
+        typeSpeed: 80,
+        backSpeed: 40,
+        backDelay: 2000,
+        loop: true
+      });
+    });
+  </script>
+</body>
+</html>
+            
