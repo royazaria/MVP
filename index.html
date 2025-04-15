@@ -85,12 +85,15 @@
       
       <div class="hidden md:flex space-x-8">
         <a href="#dashboard" class="font-medium hover:text-[#F56400] transition-colors">Create</a>
-        <a href="#calculator-section" class="font-medium hover:text-[#F56400] transition-colors">ROI Calculator</a>
         <a href="#pricing" class="font-medium hover:text-[#F56400] transition-colors">Pricing</a>
+        <a href="#calculator-section" class="font-medium hover:text-[#F56400] transition-colors">ROI Calculator</a>
         <a href="#faq-section" class="font-medium hover:text-[#F56400] transition-colors">FAQ</a>
       </div>
       
       <div class="flex items-center space-x-4">
+        <a href="#pricing" class="bg-gray-100 text-[#F56400] px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-all duration-300">
+          Get Tokens
+        </a>
         <a href="#login" class="text-gray-700 hover:text-[#F56400] transition-colors font-medium">Log In</a>
         <a href="#signup" class="bg-[#F56400] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#E05000] transition-all duration-300">
           Sign Up Free
@@ -114,12 +117,12 @@
         <!-- Steps Navigation -->
         <div class="bg-gray-50 border-b border-gray-200">
           <div class="flex">
-            <div class="py-4 px-6 border-b-2 border-[#F56400] text-[#F56400] font-medium">
+            <button class="py-4 px-6 border-b-2 border-[#F56400] text-[#F56400] font-medium">
               Create New Listing
-            </div>
-            <div class="py-4 px-6 text-gray-500">
+            </button>
+            <button class="py-4 px-6 text-gray-500 hover:text-gray-700 transition-colors">
               My Listings
-            </div>
+            </button>
           </div>
         </div>
 
@@ -134,7 +137,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <!-- Standard Package -->
-              <div class="border-2 border-gray-200 hover:border-[#F56400] rounded-xl p-5 cursor-pointer transition-all hover-card relative group">
+              <div class="border-2 border-gray-200 hover:border-[#F56400] rounded-xl p-5 cursor-pointer transition-all hover-card relative group package-option" data-package="standard" data-tokens="1">
                 <div class="absolute inset-0 bg-[#F56400] opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
                 <div class="flex justify-between items-start mb-3">
                   <h3 class="font-bold text-lg">Standard</h3>
@@ -169,14 +172,14 @@
                   </li>
                 </ul>
                 <div class="mt-auto">
-                  <div class="w-full h-10 bg-gray-100 rounded-lg flex items-center justify-center font-medium text-gray-700 group-hover:bg-[#F56400] group-hover:text-white transition-colors duration-300">
+                  <div class="w-full h-10 bg-gray-100 rounded-lg flex items-center justify-center font-medium text-gray-700 group-hover:bg-[#F56400] group-hover:text-white transition-colors duration-300 package-select-btn">
                     Select
                   </div>
                 </div>
               </div>
               
               <!-- Professional Package (Featured) -->
-              <div class="border-2 border-[#F56400] bg-[#FEF8F4] rounded-xl p-5 cursor-pointer transition-all hover-card shadow-md relative pricing-card featured">
+              <div class="border-2 border-[#F56400] bg-[#FEF8F4] rounded-xl p-5 cursor-pointer transition-all hover-card shadow-md relative pricing-card featured package-option selected" data-package="professional" data-tokens="2">
                 <div class="flex justify-between items-start mb-3">
                   <h3 class="font-bold text-lg">Professional</h3>
                   <div class="bg-[#F56400] bg-opacity-10 text-[#F56400] px-3 py-1 rounded-lg text-sm font-medium">
@@ -210,14 +213,14 @@
                   </li>
                 </ul>
                 <div class="mt-auto">
-                  <div class="w-full h-10 bg-[#F56400] rounded-lg flex items-center justify-center font-medium text-white">
+                  <div class="w-full h-10 bg-[#F56400] rounded-lg flex items-center justify-center font-medium text-white package-select-btn">
                     Selected
                   </div>
                 </div>
               </div>
               
               <!-- Premium Package -->
-              <div class="border-2 border-gray-200 hover:border-[#F56400] rounded-xl p-5 cursor-pointer transition-all hover-card relative group">
+              <div class="border-2 border-gray-200 hover:border-[#F56400] rounded-xl p-5 cursor-pointer transition-all hover-card relative group package-option" data-package="premium" data-tokens="5">
                 <div class="absolute inset-0 bg-[#F56400] opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
                 <div class="flex justify-between items-start mb-3">
                   <h3 class="font-bold text-lg">Premium</h3>
@@ -252,7 +255,7 @@
                   </li>
                 </ul>
                 <div class="mt-auto">
-                  <div class="w-full h-10 bg-gray-100 rounded-lg flex items-center justify-center font-medium text-gray-700 group-hover:bg-[#F56400] group-hover:text-white transition-colors duration-300">
+                  <div class="w-full h-10 bg-gray-100 rounded-lg flex items-center justify-center font-medium text-gray-700 group-hover:bg-[#F56400] group-hover:text-white transition-colors duration-300 package-select-btn">
                     Select
                   </div>
                 </div>
@@ -271,689 +274,766 @@
               <!-- Tabs -->
               <div class="w-full md:w-1/4">
                 <div class="flex md:flex-col border-b md:border-b-0 md:border-r border-gray-200">
-                  <button class="py-3 px-4 border-b-2 md:border-b-0 md:border-r-2 border-[#F56400] text-[#F56400] font-medium text-left">Single Upload</button>
-                  <button class="py-3 px-4 text-gray-500 font-medium text-left">Bulk CSV</button>
+                  <button id="singleUploadTab" class="py-3 px-4 border-b-2 md:border-b-0 md:border-r-2 border-[#F56400] text-[#F56400] font-medium text-left upload-tab active">Single Upload</button>
+                  <button id="bulkCsvTab" class="py-3 px-4 text-gray-500 font-medium text-left upload-tab hover:text-gray-700 transition-colors">Bulk CSV</button>
                 </div>
               </div>
               
-              <!-- Upload Area -->
+              <!-- Upload Areas Container -->
               <div class="w-full md:w-3/4">
-                <div class="grid md:grid-cols-2 gap-6">
-                  <!-- Upload Zone -->
-                  <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-[#F56400] transition-colors flex flex-col items-center justify-center h-64">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                    </svg>
-                    <p class="mt-4 text-center text-gray-600">Drag & drop your product photo here</p>
-                    <p class="text-sm text-gray-500 mt-2 text-center">or</p>
-                    <label class="mt-4 px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors cursor-pointer">
-                      <span>Browse Files</span>
-                      <input type="file" class="hidden" accept="image/*" />
-                    </label>
-                    <p class="mt-4 text-xs text-gray-400 text-center">Supports: JPG, PNG (Max 10MB)</p>
-                  </div>
-                  
-                  <!-- Product Details -->
-                  <div class="flex flex-col space-y-4">
-                    <div>
-                      <label class="block text-sm font-medium text-gray-700 mb-1">Product Category</label>
-                      <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm appearance-none bg-white">
-                        <option>Select from Etsy categories...</option>
-                        <option value="custom">Custom Category...</option>
-                        <optgroup label="Accessories">
-                          <option>Baby Accessories</option>
-                          <option>Belts & Suspenders</option>
-                          <option>Bouquets & Corsages</option>
-                          <!-- More accessories options... -->
-                        </optgroup>
-                        <optgroup label="Art & Collectibles">
-                          <option>Artist Trading Cards</option>
-                          <option>Collectibles</option>
-                          <option>Dolls & Miniatures</option>
-                          <!-- More art options... -->
-                        </optgroup>
-                        <optgroup label="Baby">
-                          <option>Baby Accessories</option>
-                          <option>Baby & Toddler Toys</option>
-                          <option>Baby Bathing</option>
-                          <!-- More baby options... -->
-                        </optgroup>
-                        <!-- More category groups would be included here -->
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label class="block text-sm font-medium text-gray-700 mb-1">Materials</label>
-                      <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., cotton, wood, ceramic">
-                    </div>
-                    
-                    <div>
-                      <label class="block text-sm font-medium text-gray-700 mb-1">Product Size/Dimensions</label>
-                      <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., S, M, L or 10x12 inches">
-                    </div>
-                    
-                    <div>
-                      <label class="block text-sm font-medium text-gray-700 mb-1">Basic Description</label>
-                      <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" rows="3" placeholder="Brief description of your product..."></textarea>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- CSV Template (hidden by default) -->
-                <div class="hidden">
-                  <div class="bg-gray-50 p-4 rounded-lg mt-6">
-                    <h3 class="font-medium mb-2">CSV Template Format</h3>
-                    <p class="text-sm text-gray-600 mb-4">Your CSV file must follow this exact format:</p>
-                    
-                    <div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
-                      <table class="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead>
-                          <tr class="bg-gray-50">
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">image_url</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">description</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">material</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">size</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">category</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">logo</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">shop_name</th>
-                          </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                          <tr>
-                            <td class="px-4 py-2 text-gray-500">https://i.postimg.cc/example-image.jpg</td>
-                            <td class="px-4 py-2 text-gray-500">Elegant off-shoulder bridal gown with lace bodice and flowing satin skirt.</td>
-                            <td class="px-4 py-2 text-gray-500">Satin, Lace</td>
-                            <td class="px-4 py-2 text-gray-500">S,M,L,XL</td>
-                            <td class="px-4 py-2 text-gray-500">Bridal Dresses</td>
-                            <td class="px-4 py-2 text-gray-500"></td>
-                            <td class="px-4 py-2 text-gray-500">Roza Bridal</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    
-                    <div class="mt-4 flex justify-between items-center">
-                      <a href="#" class="text-[#F56400] text-sm font-medium hover:underline flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        Download Template
-                      </a>
-                      
-                      <label class="px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors cursor-pointer inline-flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                        </svg>
-                        <span>Upload CSV File</span>
-                        <input type="file" class="hidden" accept=".csv" />
+                <!-- Single Upload Area -->
+                <div id="singleUploadArea" class="upload-area active">
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Upload Zone -->
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-[#F56400] transition-colors flex flex-col items-center justify-center h-64">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <p class="mt-4 text-center text-gray-600">Drag & drop your product photo here</p>
+                      <p class="text-sm text-gray-500 mt-2 text-center">or</p>
+                      <label class="mt-4 px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors cursor-pointer">
+                        <span>Browse Files</span>
+                        <input type="file" class="hidden" accept="image/*" required />
                       </label>
+                      <p class="mt-4 text-xs text-gray-400 text-center">Supports: JPG, PNG (Max 10MB)</p>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Action Buttons -->
-          <div class="flex justify-end space-x-4">
-            <button class="px-4 py-2 text-gray-600 hover:text-[#F56400] transition-colors">
-              Cancel
-            </button>
-            <button class="px-6 py-3 bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white font-medium rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-              Generate Listing
-            </button>
+                    
+                    <!-- Product Details -->
+                    <div class="flex flex-col space-y-4">
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Product Category <span class="text-xs text-gray-500">(optional)</span></label>
+                        <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm appearance-none bg-white">
+                          <option>Select from Etsy categories...</option>
+                          <option value="custom">Custom Category...</option>
+                          <optgroup label="Accessories">
+                            <option>Baby Accessories</option>
+                            <option>Belts & Suspenders</option>
+                            <option>Bouquets & Corsages</option>
+                            <option>Costume Accessories</option>
+                            <option>Face Masks & Coverings</option>
+                            <option>Gloves & Mittens</option>
+                            <option>Hair Accessories</option>
+                            <option>Hand Fans</option>
+                            <option>Hats & Caps</option>
+                            <option>Keychains & Lanyards</option>
+                            <option>Patches & Pins</option>
+                            <option>Scarves & Wraps</option>
+                            <option>Suit & Tie Accessories</option>
+                            <option>Sunglasses & Eyewear</option>
+                            <option>Umbrellas & Rain Accessories</option>
+                          </optgroup>
+                          <optgroup label="Art & Collectibles">
+                            <option>Artist Trading Cards</option>
+                            <option>Collectibles</option>
+                            <option>Dolls & Miniatures</option>
+                            <option>Drawing & Illustration</option>
+                            <option>Fiber Arts</option>
+                            <option>Fine Art Ceramics</option>
+                            <option>Glass Art</option>
+                            <option>Mixed Media & Collage</option>
+                            <option>Painting</option>
+                            <option>Photography</option>
+                            <option>Prints</option>
+                            <option>Sculpture</option>
+                          </optgroup>
+                          <optgroup label="Baby">
+                            <option>Baby Accessories</option>
+                            <option>Baby & Toddler Toys</option>
+                            <option>Baby Bathing</option>
+                            <option>Baby Bedding</option>
+                            <option>Baby Carriers & Wraps</option>
+                            <option>Baby Clothing</option>
+                            <option>Baby Feeding</option>
+                            <option>Baby Furniture</option>
+                            <option>Baby Gear</option>
+                            <option>Diapering</option>
+                            <option>Pacifiers & Teething</option>
+                            <option>Safety Equipment</option>
+                          </optgroup>
+                          <optgroup label="Bags & Purses">
+                            <option>Accessory Cases</option>
+                            <option>Backpacks</option>
+                            <option>Clothing & Shoe Bags</option>
+                            <option>Cosmetic & Toiletry Storage</option>
+                            <option>Diaper Bags</option>
+                            <option>Electronics Cases</option>
+                            <option>Fanny Packs</option>
+                            <option>Food & Insulated Bags</option>
+                            <option>Handbags</option>
+                            <option>Keychains & Lanyards</option>
+                            <option>Luggage & Travel</option>
+                            <option>Market Bags</option>
+                            <option>Messenger Bags</option>
+                            <option>Pouches & Coin Purses</option>
+                            <option>Sports Bags</option>
+                            <option>Totes</option>
+                            <option>Wallets & Money Clips</option>
+                          </optgroup>
+                          <optgroup label="Bath & Beauty">
+                            <option>Baby & Child Care</option>
+                            <option>Bath Accessories</option>
+                            <option>Cosmetic & Toiletry Storage</option>
+                            <option>Essential Oils</option>
+                            <option>Fragrances</option>
+                            <option>Hair Care</option>
+                            <option>Makeup & Cosmetics</option>
+                            <option>Personal Care</option>
+                            <option>Skin Care</option>
+                            <option>Soaps</option>
+                            <option>Spa & Relaxation</option>
+                          </optgroup>
+                          <optgroup label="Books, Movies & Music">
+                            <option>Books</option>
+                            <option>Movies</option>
+                            <option>Music</option>
+                            <option>Video Cases & Tins</option>
+                          </optgroup>
+                          <optgroup label="Clothing">
+                            <option>Boys' Clothing</option>
+                            <option>Gender-Neutral Adult Clothing</option>
+                            <option>Gender-Neutral Kids' Clothing</option>
+                            <option>Girls' Clothing</option>
+                            <option>Indian Ethnic Clothing</option>
+                            <option>Men's Clothing</option>
+                            <option>Women's Clothing</option>
+                          </optgroup>
+                          <optgroup label="Craft Supplies & Tools">
+                            <option>Home & Hobby</option>
+                            <option>Jewelry & Beauty</option>
+                            <option>Paper, Party & Kids</option>
+                            <option>Sculpting & Forming</option>
+                            <option>Sewing & Fiber</option>
+                            <option>Visual Arts</option>
+                          </optgroup>
+                          <optgroup label="Electronics & Accessories">
+                            <option>Audio</option>
+                            <option>Batteries & Charging</option>
+                            <option>Cables & Cords</option>
+                            <option>Cameras & Equipment</option>
+                            <option>Car Parts & Accessories</option>
+                            <option>Cell Phone Accessories</option>
+                            <option>Computers & Peripherals</option>
+                            <option>DIY Kits</option>
+                            <option>Decals & Skins</option>
+                            <option>Docking & Stands</option>
+                            <option>Electronics Cases</option>
+                            <option>Gadgets</option>
+                            <option>Maker Supplies</option>
+                            <option>Parts & Electrical</option>
+                            <option>TV & Projection</option>
+                            <option>Telephones & Handsets</option>
+                            <option>Video Games</option>
+                          </optgroup>
+                          <optgroup label="Home & Living">
+                            <option>Bathroom</option>
+                            <option>Bedding</option>
+                            <option>Cleaning Supplies</option>
+                            <option>Curtains & Window Treatments</option>
+                            <option>Floor & Rugs</option>
+                            <option>Food & Drink</option>
+                            <option>Furniture</option>
+                            <option>Home Appliances</option>
+                            <option>Home Decor</option>
+                            <option>Home Improvement</option>
+                            <option>Kitchen & Dining</option>
+                           <option>Lighting</option>
+                           <option>Office</option>
+                           <option>Outdoor & Gardening</option>
+                           <option>Spirituality & Religion</option>
+                           <option>Storage & Organization</option>
+                         </optgroup>
+                         <optgroup label="Jewelry">
+                           <option>Anklets</option>
+                           <option>Bracelets</option>
+                           <option>Brooches</option>
+                           <option>Cuff Links & Tie Clips</option>
+                           <option>Earrings</option>
+                           <option>Jewelry Sets</option>
+                           <option>Necklaces</option>
+                           <option>Rings</option>
+                           <option>Watch Accessories</option>
+                           <option>Watches</option>
+                         </optgroup>
+                         <optgroup label="Paper & Party Supplies">
+                           <option>Cards & Invitations</option>
+                           <option>Party Decorations</option>
+                           <option>Party Favors</option>
+                           <option>Party Supplies</option>
+                           <option>Stationery</option>
+                         </optgroup>
+                         <optgroup label="Pet Supplies">
+                           <option>Pet Beds & Furniture</option>
+                           <option>Pet Clothing & Shoes</option>
+                           <option>Pet Collars & Leashes</option>
+                           <option>Pet Feeding</option>
+                           <option>Pet Grooming</option>
+                           <option>Pet Memorials</option>
+                           <option>Pet Toys</option>
+                         </optgroup>
+                         <optgroup label="Shoes">
+                           <option>Baby & Toddler Shoes</option>
+                           <option>Boys' Shoes</option>
+                           <option>Girls' Shoes</option>
+                           <option>Men's Shoes</option>
+                           <option>Women's Shoes</option>
+                         </optgroup>
+                         <optgroup label="Toys & Games">
+                           <option>Action Figures</option>
+                           <option>Dolls & Miniatures</option>
+                           <option>Games & Puzzles</option>
+                           <option>Learning & School</option>
+                           <option>Outdoor Games & Sports</option>
+                           <option>Pretend Play</option>
+                           <option>Stuffed Animals & Plushies</option>
+                           <option>Toy Vehicles</option>
+                         </optgroup>
+                         <optgroup label="Weddings">
+                           <option>Accessories</option>
+                           <option>Clothing</option>
+                           <option>Decorations</option>
+                           <option>Favors & Gifts</option>
+                           <option>Invitations & Paper</option>
+                           <option>Jewelry</option>
+                           <option>Shoes</option>
+                         </optgroup>
+                       </select>
+                     </div>
+                     
+                     <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Materials <span class="text-red-500">*</span></label>
+                       <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., cotton, wood, ceramic" required>
+                     </div>
+                     
+                     <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Product Size/Dimensions <span class="text-red-500">*</span></label>
+                       <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., S, M, L or 10x12 inches" required>
+                     </div>
+                     
+                     <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Basic Description <span class="text-xs text-gray-500">(optional)</span></label>
+                       <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" rows="3" placeholder="Brief description of your product..."></textarea>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               
+               <!-- Bulk CSV Upload Area (hidden by default) -->
+               <div id="bulkCsvArea" class="upload-area hidden">
+                 <div class="bg-gray-50 p-4 rounded-lg">
+                   <h3 class="font-medium mb-2">CSV Template Format</h3>
+                   <p class="text-sm text-gray-600 mb-4">Your CSV file must follow this exact format:</p>
+                   
+                   <div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
+                     <table class="min-w-full divide-y divide-gray-200 text-sm">
+                       <thead>
+                         <tr class="bg-gray-50">
+                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">image_url</th>
+                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">description</th>
+                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">material</th>
+                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">size</th>
+                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">category</th>
+                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">logo</th>
+                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">shop_name</th>
+                         </tr>
+                       </thead>
+                       <tbody class="divide-y divide-gray-200">
+                         <tr>
+                           <td class="px-4 py-2 text-gray-500">https://i.postimg.cc/example-image.jpg</td>
+                           <td class="px-4 py-2 text-gray-500">Elegant off-shoulder bridal gown with lace bodice and flowing satin skirt.</td>
+                           <td class="px-4 py-2 text-gray-500">Satin, Lace</td>
+                           <td class="px-4 py-2 text-gray-500">S,M,L,XL</td>
+                           <td class="px-4 py-2 text-gray-500">Bridal Dresses</td>
+                           <td class="px-4 py-2 text-gray-500"></td>
+                           <td class="px-4 py-2 text-gray-500">Roza Bridal</td>
+                         </tr>
+                         <tr>
+                           <td class="px-4 py-2 text-gray-500">https://i.postimg.cc/example-image2.jpg</td>
+                           <td class="px-4 py-2 text-gray-500">Handcrafted wooden serving board with natural edges, perfect for charcuterie.</td>
+                           <td class="px-4 py-2 text-gray-500">Oak Wood</td>
+                           <td class="px-4 py-2 text-gray-500">12x16 inches</td>
+                           <td class="px-4 py-2 text-gray-500">Kitchen & Dining</td>
+                           <td class="px-4 py-2 text-gray-500"></td>
+                           <td class="px-4 py-2 text-gray-500">WoodWorks</td>
+                         </tr>
+                       </tbody>
+                     </table>
+                   </div>
+                   
+                   <div class="mt-6">
+                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-[#F56400] transition-colors flex flex-col items-center justify-center h-48">
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                       </svg>
+                       <p class="mt-4 text-center text-gray-600">Drag & drop your CSV file here</p>
+                       <p class="text-sm text-gray-500 mt-2 text-center">or</p>
+                       <label class="mt-4 px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors cursor-pointer">
+                         <span>Upload CSV File</span>
+                         <input type="file" class="hidden" accept=".csv" required />
+                       </label>
+                       <p class="mt-4 text-xs text-gray-400 text-center">Supports up to 50 products in one CSV</p>
+                     </div>
+                   </div>
+                   
+                   <div class="mt-4 flex justify-center">
+                     <a href="#" class="text-[#F56400] text-sm font-medium hover:underline flex items-center">
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                       </svg>
+                       Download Template CSV
+                     </a>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
          </div>
-      </div>
-      <div class="max-w-5xl mx-auto mt-12 text-center">
-        <div class="inline-flex items-center bg-[#FEF8F4] px-6 py-3 rounded-lg border border-[#F56400] border-opacity-30">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#F56400] mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span class="text-gray-700">
-            Average time to create a professional listing: <span class="font-bold">Just 2 minutes</span>
-            <span class="text-sm text-gray-500">(vs. 1-2 hours manually)</span>
-          </span>
-        </div>
-      </div>
-    </div>
-  </section>
+         
+         <!-- Action Buttons -->
+         <div class="flex justify-end space-x-4">
+           <button class="px-4 py-2 text-gray-600 hover:text-[#F56400] transition-colors">
+             Cancel
+           </button>
+           <button class="px-6 py-3 bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white font-medium rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+             Generate Listing
+           </button>
+         </div>
+       </div>
+     </div>
 
-  <!-- ROI Calculator Section -->
-  <section id="calculator-section" class="py-20 bg-gradient-to-b from-gray-50 to-white px-6">
-    <div class="container mx-auto max-w-5xl">
-      <div class="text-center mb-12">
-        <span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">MONEY TALKS</span>
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 relative inline-block">
-          See Your <span class="text-[#F56400]">INSANE SAVINGS</span>
-          <svg class="absolute -top-6 -right-8 w-12 h-12 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm6 0a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0V6h-1a1 1 0 110-2h1V3a1 1 0 011-1z"></path>
-          </svg>
-        </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Dropshippers using AI tools save an average of <span class="font-bold underline decoration-[#F56400]">28 hours per month</span> and <span class="font-bold underline decoration-[#F56400]">$420 in costs</span>
-        </p>
-      </div>
+     <div class="max-w-5xl mx-auto mt-12 text-center">
+       <div class="inline-flex items-center bg-[#FEF8F4] px-6 py-3 rounded-lg border border-[#F56400] border-opacity-30">
+         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#F56400] mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+         </svg>
+         <span class="text-gray-700">
+           Average time to create a professional listing: <span class="font-bold">Just 2 minutes</span>
+           <span class="text-sm text-gray-500">(vs. 1-2 hours manually)</span>
+         </span>
+       </div>
+     </div>
+   </div>
+ </section>
 
-      <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 lg:p-10 transform transition-all duration-500 hover:shadow-xl border border-gray-100">
-        <!-- Progress bar for calculations -->
-        <div class="h-1 w-full bg-gray-100 rounded-full mb-8 overflow-hidden">
-          <div id="calcProgress" class="h-full bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full" style="width: 0%"></div>
-        </div>
-        
-        <div class="grid md:grid-cols-2 gap-12">
-          <!-- Calculator Inputs -->
-          <div class="relative">
-            <div class="absolute -top-10 -left-6 bg-yellow-300 text-gray-800 rounded-lg py-1 px-3 text-sm font-bold transform -rotate-3 shadow-md">
-              Your Current Setup 👇
-            </div>
-            
-            <h3 class="text-2xl font-bold mb-6 text-gray-800">Current Etsy Workflow</h3>
+ <!-- Token Packages Section -->
+ <section id="pricing" class="py-16 bg-white px-6">
+   <div class="container mx-auto max-w-6xl">
+     <div class="text-center mb-8">
+       <span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">TOKENS</span>
+       <h2 class="text-3xl md:text-4xl font-bold mb-4">Token Packages</h2>
+       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+         Purchase tokens to create professional Etsy listings
+       </p>
+     </div>
+     
+     <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+       <!-- Package 1 -->
+       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+         <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+         <h4 class="font-bold text-lg mb-2">Starter</h4>
+         <p class="text-3xl font-bold text-[#F56400] mb-2">50</p>
+         <p class="text-gray-600 mb-4">Tokens</p>
+         <p class="text-lg font-bold mb-4">$45 <span class="text-gray-500 text-sm">($0.90/token)</span></p>
+         <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
+           Purchase
+         </a>
+       </div>
+       
+       <!-- Package 2 -->
+       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+         <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+         <h4 class="font-bold text-lg mb-2">Growth</h4>
+         <p class="text-3xl font-bold text-[#F56400] mb-2">100</p>
+         <p class="text-gray-600 mb-4">Tokens</p>
+         <p class="text-lg font-bold mb-4">$80 <span class="text-gray-500 text-sm">($0.80/token)</span></p>
+         <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
+           Purchase
+         </a>
+       </div>
+       
+       <!-- Package 3 (Popular) -->
+       <div class="bg-white p-6 pt-8 rounded-xl shadow-md border-2 border-[#F56400] text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+         <!-- Popular badge -->
+         <div class="absolute top-0 right-0 bg-[#F56400] text-white text-xs px-3 py-1.5 rounded-bl-lg font-bold z-10">BEST VALUE</div>
+         
+         <h4 class="font-bold text-lg mb-2">Pro</h4>
+         <p class="text-3xl font-bold text-[#F56400] mb-2">250</p>
+         <p class="text-gray-600 mb-4">Tokens</p>
+         <p class="text-lg font-bold mb-4">$175 <span class="text-gray-500 text-sm">($0.70/token)</span></p>
+         <a href="#signup" class="block text-center bg-[#F56400] text-white text-sm font-medium py-2 px-4 rounded-lg hover:shadow-lg transition-all duration-300">
+           Purchase
+         </a>
+       </div>
+       
+       <!-- Package 4 -->
+       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+         <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+         <h4 class="font-bold text-lg mb-2">Enterprise</h4>
+         <p class="text-3xl font-bold text-[#F56400] mb-2">500</p>
+         <p class="text-gray-600 mb-4">Tokens</p>
+         <p class="text-lg font-bold mb-4">$300 <span class="text-gray-500 text-sm">($0.60/token)</span></p>
+         <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
+           Purchase
+         </a>
+       </div>
+       
+       <!-- Custom Amount (Free Rider) -->
+       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+         <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+         <h4 class="font-bold text-lg mb-2">Free Rider</h4>
+         <div class="flex items-center justify-center mb-2">
+           <input type="number" min="10" value="10" class="w-20 h-12 text-center text-3xl font-bold text-[#F56400] border-b-2 border-gray-200 focus:border-[#F56400] outline-none" id="customTokenAmount">
+         </div>
+         <p class="text-gray-600 mb-4">Tokens</p>
+         <p class="text-lg font-bold mb-4">$<span id="customTokenPrice">10</span> <span class="text-gray-500 text-sm">($1.00/token)</span></p>
+         <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
+           Purchase
+         </a>
+       </div>
+     </div>
+   </div>
+ </section>
 
-            <div class="space-y-6">
-              <div class="transition-all duration-300 transform hover:scale-102">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                  </svg>
-                  New listings you create per month
-                </label>
-                <div class="relative">
-                  <input 
-                    type="number" 
-                    min="1" 
-                    value="10" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-                    id="listingsPerMonth"
-                  />
-                  <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                    listings
-                  </div>
-                </div>
-              </div>
+ <!-- ROI Calculator Section -->
+ <section id="calculator-section" class="py-20 bg-gradient-to-b from-gray-50 to-white px-6">
+   <div class="container mx-auto max-w-5xl">
+     <div class="text-center mb-12">
+       <span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">MONEY TALKS</span>
+       <h2 class="text-3xl md:text-5xl font-bold mb-4 relative inline-block">
+         See Your <span class="text-[#F56400]">INSANE SAVINGS</span>
+         <svg class="absolute -top-6 -right-8 w-12 h-12 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+           <path d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm6 0a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0V6h-1a1 1 0 110-2h1V3a1 1 0 011-1z"></path>
+         </svg>
+       </h2>
+       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+         Dropshippers using AI tools save an average of <span class="font-bold underline decoration-[#F56400]">28 hours per month</span> and <span class="font-bold underline decoration-[#F56400]">$420 in costs</span>
+       </p>
+     </div>
 
-              <div id="minutesPerListingContainer" class="transition-all duration-300 transform hover:scale-102">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  Minutes spent per listing currently
-                </label>
-                <div class="relative">
-                  <input 
-                    type="number" 
-                    min="1" 
-                    max="300" 
-                    value="60" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-                    id="minutesPerListing"
-                  />
-                  <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                    minutes
-                  </div>
-                </div>
-              </div>
+     <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 lg:p-10 transform transition-all duration-500 hover:shadow-xl border border-gray-100">
+       <!-- Progress bar for calculations -->
+       <div class="h-1 w-full bg-gray-100 rounded-full mb-8 overflow-hidden">
+         <div id="calcProgress" class="h-full bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full" style="width: 0%"></div>
+       </div>
+       
+       <div class="grid md:grid-cols-2 gap-12">
+         <!-- Calculator Inputs -->
+         <div class="relative">
+           <div class="absolute -top-10 -left-6 bg-yellow-300 text-gray-800 rounded-lg py-1 px-3 text-sm font-bold transform -rotate-3 shadow-md">
+             Your Current Setup 👇
+           </div>
+           
+           <h3 class="text-2xl font-bold mb-6 text-gray-800">Current Etsy Workflow</h3>
 
-              <div id="vaListingsPerMonthContainer" class="hidden transition-all duration-300 transform hover:scale-102">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                  </svg>
-                  Listings your VA handles per month
-                </label>
-                <div class="relative">
-                  <input 
-                    type="number" 
-                    min="1" 
-                    max="500" 
-                    value="30" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-                    id="vaListingsPerMonth"
-                  />
-                  <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                    listings/month
-                  </div>
-                </div>
-              </div>
+           <div class="space-y-6">
+             <div class="transition-all duration-300 transform hover:scale-102">
+               <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                 <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                 </svg>
+                 New listings you create per month
+               </label>
+               <div class="relative">
+                 <input 
+                   type="number" 
+                   min="1" 
+                   value="10" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+                   id="listingsPerMonth"
+                 />
+                 <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                   listings
+                 </div>
+               </div>
+             </div>
 
-              <div class="transition-all duration-300">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                  </svg>
-                  Do you use a virtual assistant?
-                </label>
-                <div class="grid grid-cols-2 gap-4 mt-2">
-                  <label class="cursor-pointer relative">
-                    <input type="radio" name="useVA" value="yes" class="absolute opacity-0 w-0 h-0" id="useVAYes">
-                    <span class="block py-3 px-4 text-center rounded-lg bg-white border-2 border-gray-200 hover:border-[#F56400] transition-colors" id="vaYesLabel">
-                      Yes, I have a VA
-                    </span>
-                  </label>
-                  <label class="cursor-pointer relative">
-                    <input type="radio" name="useVA" value="no" class="absolute opacity-0 w-0 h-0" id="useVANo" checked>
-                    <span class="block py-3 px-4 text-center rounded-lg bg-white border-2 border-gray-200 hover:border-[#F56400] transition-colors" id="vaNoLabel">
-                      No, I do it myself
-                    </span>
-                  </label>
-                </div>
-              </div>
+             <div id="minutesPerListingContainer" class="transition-all duration-300 transform hover:scale-102">
+               <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                 <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                 </svg>
+                 Minutes spent per listing currently
+               </label>
+               <div class="relative">
+                 <input 
+                   type="number" 
+                   min="1" 
+                   max="300" 
+                   value="60" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+                   id="minutesPerListing"
+                 />
+                 <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                   minutes
+                 </div>
+               </div>
+             </div>
 
-              <div class="hidden transition-all duration-300 transform hover:scale-102" id="vaRateContainer">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  VA's monthly salary ($)
-                </label>
-                <div class="relative">
-                  <input 
-                    type="number" 
-                    min="50" 
-                    max="2000" 
-                    value="250" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-                    id="vaSalary"
-                  />
-                  <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
-                    $
-                  </div>
-                </div>
-              </div>
+             <div id="vaListingsPerMonthContainer" class="hidden transition-all duration-300 transform hover:scale-102">
+               <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                 <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                 </svg>
+                 Listings your VA handles per month
+               </label>
+               <div class="relative">
+                 <input 
+                   type="number" 
+                   min="1" 
+                   max="500" 
+                   value="30" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+                   id="vaListingsPerMonth"
+                 />
+                 <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                   listings/month
+                 </div>
+               </div>
+             </div>
 
-              <div id="hourlyRateContainer" class="transition-all duration-300 transform hover:scale-102">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  Value of your time ($/hour)
-                </label>
-                <div class="relative">
-                  <input 
-                    type="number" 
-                    min="10" 
-                    max="500" 
-                    value="25" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-                    id="hourlyRate"
-                  />
-                  <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
-                    $
-                  </div>
-                </div>
-              </div>
+             <div class="transition-all duration-300">
+               <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                 <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                 </svg>
+                 Do you use a virtual assistant?
+               </label>
+               <div class="grid grid-cols-2 gap-4 mt-2">
+                 <label class="cursor-pointer relative">
+                   <input type="radio" name="useVA" value="yes" class="absolute opacity-0 w-0 h-0" id="useVAYes">
+                   <span class="block py-3 px-4 text-center rounded-lg bg-white border-2 border-gray-200 hover:border-[#F56400] transition-colors" id="vaYesLabel">
+                     Yes, I have a VA
+                   </span>
+                 </label>
+                 <label class="cursor-pointer relative">
+                   <input type="radio" name="useVA" value="no" class="absolute opacity-0 w-0 h-0" id="useVANo" checked>
+                   <span class="block py-3 px-4 text-center rounded-lg bg-white border-2 border-gray-200 hover:border-[#F56400] transition-colors" id="vaNoLabel">
+                     No, I do it myself
+                   </span>
+                 </label>
+               </div>
+             </div>
 
-              <div class="transition-all duration-300 transform hover:scale-102">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                  </svg>
-                  Monthly cost of other tools ($)
-                </label>
-                <div class="relative">
-                  <input 
-                    type="number" 
-                    min="0" 
-                    max="1000" 
-                    value="30" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-                    id="toolsCost"
-                  />
-                  <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
-                    $
-                  </div>
-                </div>
-              </div>
-
-              <div class="transition-all duration-300 transform hover:scale-102">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                  </svg>
-                  ePro AI plan
-                </label>
-                <select id="eproAiPlan" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent appearance-none bg-white transition-all">
-                  <option value="1">Standard ($1 per listing)</option>
-                  <option value="2" selected>Professional ($2 per listing)</option>
-                  <option value="5">Premium ($5 per listing)</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-8 bg-gradient-to-r from-[#F3F1E8] to-yellow-50 p-5 rounded-lg border-l-4 border-[#F56400] shadow-sm">
-              <div class="flex items-start">
-                <div class="bg-[#F56400] rounded-full p-2 mr-3">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="font-bold text-lg text-[#F56400]">With ePro AI</h4>
-                  <p class="text-gray-700">Average time per listing: <span class="font-bold">2 minutes</span> 🔥</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Results Display -->
-          <div>
-            <div class="relative">
-              <div class="absolute -top-10 -right-6 bg-[#F56400] text-white rounded-lg py-1 px-3 text-sm font-bold transform rotate-3 shadow-md">
-                Your SAVINGS! 🚀
-              </div>
-              
-              <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 border border-gray-200 shadow-md">
-                <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-                  <span>Your Mind-Blowing Results</span>
-                  <div class="ml-2" id="recalculating" style="display: none;">
-                    <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping mr-1"></span>
-                    <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping" style="animation-delay: 0.2s;"></span>
-                    <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping" style="animation-delay: 0.4s;"></span>
-                  </div>
-                </h3>
-
-                <div class="space-y-6">
-                  <!-- Time Analysis - Only shown for non-VA users -->
-                  <div id="timeAnalysisSection" class="bg-white p-8 rounded-lg border border-gray-100 shadow-sm">
-                    <p class="text-lg font-medium text-gray-800 mb-5">Time Analysis</p>
-                    
-                    <div class="flex justify-between items-center mb-6">
-                      <span class="text-gray-600">Current hours per month:</span>
-                      <div class="flex items-center">
-                        <span class="font-bold text-xl" id="displayCurrentHours">10</span>
-                        <span class="ml-1 text-gray-500">hrs</span>
-                      </div>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mb-6">
-                      <span class="text-gray-600">Hours with ePro AI:</span>
-                      <div class="flex items-center">
-                        <span class="font-bold text-xl text-[#F56400]" id="displayEproHours">0.3</span>
-                        <span class="ml-1 text-gray-500">hrs</span>
-                      </div>
-                    </div>
-                    
-                    <div class="flex justify-between items-center pt-6 border-t border-gray-100">
-                      <span class="text-gray-700 font-medium">Time saved monthly:</span>
-                      <div class="relative">
-                        <span class="font-bold text-xl text-green-600" id="displayTimeSaved">9.7</span>
-                        <span class="ml-1 text-gray-500">hrs</span>
-                        <span id="timeChangeIndicator" class="absolute -top-4 right-0 text-green-500 text-sm font-medium">
-                          ↑ 97%
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Cost Analysis -->
-                  <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
-                    <p class="text-lg font-medium text-gray-800 mb-3">Cost Analysis</p>
-                    
-                    <div class="flex justify-between items-center mb-3">
-                      <span class="text-gray-600">Monthly listings:</span>
-                      <span class="font-bold text-xl" id="displayMonthlyListings">10</span>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mb-3">
-                      <span class="text-gray-600">ePro AI cost:</span>
-                      <div class="flex items-center">
-                        <span class="font-bold text-xl text-[#F56400]" id="displayEproCost">$20</span>
-                        <span id="perListing" class="ml-1 text-xs text-gray-500">($2/listing)</span>
-                      </div>
-                    </div>
-                    
-                    <div id="vaCostRow" class="flex justify-between items-center mb-3 hidden">
-                      <span class="text-gray-600">Current VA cost:</span>
-                      <span class="font-bold text-xl text-gray-800" id="displayVaCost">$0</span>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mb-3">
-                      <span class="text-gray-600">Tools you'll no longer need:</span>
-                      <span class="font-bold text-xl text-green-600" id="displayToolSavings">$30</span>
-                    </div>
-                    
-                    <div id="timeSavingsValueRow" class="flex justify-between items-center mb-3">
-                      <span class="text-gray-600">Value of time saved:</span>
-                      <span class="font-bold text-xl text-green-600" id="displayTimeSavingsValue">$242.50</span>
-                    </div>
-                    
-                    <div class="pt-3 border-t border-gray-300 flex justify-between items-center">
-                      <span class="text-gray-800 font-medium">Net monthly benefit:</span>
-                      <div class="relative">
-                        <span class="font-bold text-2xl text-[#F56400]" id="netBenefit">$252.50</span>
-                        <span id="benefitChangeIndicator" class="absolute -top-4 right-0 text-green-500 text-sm font-medium">
-                          ↑ 95%
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Annual Impact -->
-                  <div class="bg-gradient-to-r from-[#F56400] to-yellow-500 p-4 rounded-lg text-white shadow-lg">
-                    <p class="font-bold mb-3">ANNUAL IMPACT</p>
-                    <div class="flex justify-between items-center">
-                      <span>Yearly savings:</span>
-                      <span class="font-bold text-2xl" id="yearlyNetBenefit">$3,030</span>
-                    </div>
-                    <div id="yearlyTimeRow" class="flex justify-between items-center mt-2">
-                      <span>Hours saved per year:</span>
-                      <span class="font-bold text-2xl" id="yearlyTimeSaved">116.4</span>
-                    </div>
-                    <div id="vacationDaysRow" class="mt-4 text-sm bg-white bg-opacity-20 p-2 rounded">
-                      That's <span class="font-bold" id="vacationDays">14.6</span> full 8-hour workdays saved annually!
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Call to action -->
-                <div class="mt-8 text-center">
-                  <a href="#pricing" class="inline-block bg-[#F56400] hover:bg-[#E05000] transition-colors text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-transform">
-                    Start Saving Today →
-                  </a>
-                  <p class="mt-3 text-sm text-gray-500">No credit card required to start</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Cards -->
-  <section id="pricing" class="py-20 bg-white px-6">
-    <div class="container mx-auto max-w-6xl">
-      <div class="text-center mb-12">
-        <span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">SIMPLE PRICING</span>
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Choose Your Perfect Plan</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Pay only for what you use with our flexible token-based pricing
-        </p>
-      </div>
-      
-      <p class="text-center text-gray-500 mb-10">Each token equals $1 USD. Purchase tokens in packages for discounted rates.</p>
-      
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Standard Plan -->
-        <div class="bg-white p-8 rounded-xl shadow-sm pricing-card border border-gray-200 group hover:shadow-lg hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
-          <!-- Gradient accent that appears on hover -->
-          <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-          
-          <h3 class="text-2xl font-bold mb-2">Standard</h3>
-          <p class="text-gray-600 mb-6">Essential content for basic listings</p>
-          <p class="text-4xl font-black mb-4 text-[#F56400] group-hover:scale-110 transition-transform duration-300">1<span class="text-lg font-normal text-gray-500">/token</span></p>
-          <ul class="space-y-3 mb-8">
-            <li class="flex items-start">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>SEO-optimized product title</span>
-            </li>
-            <li class="flex items-start">
- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
- </svg>
- <span>High-quality product descriptions</span>
-</li>
-<li class="flex items-start">
- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
- </svg>
- <span>13 optimized search tags</span>
-</li>
-<li class="flex items-start">
- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-   <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
- </svg>
- <span class="text-gray-400">No product images</span>
-</li>
-</ul>
-<a href="#signup" class="block text-center bg-gray-100 text-gray-800 font-medium py-3 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
- Get Started
-</a>
-</div>
-
-<!-- Professional Plan (Featured) -->
-<div class="bg-white p-8 pt-10 rounded-xl shadow-md pricing-card border-2 border-[#F56400] featured relative transform md:-translate-y-4 hover:shadow-xl hover:-translate-y-6 transition-all duration-300 overflow-hidden">
-<!-- "Most Popular" badge with gradient -->
-<div class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#F56400] to-yellow-500 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-md z-10">
- Most Popular
-</div>
-
-<h3 class="text-2xl font-bold mb-2">Professional</h3>
-<p class="text-gray-600 mb-6">Studio quality with precise SEO</p>
-<p class="text-4xl font-black mb-4 text-[#F56400] group-hover:scale-110 transition-transform duration-300">2<span class="text-lg font-normal text-gray-500">/tokens</span></p>
-<ul class="space-y-3 mb-8">
- <li class="flex items-start">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-   </svg>
-   <span>Everything in Standard plan</span>
- </li>
- <li class="flex items-start">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-   </svg>
-   <span>5 studio-quality product images</span>
- </li>
- <li class="flex items-start">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-   </svg>
-   <span>Model showcase (where applicable)</span>
- </li>
- <li class="flex items-start text-gray-400">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-   </svg>
-   <span class="text-gray-400">No product videos</span>
- </li>
-</ul>
-<a href="#signup" class="block text-center bg-[#F56400] text-white font-medium py-3 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:translate-y-0">
- Most Popular
-</a>
-
-<!-- Animated accent -->
-<div class="absolute -left-20 -bottom-20 w-40 h-40 rounded-full bg-gradient-to-r from-[#F56400] to-yellow-500 opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
-</div>
-
-<!-- Premium Plan -->
-<div class="bg-white p-8 rounded-xl shadow-sm pricing-card border border-gray-200 group hover:shadow-lg hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
-<!-- Gradient accent that appears on hover -->
-<div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-<h3 class="text-2xl font-bold mb-2">Premium</h3>
-<p class="text-gray-600 mb-6">Ultra-realistic with detailed analysis</p>
-<p class="text-4xl font-black mb-4 text-[#F56400] group-hover:scale-110 transition-transform duration-300">5<span class="text-lg font-normal text-gray-500">/tokens</span></p>
-<ul class="space-y-3 mb-8">
- <li class="flex items-start">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-   </svg>
-   <span>Everything in Professional plan</span>
- </li>
- <li class="flex items-start">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-   </svg>
-   <span>8 ultra-realistic product images</span>
- </li>
- <li class="flex items-start">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-   </svg>
-   <span>Multiple lifestyle variations</span>
- </li>
- <li class="flex items-start">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-   </svg>
-   <span>Product creation video</span>
- </li>
-</ul>
-<a href="#signup" class="block text-center bg-gray-100 text-gray-800 font-medium py-3 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
- Get Started
-</a>
-</div>
-</div>
-
-<!-- Token Packages -->
-<div class="mt-16">
-<h3 class="text-2xl font-bold text-center mb-8">Token Packages</h3>
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
- <!-- Package 1 -->
- <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-   <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-   <h4 class="font-bold text-lg mb-2">Starter</h4>
-   <p class="text-3xl font-bold text-[#F56400] mb-2">50</p>
-   <p class="text-gray-600 mb-4">Tokens</p>
-   <p class="text-lg font-bold mb-4">$45 <span class="text-gray-500 text-sm">($0.90/token)</span></p>
-   <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
-     Purchase
-   </a>
+             <div class="hidden transition-all duration-300 transform hover:scale-102" id="vaRateContainer">
+               <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                 <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+VA's monthly salary ($)
+</label>
+<div class="relative">
+ <input 
+   type="number" 
+   min="50" 
+   max="2000" 
+   value="250" 
+   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+   id="vaSalary"
+ />
+ <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
+   $
  </div>
- 
- <!-- Package 2 -->
- <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-   <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-   <h4 class="font-bold text-lg mb-2">Growth</h4>
-   <p class="text-3xl font-bold text-[#F56400] mb-2">100</p>
-   <p class="text-gray-600 mb-4">Tokens</p>
-   <p class="text-lg font-bold mb-4">$80 <span class="text-gray-500 text-sm">($0.80/token)</span></p>
-   <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
-     Purchase
-   </a>
+</div>
+</div>
+
+<div id="hourlyRateContainer" class="transition-all duration-300 transform hover:scale-102">
+<label class="block text-gray-700 font-medium mb-2 flex items-center">
+ <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+ </svg>
+ Value of your time ($/hour)
+</label>
+<div class="relative">
+ <input 
+   type="number" 
+   min="10" 
+   max="500" 
+   value="25" 
+   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+   id="hourlyRate"
+ />
+ <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
+   $
  </div>
- 
- <!-- Package 3 (Popular) -->
- <div class="bg-white p-6 pt-8 rounded-xl shadow-md border-2 border-[#F56400] text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-   <!-- Popular badge -->
-   <div class="absolute top-0 right-0 bg-[#F56400] text-white text-xs px-3 py-1.5 rounded-bl-lg font-bold z-10">BEST VALUE</div>
+</div>
+</div>
+
+<div class="transition-all duration-300 transform hover:scale-102">
+<label class="block text-gray-700 font-medium mb-2 flex items-center">
+ <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+ </svg>
+ Monthly cost of other tools ($)
+</label>
+<div class="relative">
+ <input 
+   type="number" 
+   min="0" 
+   max="1000" 
+   value="30" 
+   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+   id="toolsCost"
+ />
+ <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
+   $
+ </div>
+</div>
+</div>
+
+<div class="transition-all duration-300 transform hover:scale-102">
+<label class="block text-gray-700 font-medium mb-2 flex items-center">
+ <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+ </svg>
+ ePro AI plan
+</label>
+<select id="eproAiPlan" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent appearance-none bg-white transition-all">
+ <option value="1">Standard ($1 per listing)</option>
+ <option value="2" selected>Professional ($2 per listing)</option>
+ <option value="5">Premium ($5 per listing)</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+ <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+ </svg>
+</div>
+</div>
+</div>
+
+<div class="mt-8 bg-gradient-to-r from-[#F3F1E8] to-yellow-50 p-5 rounded-lg border-l-4 border-[#F56400] shadow-sm">
+<div class="flex items-start">
+<div class="bg-[#F56400] rounded-full p-2 mr-3">
+ <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+ </svg>
+</div>
+<div>
+ <h4 class="font-bold text-lg text-[#F56400]">With ePro AI</h4>
+ <p class="text-gray-700">Average time per listing: <span class="font-bold">2 minutes</span> 🔥</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Results Display -->
+<div>
+<div class="relative">
+<div class="absolute -top-10 -right-6 bg-[#F56400] text-white rounded-lg py-1 px-3 text-sm font-bold transform rotate-3 shadow-md">
+ Your SAVINGS! 🚀
+</div>
+
+<div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 border border-gray-200 shadow-md">
+ <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+   <span>Your Mind-Blowing Results</span>
+   <div class="ml-2" id="recalculating" style="display: none;">
+     <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping mr-1"></span>
+     <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping" style="animation-delay: 0.2s;"></span>
+     <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping" style="animation-delay: 0.4s;"></span>
+   </div>
+ </h3>
+
+ <div class="space-y-6">
+   <!-- Time Analysis - Only shown for non-VA users -->
+   <div id="timeAnalysisSection" class="bg-white p-8 rounded-lg border border-gray-100 shadow-sm">
+     <p class="text-lg font-medium text-gray-800 mb-5">Time Analysis</p>
+     
+     <div class="flex justify-between items-center mb-6">
+       <span class="text-gray-600">Current hours per month:</span>
+       <div class="flex items-center">
+         <span class="font-bold text-xl" id="displayCurrentHours">10</span>
+         <span class="ml-1 text-gray-500">hrs</span>
+       </div>
+     </div>
+     
+     <div class="flex justify-between items-center mb-6">
+       <span class="text-gray-600">Hours with ePro AI:</span>
+       <div class="flex items-center">
+         <span class="font-bold text-xl text-[#F56400]" id="displayEproHours">0.3</span>
+         <span class="ml-1 text-gray-500">hrs</span>
+       </div>
+     </div>
+     
+     <div class="flex justify-between items-center pt-6 border-t border-gray-100">
+       <span class="text-gray-700 font-medium">Time saved monthly:</span>
+       <div class="relative">
+         <span class="font-bold text-xl text-green-600" id="displayTimeSaved">9.7</span>
+         <span class="ml-1 text-gray-500">hrs</span>
+         <span id="timeChangeIndicator" class="absolute -top-4 right-0 text-green-500 text-sm font-medium">
+           ↑ 97%
+         </span>
+       </div>
+     </div>
+   </div>
    
-   <h4 class="font-bold text-lg mb-2">Pro</h4>
-   <p class="text-3xl font-bold text-[#F56400] mb-2">250</p>
-   <p class="text-gray-600 mb-4">Tokens</p>
-   <p class="text-lg font-bold mb-4">$175 <span class="text-gray-500 text-sm">($0.70/token)</span></p>
-   <a href="#signup" class="block text-center bg-[#F56400] text-white text-sm font-medium py-2 px-4 rounded-lg hover:shadow-lg transition-all duration-300">
-     Purchase
-   </a>
+   <!-- Cost Analysis -->
+   <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+     <p class="text-lg font-medium text-gray-800 mb-3">Cost Analysis</p>
+     
+     <div class="flex justify-between items-center mb-3">
+       <span class="text-gray-600">Monthly listings:</span>
+       <span class="font-bold text-xl" id="displayMonthlyListings">10</span>
+     </div>
+     
+     <div class="flex justify-between items-center mb-3">
+       <span class="text-gray-600">ePro AI cost:</span>
+       <div class="flex items-center">
+         <span class="font-bold text-xl text-[#F56400]" id="displayEproCost">$20</span>
+         <span id="perListing" class="ml-1 text-xs text-gray-500">($2/listing)</span>
+       </div>
+     </div>
+     
+     <div id="vaCostRow" class="flex justify-between items-center mb-3 hidden">
+       <span class="text-gray-600">Current VA cost:</span>
+       <span class="font-bold text-xl text-gray-800" id="displayVaCost">$0</span>
+     </div>
+     
+     <div class="flex justify-between items-center mb-3">
+       <span class="text-gray-600">Tools you'll no longer need:</span>
+       <span class="font-bold text-xl text-green-600" id="displayToolSavings">$30</span>
+     </div>
+     
+     <div id="timeSavingsValueRow" class="flex justify-between items-center mb-3">
+       <span class="text-gray-600">Value of time saved:</span>
+       <span class="font-bold text-xl text-green-600" id="displayTimeSavingsValue">$242.50</span>
+     </div>
+     
+     <div class="pt-3 border-t border-gray-300 flex justify-between items-center">
+       <span class="text-gray-800 font-medium">Net monthly benefit:</span>
+       <div class="relative">
+         <span class="font-bold text-2xl text-[#F56400]" id="netBenefit">$252.50</span>
+         <span id="benefitChangeIndicator" class="absolute -top-4 right-0 text-green-500 text-sm font-medium">
+           ↑ 95%
+         </span>
+       </div>
+     </div>
+   </div>
+   
+   <!-- Annual Impact -->
+   <div class="bg-gradient-to-r from-[#F56400] to-yellow-500 p-4 rounded-lg text-white shadow-lg">
+     <p class="font-bold mb-3">ANNUAL IMPACT</p>
+     <div class="flex justify-between items-center">
+       <span>Yearly savings:</span>
+       <span class="font-bold text-2xl" id="yearlyNetBenefit">$3,030</span>
+     </div>
+     <div id="yearlyTimeRow" class="flex justify-between items-center mt-2">
+       <span>Hours saved per year:</span>
+       <span class="font-bold text-2xl" id="yearlyTimeSaved">116.4</span>
+     </div>
+     <div id="vacationDaysRow" class="mt-4 text-sm bg-white bg-opacity-20 p-2 rounded">
+       That's <span class="font-bold" id="vacationDays">14.6</span> full 8-hour workdays saved annually!
+     </div>
+   </div>
  </div>
- 
- <!-- Package 4 -->
- <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-   <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-[#F56400] to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-   <h4 class="font-bold text-lg mb-2">Enterprise</h4>
-   <p class="text-3xl font-bold text-[#F56400] mb-2">500</p>
-   <p class="text-gray-600 mb-4">Tokens</p>
-   <p class="text-lg font-bold mb-4">$300 <span class="text-gray-500 text-sm">($0.60/token)</span></p>
-   <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-[#F56400] group-hover:text-white transition-all duration-300">
-     Purchase
+
+ <!-- Call to action -->
+ <div class="mt-8 text-center">
+   <a href="#pricing" class="inline-block bg-[#F56400] hover:bg-[#E05000] transition-colors text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-transform">
+     Start Saving Today →
    </a>
+   <p class="mt-3 text-sm text-gray-500">No credit card required to start</p>
  </div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1084,131 +1164,6 @@
 </div>
 </section>
 
-<!-- Sign-up Form Section -->
-<section id="signup" class="py-20 bg-white px-6">
-<div class="container mx-auto max-w-4xl">
-<div class="flex flex-col md:flex-row bg-white rounded-xl shadow-lg overflow-hidden">
- <!-- Form Side -->
- <div class="w-full md:w-1/2 p-8 md:p-12">
-   <h2 class="text-3xl font-bold mb-6">Create Your Account</h2>
-   <p class="text-gray-600 mb-8">Start creating professional Etsy listings in minutes</p>
-   
-   <form class="space-y-5">
-     <div>
-       <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-       <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" placeholder="Your name">
-     </div>
-     
-     <div>
-       <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-       <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" placeholder="you@example.com">
-     </div>
-     
-     <div>
-       <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-       <input type="password" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" placeholder="Create a secure password">
-     </div>
-     
-     <div class="flex items-start">
-       <input type="checkbox" id="terms" class="mt-1 mr-2">
-       <label for="terms" class="text-sm text-gray-600">I agree to the <a href="#" class="text-[#F56400] hover:underline">Terms of Service</a> and <a href="#" class="text-[#F56400] hover:underline">Privacy Policy</a></label>
-     </div>
-     
-     <button type="submit" class="w-full bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white font-bold py-3 px-4 rounded-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
- Create Free Account
-</button>
-</form>
-
-<div class="mt-6 text-center">
- <p class="text-sm text-gray-600">Already have an account? <a href="#login" class="text-[#F56400] hover:underline">Log in</a></p>
-</div>
-</div>
-
-<!-- Image Side -->
-<div class="w-full md:w-1/2 bg-[#F9F8F4] p-8 md:p-12 flex items-center justify-center">
- <div class="text-center">
-   <div class="w-16 h-16 bg-[#F56400] rounded-full flex items-center justify-center mx-auto mb-4 text-white">
-     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-     </svg>
-   </div>
-   <h3 class="text-xl font-bold mb-3">Start for Free Today</h3>
-   <ul class="text-left space-y-4 text-gray-700 max-w-xs mx-auto">
-     <li class="flex items-start">
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#F56400] mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-       </svg>
-       <span>5 free tokens to get started</span>
-     </li>
-     <li class="flex items-start">
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#F56400] mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-       </svg>
-       <span>No credit card required</span>
-     </li>
-     <li class="flex items-start">
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#F56400] mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-       </svg>
-       <span>Cancel anytime</span>
-     </li>
-     <li class="flex items-start">
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#F56400] mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-       </svg>
-       <span>Full access to all features</span>
-     </li>
-   </ul>
- </div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- Login Form Section -->
-<section id="login" class="py-20 bg-[#F9F8F4] px-6">
-<div class="container mx-auto max-w-md">
-<div class="bg-white rounded-xl shadow-lg p-8 md:p-10">
- <div class="text-center mb-8">
-   <div class="flex items-center justify-center mb-6">
-     <span class="text-2xl font-bold text-[#F56400]">ePro</span>
-     <span class="text-xl font-bold ml-1">AI</span>
-   </div>
-   <h2 class="text-2xl font-bold">Log in to your account</h2>
-   <p class="text-gray-600 mt-2">Welcome back! Please enter your details.</p>
- </div>
- 
- <form class="space-y-5">
-   <div>
-     <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-     <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" placeholder="you@example.com">
-   </div>
-   
-   <div>
-     <div class="flex justify-between items-center mb-1">
-       <label class="block text-sm font-medium text-gray-700">Password</label>
-       <a href="#" class="text-xs text-[#F56400] hover:underline">Forgot password?</a>
-     </div>
-     <input type="password" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" placeholder="Enter your password">
-   </div>
-   
-   <div class="flex items-center">
-     <input type="checkbox" id="remember" class="mr-2">
-     <label for="remember" class="text-sm text-gray-600">Remember me for 30 days</label>
-   </div>
-   
-   <button type="submit" class="w-full bg-[#F56400] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#E05000] transition-colors">
-     Log In
-   </button>
- </form>
- 
- <div class="mt-6 text-center">
-   <p class="text-sm text-gray-600">Don't have an account? <a href="#signup" class="text-[#F56400] hover:underline">Sign up for free</a></p>
- </div>
-</div>
-</div>
-</section>
-
 <!-- Footer -->
 <footer class="bg-gray-900 text-white py-12 px-6">
 <div class="container mx-auto max-w-6xl">
@@ -1250,274 +1205,365 @@
 </div>
 </footer>
 
-<!-- Calculator JavaScript -->
+<!-- JavaScript -->
 <script>
+// Package Selection Logic
 document.addEventListener('DOMContentLoaded', function() {
- // DOM Elements
- const listingsPerMonth = document.getElementById('listingsPerMonth');
- const minutesPerListing = document.getElementById('minutesPerListing');
- const vaListingsPerMonth = document.getElementById('vaListingsPerMonth');
- const useVAYes = document.getElementById('useVAYes');
- const useVANo = document.getElementById('useVANo');
- const vaYesLabel = document.getElementById('vaYesLabel');
- const vaNoLabel = document.getElementById('vaNoLabel');
- const vaSalary = document.getElementById('vaSalary');
- const hourlyRate = document.getElementById('hourlyRate');
- const toolsCost = document.getElementById('toolsCost');
- const eproAiPlan = document.getElementById('eproAiPlan');
+ // Package selection
+ const packageOptions = document.querySelectorAll('.package-option');
  
- // Display Elements
- const displayMonthlyListings = document.getElementById('displayMonthlyListings');
- const displayCurrentHours = document.getElementById('displayCurrentHours');
- const displayEproHours = document.getElementById('displayEproHours');
- const displayTimeSaved = document.getElementById('displayTimeSaved');
- const displayEproCost = document.getElementById('displayEproCost');
- const displayVaCost = document.getElementById('displayVaCost');
- const displayToolSavings = document.getElementById('displayToolSavings');
- const displayTimeSavingsValue = document.getElementById('displayTimeSavingsValue');
- const netBenefit = document.getElementById('netBenefit');
- const timeChangeIndicator = document.getElementById('timeChangeIndicator');
- const benefitChangeIndicator = document.getElementById('benefitChangeIndicator');
- const yearlyNetBenefit = document.getElementById('yearlyNetBenefit');
- const yearlyTimeSaved = document.getElementById('yearlyTimeSaved');
- const vacationDays = document.getElementById('vacationDays');
- const calcProgress = document.getElementById('calcProgress');
- const perListing = document.getElementById('perListing');
- const recalculating = document.getElementById('recalculating');
- 
- // Section Elements
- const timeAnalysisSection = document.getElementById('timeAnalysisSection');
- const timeSavingsValueRow = document.getElementById('timeSavingsValueRow');
- const yearlyTimeRow = document.getElementById('yearlyTimeRow');
- const vacationDaysRow = document.getElementById('vacationDaysRow');
- const vaCostRow = document.getElementById('vaCostRow');
- 
- // Container Elements
- const minutesPerListingContainer = document.getElementById('minutesPerListingContainer');
- const vaListingsPerMonthContainer = document.getElementById('vaListingsPerMonthContainer');
- const vaRateContainer = document.getElementById('vaRateContainer');
- const hourlyRateContainer = document.getElementById('hourlyRateContainer');
- 
- // Constants
- const EPRO_AI_MINUTES_PER_LISTING = 2;
- const MINUTES_PER_HOUR = 60;
- const MONTHS_PER_YEAR = 12;
- const HOURS_PER_WORKDAY = 8;
- 
- // Animation settings
- let progressInterval;
- 
- function showRecalculating() {
-   if (recalculating) {
-     recalculating.style.display = 'inline-block';
-     
-     // Progress animation
-     let progress = 0;
-     if (progressInterval) clearInterval(progressInterval);
-     
-     progressInterval = setInterval(() => {
-       progress += 5;
-       if (calcProgress) calcProgress.style.width = `${progress}%`;
+ packageOptions.forEach(option => {
+   option.addEventListener('click', function() {
+     // Remove selected class from all options
+     packageOptions.forEach(opt => {
+       opt.classList.remove('selected');
+       opt.classList.add('hover-card');
+       opt.classList.remove('border-[#F56400]');
+       opt.classList.add('border-gray-200');
+       opt.classList.remove('bg-[#FEF8F4]');
        
-       if (progress >= 100) {
-         clearInterval(progressInterval);
-         setTimeout(() => {
-           if (recalculating) recalculating.style.display = 'none';
-         }, 200);
-       }
-     }, 25);
-   }
- }
- 
- function calculateROI() {
-   if (!listingsPerMonth) return;
-   
-   // Get values from inputs
-   const listings = parseInt(listingsPerMonth.value) || 10;
-   const minutes = parseInt(minutesPerListing?.value || 60);
-   const vaListings = parseInt(vaListingsPerMonth?.value || 30);
-   const vaSalaryValue = parseInt(vaSalary?.value || 250);
-   const hourlyRateValue = parseInt(hourlyRate?.value || 25);
-   const toolsCostValue = parseInt(toolsCost?.value || 30);
-   const eproRate = parseInt(eproAiPlan?.value || 2);
-   
-   // Determine which mode we're in - VA or self-managed
-   const isVAMode = useVAYes && useVAYes.checked;
-   
-   // Calculate values based on the mode
-   let currentHours, eproHours, timeSaved, monthlyListings;
-   
-   if (isVAMode) {
-     // VA mode logic
-     monthlyListings = vaListings;
-     currentHours = 0; // Not relevant for VA mode
-     eproHours = (monthlyListings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
-     timeSaved = 0; // No time saved for owner in VA mode
-   } else {
-     // Self-managed mode logic
-     monthlyListings = listings;
-     currentHours = (listings * minutes) / MINUTES_PER_HOUR;
-     eproHours = (listings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
-     timeSaved = currentHours - eproHours;
-   }
-   
-   // Calculate cost savings
-   const eproCost = monthlyListings * eproRate;
-   const vaCost = isVAMode ? vaSalaryValue : 0;
-   const toolSavings = toolsCostValue;
-   const timeSavingsValue = timeSaved * hourlyRateValue;
-   
-   // Calculate net benefit
-   let benefit;
-   
-   if (isVAMode) {
-     // For VA users, benefit = VA cost + tool savings - ePro AI cost
-     benefit = vaCost + toolSavings - eproCost;
-   } else {
-     // For self-doers, benefit = time savings value + tool savings - ePro AI cost
-     benefit = timeSavingsValue + toolSavings - eproCost;
-   }
-   
-   // Annual calculations
-   const yearlyBenefit = benefit * MONTHS_PER_YEAR;
-   const yearlyTimeSavedValue = timeSaved * MONTHS_PER_YEAR;
-   const workdaysSaved = yearlyTimeSavedValue / HOURS_PER_WORKDAY;
-   
-   // Update DOM with calculated values
-   if (displayMonthlyListings) displayMonthlyListings.textContent = monthlyListings;
-   
-   // Time analysis updates - only relevant for self-managed mode
-   if (!isVAMode) {
-     if (displayCurrentHours) displayCurrentHours.textContent = currentHours.toFixed(1);
-     if (displayEproHours) displayEproHours.textContent = eproHours.toFixed(1);
-     if (displayTimeSaved) displayTimeSaved.textContent = timeSaved.toFixed(1);
-     
-     const timeChangePercentage = currentHours > 0 ? Math.round(timeSaved / currentHours * 100) : 0;
-     if (timeChangeIndicator) timeChangeIndicator.textContent = `↑ ${timeChangePercentage}%`;
-     
-     if (displayTimeSavingsValue) displayTimeSavingsValue.textContent = `$${timeSavingsValue.toFixed(2)}`;
-     
-     if (yearlyTimeSaved) yearlyTimeSaved.textContent = yearlyTimeSavedValue.toFixed(1);
-     if (vacationDays) vacationDays.textContent = workdaysSaved.toFixed(1);
-   }
-   
-   // Cost-related updates
-   if (displayEproCost) displayEproCost.textContent = `$${eproCost}`;
-   if (perListing) perListing.textContent = `($${eproRate}/listing)`;
-   if (displayVaCost) displayVaCost.textContent = `$${vaCost}`;
-   if (displayToolSavings) displayToolSavings.textContent = `$${toolSavings}`;
-   if (netBenefit) netBenefit.textContent = `$${benefit.toFixed(2)}`;
-   
-   // Update benefit indicator with a proper calculation
-   if (benefitChangeIndicator) {
-     const previousCost = vaCost + toolsCostValue + (currentHours * hourlyRateValue);
-     const newCost = eproCost;
-     const savingsPercent = previousCost > 0 ? Math.round((previousCost - newCost) / previousCost * 100) : 0;
-     benefitChangeIndicator.textContent = `↑ ${savingsPercent}%`;
-   }
-   
-   // Update yearly calculations
-   if (yearlyNetBenefit) yearlyNetBenefit.textContent = `$${yearlyBenefit.toFixed(2)}`;
-   
-   // Show/hide sections based on mode
-   if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
-   if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
-   if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
-   if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
-   if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
-   
-   // Make sure the progress bar completes
-   if (calcProgress) calcProgress.style.width = '100%';
- }
- 
- // Initialize UI based on selected mode
- function updateUIBasedOnMode() {
-   const isVAMode = useVAYes && useVAYes.checked;
-   
-   // Update styles for radio buttons
-   if (vaYesLabel) {
-     vaYesLabel.classList.toggle('bg-[#F56400]', isVAMode);
-     vaYesLabel.classList.toggle('text-white', isVAMode);
-     vaYesLabel.classList.toggle('border-[#F56400]', isVAMode);
-   }
-   
-   if (vaNoLabel) {
-     vaNoLabel.classList.toggle('bg-[#F56400]', !isVAMode);
-     vaNoLabel.classList.toggle('text-white', !isVAMode);
-     vaNoLabel.classList.toggle('border-[#F56400]', !isVAMode);
-   }
-   
-   // Show/hide VA specific fields
-   if (vaRateContainer) vaRateContainer.classList.toggle('hidden', !isVAMode);
-   if (vaListingsPerMonthContainer) vaListingsPerMonthContainer.classList.toggle('hidden', !isVAMode);
-
-   // Show/hide owner specific fields
-   if (minutesPerListingContainer) minutesPerListingContainer.classList.toggle('hidden', isVAMode);
-   if (hourlyRateContainer) hourlyRateContainer.classList.toggle('hidden', isVAMode);
-   // Add this line to hide the listings per month field when in VA mode
-   if (listingsPerMonth) listingsPerMonth.parentElement.parentElement.classList.toggle('hidden', isVAMode);
-
-   // Show/hide sections
-   if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
-   if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
-   if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
-   if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
-   if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
- }
-
- // Add event listeners for form inputs
- // User type selection
- if (useVAYes) {
-   useVAYes.addEventListener('change', function() {
-     if (this.checked) {
-       updateUIBasedOnMode();
-       showRecalculating();
-       setTimeout(calculateROI, 300);
-     }
-   });
- }
- 
- if (useVANo) {
-   useVANo.addEventListener('change', function() {
-     if (this.checked) {
-       updateUIBasedOnMode();
-       showRecalculating();
-       setTimeout(calculateROI, 300);
-     }
-   });
- }
- 
- // Number inputs
- const inputIds = [
-   'listingsPerMonth', 
-   'minutesPerListing', 
-   'vaListingsPerMonth', 
-   'vaSalary', 
-   'hourlyRate', 
-   'toolsCost'
- ];
- 
- inputIds.forEach(id => {
-   const element = document.getElementById(id);
-   if (element) {
-     element.addEventListener('input', function() {
-       showRecalculating();
-       setTimeout(calculateROI, 300);
+       // Reset all buttons
+       const btn = opt.querySelector('.package-select-btn');
+       btn.textContent = 'Select';
+       btn.classList.remove('bg-[#F56400]');
+       btn.classList.remove('text-white');
+       btn.classList.add('bg-gray-100');
+       btn.classList.add('text-gray-700');
      });
-   }
+     
+     // Add selected class to clicked option
+     this.classList.add('selected');
+     this.classList.remove('hover-card');
+     this.classList.add('border-[#F56400]');
+     this.classList.remove('border-gray-200');
+     this.classList.add('bg-[#FEF8F4]');
+     
+     // Update button
+     const btn = this.querySelector('.package-select-btn');
+     btn.textContent = 'Selected';
+     btn.classList.add('bg-[#F56400]');
+     btn.classList.add('text-white');
+     btn.classList.remove('bg-gray-100');
+     btn.classList.remove('text-gray-700');
+   });
  });
  
- // Plan selection
- if (eproAiPlan) {
-   eproAiPlan.addEventListener('change', function() {
+ // Tab switching for upload options
+ const uploadTabs = document.querySelectorAll('.upload-tab');
+ const uploadAreas = document.querySelectorAll('.upload-area');
+ 
+ uploadTabs.forEach(tab => {
+   tab.addEventListener('click', function() {
+     // Remove active class from all tabs
+     uploadTabs.forEach(t => {
+       t.classList.remove('active');
+       t.classList.remove('border-[#F56400]');
+       t.classList.remove('text-[#F56400]');
+     });
+     
+     // Add active class to clicked tab
+     this.classList.add('active');
+     this.classList.add('border-[#F56400]');
+     this.classList.add('text-[#F56400]');
+     
+     // Show corresponding area
+     const targetId = this.id.replace('Tab', 'Area');
+     uploadAreas.forEach(area => {
+       if (area.id === targetId) {
+         area.classList.remove('hidden');
+         area.classList.add('active');
+       } else {
+         area.classList.add('hidden');
+         area.classList.remove('active');
+       }
+     });
+   });
+ });
+ 
+ // Custom token amount logic
+ const customTokenInput = document.getElementById('customTokenAmount');
+ const customTokenPrice = document.getElementById('customTokenPrice');
+ 
+ if (customTokenInput && customTokenPrice) {
+   customTokenInput.addEventListener('input', function() {
+ let value = parseInt(this.value) || 0;
+ 
+ // Ensure minimum of 10 tokens
+ if (value < 10) {
+   value = 10;
+   this.value = 10;
+ }
+ 
+ // Update price (1:1 ratio)
+ customTokenPrice.textContent = value;
+});
+
+// ROI Calculator Logic
+// DOM Elements
+const listingsPerMonth = document.getElementById('listingsPerMonth');
+const minutesPerListing = document.getElementById('minutesPerListing');
+const vaListingsPerMonth = document.getElementById('vaListingsPerMonth');
+const useVAYes = document.getElementById('useVAYes');
+const useVANo = document.getElementById('useVANo');
+const vaYesLabel = document.getElementById('vaYesLabel');
+const vaNoLabel = document.getElementById('vaNoLabel');
+const vaSalary = document.getElementById('vaSalary');
+const hourlyRate = document.getElementById('hourlyRate');
+const toolsCost = document.getElementById('toolsCost');
+const eproAiPlan = document.getElementById('eproAiPlan');
+
+// Display Elements
+const displayMonthlyListings = document.getElementById('displayMonthlyListings');
+const displayCurrentHours = document.getElementById('displayCurrentHours');
+const displayEproHours = document.getElementById('displayEproHours');
+const displayTimeSaved = document.getElementById('displayTimeSaved');
+const displayEproCost = document.getElementById('displayEproCost');
+const displayVaCost = document.getElementById('displayVaCost');
+const displayToolSavings = document.getElementById('displayToolSavings');
+const displayTimeSavingsValue = document.getElementById('displayTimeSavingsValue');
+const netBenefit = document.getElementById('netBenefit');
+const timeChangeIndicator = document.getElementById('timeChangeIndicator');
+const benefitChangeIndicator = document.getElementById('benefitChangeIndicator');
+const yearlyNetBenefit = document.getElementById('yearlyNetBenefit');
+const yearlyTimeSaved = document.getElementById('yearlyTimeSaved');
+const vacationDays = document.getElementById('vacationDays');
+const calcProgress = document.getElementById('calcProgress');
+const perListing = document.getElementById('perListing');
+const recalculating = document.getElementById('recalculating');
+
+// Section Elements
+const timeAnalysisSection = document.getElementById('timeAnalysisSection');
+const timeSavingsValueRow = document.getElementById('timeSavingsValueRow');
+const yearlyTimeRow = document.getElementById('yearlyTimeRow');
+const vacationDaysRow = document.getElementById('vacationDaysRow');
+const vaCostRow = document.getElementById('vaCostRow');
+
+// Container Elements
+const minutesPerListingContainer = document.getElementById('minutesPerListingContainer');
+const vaListingsPerMonthContainer = document.getElementById('vaListingsPerMonthContainer');
+const vaRateContainer = document.getElementById('vaRateContainer');
+const hourlyRateContainer = document.getElementById('hourlyRateContainer');
+
+// Constants
+const EPRO_AI_MINUTES_PER_LISTING = 2;
+const MINUTES_PER_HOUR = 60;
+const MONTHS_PER_YEAR = 12;
+const HOURS_PER_WORKDAY = 8;
+
+// Animation settings
+let progressInterval;
+
+function showRecalculating() {
+ if (recalculating) {
+   recalculating.style.display = 'inline-block';
+   
+   // Progress animation
+   let progress = 0;
+   if (progressInterval) clearInterval(progressInterval);
+   
+   progressInterval = setInterval(() => {
+     progress += 5;
+     if (calcProgress) calcProgress.style.width = `${progress}%`;
+     
+     if (progress >= 100) {
+       clearInterval(progressInterval);
+       setTimeout(() => {
+         if (recalculating) recalculating.style.display = 'none';
+       }, 200);
+     }
+   }, 25);
+ }
+}
+
+function calculateROI() {
+ if (!listingsPerMonth) return;
+ 
+ // Get values from inputs
+ const listings = parseInt(listingsPerMonth.value) || 10;
+ const minutes = parseInt(minutesPerListing?.value || 60);
+ const vaListings = parseInt(vaListingsPerMonth?.value || 30);
+ const vaSalaryValue = parseInt(vaSalary?.value || 250);
+ const hourlyRateValue = parseInt(hourlyRate?.value || 25);
+ const toolsCostValue = parseInt(toolsCost?.value || 30);
+ const eproRate = parseInt(eproAiPlan?.value || 2);
+ 
+ // Determine which mode we're in - VA or self-managed
+ const isVAMode = useVAYes && useVAYes.checked;
+ 
+ // Calculate values based on the mode
+ let currentHours, eproHours, timeSaved, monthlyListings;
+ 
+ if (isVAMode) {
+   // VA mode logic
+   monthlyListings = vaListings;
+   currentHours = 0; // Not relevant for VA mode
+   eproHours = (monthlyListings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
+   timeSaved = 0; // No time saved for owner in VA mode
+ } else {
+   // Self-managed mode logic
+   monthlyListings = listings;
+   currentHours = (listings * minutes) / MINUTES_PER_HOUR;
+   eproHours = (listings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
+   timeSaved = currentHours - eproHours;
+ }
+ 
+ // Calculate cost savings
+ const eproCost = monthlyListings * eproRate;
+ const vaCost = isVAMode ? vaSalaryValue : 0;
+ const toolSavings = toolsCostValue;
+ const timeSavingsValue = timeSaved * hourlyRateValue;
+ 
+ // Calculate net benefit
+ let benefit;
+ 
+ if (isVAMode) {
+   // For VA users, benefit = VA cost + tool savings - ePro AI cost
+   benefit = vaCost + toolSavings - eproCost;
+ } else {
+   // For self-doers, benefit = time savings value + tool savings - ePro AI cost
+   benefit = timeSavingsValue + toolSavings - eproCost;
+ }
+ 
+ // Annual calculations
+ const yearlyBenefit = benefit * MONTHS_PER_YEAR;
+ const yearlyTimeSavedValue = timeSaved * MONTHS_PER_YEAR;
+ const workdaysSaved = yearlyTimeSavedValue / HOURS_PER_WORKDAY;
+ 
+ // Update DOM with calculated values
+ if (displayMonthlyListings) displayMonthlyListings.textContent = monthlyListings;
+ 
+ // Time analysis updates - only relevant for self-managed mode
+ if (!isVAMode) {
+   if (displayCurrentHours) displayCurrentHours.textContent = currentHours.toFixed(1);
+   if (displayEproHours) displayEproHours.textContent = eproHours.toFixed(1);
+   if (displayTimeSaved) displayTimeSaved.textContent = timeSaved.toFixed(1);
+   
+   const timeChangePercentage = currentHours > 0 ? Math.round(timeSaved / currentHours * 100) : 0;
+   if (timeChangeIndicator) timeChangeIndicator.textContent = `↑ ${timeChangePercentage}%`;
+   
+   if (displayTimeSavingsValue) displayTimeSavingsValue.textContent = `$${timeSavingsValue.toFixed(2)}`;
+   
+   if (yearlyTimeSaved) yearlyTimeSaved.textContent = yearlyTimeSavedValue.toFixed(1);
+   if (vacationDays) vacationDays.textContent = workdaysSaved.toFixed(1);
+ }
+ 
+ // Cost-related updates
+ if (displayEproCost) displayEproCost.textContent = `$${eproCost}`;
+ if (perListing) perListing.textContent = `($${eproRate}/listing)`;
+ if (displayVaCost) displayVaCost.textContent = `$${vaCost}`;
+ if (displayToolSavings) displayToolSavings.textContent = `$${toolSavings}`;
+ if (netBenefit) netBenefit.textContent = `$${benefit.toFixed(2)}`;
+ 
+ // Update benefit indicator with a proper calculation
+ if (benefitChangeIndicator) {
+   const previousCost = vaCost + toolsCostValue + (currentHours * hourlyRateValue);
+   const newCost = eproCost;
+   const savingsPercent = previousCost > 0 ? Math.round((previousCost - newCost) / previousCost * 100) : 0;
+   benefitChangeIndicator.textContent = `↑ ${savingsPercent}%`;
+ }
+ 
+ // Update yearly calculations
+ if (yearlyNetBenefit) yearlyNetBenefit.textContent = `$${yearlyBenefit.toFixed(2)}`;
+ 
+ // Show/hide sections based on mode
+ if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
+ if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
+ if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
+ if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
+ if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
+ 
+ // Make sure the progress bar completes
+ if (calcProgress) calcProgress.style.width = '100%';
+}
+
+// Initialize UI based on selected mode
+function updateUIBasedOnMode() {
+ const isVAMode = useVAYes && useVAYes.checked;
+ 
+ // Update styles for radio buttons
+ if (vaYesLabel) {
+   vaYesLabel.classList.toggle('bg-[#F56400]', isVAMode);
+   vaYesLabel.classList.toggle('text-white', isVAMode);
+   vaYesLabel.classList.toggle('border-[#F56400]', isVAMode);
+ }
+ 
+ if (vaNoLabel) {
+   vaNoLabel.classList.toggle('bg-[#F56400]', !isVAMode);
+   vaNoLabel.classList.toggle('text-white', !isVAMode);
+   vaNoLabel.classList.toggle('border-[#F56400]', !isVAMode);
+ }
+ 
+ // Show/hide VA specific fields
+ if (vaRateContainer) vaRateContainer.classList.toggle('hidden', !isVAMode);
+ if (vaListingsPerMonthContainer) vaListingsPerMonthContainer.classList.toggle('hidden', !isVAMode);
+
+ // Show/hide owner specific fields
+ if (minutesPerListingContainer) minutesPerListingContainer.classList.toggle('hidden', isVAMode);
+ if (hourlyRateContainer) hourlyRateContainer.classList.toggle('hidden', isVAMode);
+ // Add this line to hide the listings per month field when in VA mode
+ if (listingsPerMonth) listingsPerMonth.parentElement.parentElement.classList.toggle('hidden', isVAMode);
+
+ // Show/hide sections
+ if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
+ if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
+ if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
+ if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
+ if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
+}
+
+// Add event listeners for form inputs
+// User type selection
+if (useVAYes) {
+ useVAYes.addEventListener('change', function() {
+   if (this.checked) {
+     updateUIBasedOnMode();
+     showRecalculating();
+     setTimeout(calculateROI, 300);
+   }
+ });
+}
+
+if (useVANo) {
+ useVANo.addEventListener('change', function() {
+   if (this.checked) {
+     updateUIBasedOnMode();
+     showRecalculating();
+     setTimeout(calculateROI, 300);
+   }
+ });
+}
+
+// Number inputs
+const inputIds = [
+ 'listingsPerMonth', 
+ 'minutesPerListing', 
+ 'vaListingsPerMonth', 
+ 'vaSalary', 
+ 'hourlyRate', 
+ 'toolsCost'
+];
+
+inputIds.forEach(id => {
+ const element = document.getElementById(id);
+ if (element) {
+   element.addEventListener('input', function() {
      showRecalculating();
      setTimeout(calculateROI, 300);
    });
  }
- 
- // Initialize the UI and calculations
- updateUIBasedOnMode();
- calculateROI();
+});
+
+// Plan selection
+if (eproAiPlan) {
+ eproAiPlan.addEventListener('change', function() {
+   showRecalculating();
+   setTimeout(calculateROI, 300);
+ });
+}
+
+// Initialize the UI and calculations
+updateUIBasedOnMode();
+calculateROI();
 });
 </script>
 </body>
