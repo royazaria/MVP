@@ -175,7 +175,8 @@
       
       // Redirect to the dashboard after a brief delay
       setTimeout(() => {
-        window.location.href = "/dashboard";
+        localStorage.setItem('epro_signed_up', 'true');
+        window.location.href = "/index.html";
       }, 1000);
       
       // Show a loading state on the button
