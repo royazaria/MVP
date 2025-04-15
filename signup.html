@@ -1,48 +1,143 @@
-<!-- Clean Professional Signup Form -->
-<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg border border-gray-200">
-  <form
-    action="https://formspree.io/f/xqapjgka"
-    method="POST"
-    id="lead-signup-form"
-    onsubmit="handleSignup(event)"
-  >
-    <!-- Header -->
-    <div class="text-center mb-6">
-      <h2 class="text-2xl font-bold text-gray-800">Join ePro AI</h2>
-      <p class="text-gray-600 mt-2">Create perfect Etsy listings in minutes</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - ePro AI</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f9f8f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .form-container {
+      max-width: 450px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .form-header {
+      background: linear-gradient(to right, #F56400, #F2994A);
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    .form-body {
+      padding: 30px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+    .form-input:focus {
+      border-color: #F56400;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(245, 100, 0, 0.1);
+    }
+    .form-select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: white;
+      transition: border 0.3s;
+    }
+    .form-select:focus {
+      border-color: #F56400;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(245, 100, 0, 0.1);
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+    .submit-button {
+      width: 100%;
+      padding: 14px;
+      background: #F56400;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .submit-button:hover {
+      background: #E05000;
+    }
+    .success-message {
+      background-color: #d1fae5;
+      border: 1px solid #a7f3d0;
+      color: #047857;
+      padding: 12px;
+      border-radius: 5px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+    .error-message {
+      background-color: #fee2e2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      padding: 12px;
+      border-radius: 5px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-header">
+      <h2 class="text-2xl font-bold">Join ePro AI</h2>
+      <p class="mt-1">Create perfect Etsy listings in minutes</p>
     </div>
     
-    <div class="space-y-4">
-      <!-- Name Input -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+    <div class="form-body">
+      <form 
+        action="https://formspree.io/f/xqapjgka"
+        method="POST"
+        id="lead-signup-form"
+        onsubmit="handleSignup(event)"
+      >
+        <label class="form-label" for="full_name">Full Name</label>
         <input 
-          type="text" 
+          type="text"
+          id="full_name" 
           name="full_name" 
-          required 
-          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F56400]" 
+          class="form-input"
           placeholder="Your name"
-        />
-      </div>
-      
-      <!-- Email Input -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+          required
+        >
+        
+        <label class="form-label" for="email">Email Address</label>
         <input 
-          type="email" 
+          type="email"
+          id="email" 
           name="email" 
-          required 
-          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F56400]" 
+          class="form-input"
           placeholder="you@example.com"
-        />
-      </div>
-      
-      <!-- Business Type Select -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Business Type</label>
+          required
+        >
+        
+        <label class="form-label" for="business_type">Business Type</label>
         <select 
+          id="business_type"
           name="business_type" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F56400] appearance-none bg-white"
+          class="form-select"
         >
           <option value="">Select your business type...</option>
           <option value="Etsy Seller">Etsy Seller</option>
@@ -51,76 +146,73 @@
           <option value="Handmade Products">Handmade Products</option>
           <option value="Other">Other</option>
         </select>
-      </div>
-      
-      <!-- Submit Button -->
-      <div class="pt-2">
+        
         <button
           type="submit"
           id="submit-button"
-          class="w-full bg-[#F56400] text-white py-2 px-4 rounded-md font-medium hover:bg-[#E05000] transition-colors"
+          class="submit-button"
         >
           Get Started
         </button>
-      </div>
+        
+        <div id="form-success" class="success-message">
+          Thank you for signing up! You'll be redirected shortly.
+        </div>
+        
+        <div id="form-error" class="error-message">
+          Something went wrong. Please try again.
+        </div>
+      </form>
     </div>
-    
-    <!-- Status Messages -->
-    <div id="form-success" class="hidden mt-4 p-3 bg-green-50 text-green-700 rounded-md text-center text-sm">
-      Thank you for signing up! You'll be redirected shortly.
-    </div>
-    
-    <div id="form-error" class="hidden mt-4 p-3 bg-red-50 text-red-700 rounded-md text-center text-sm">
-      Something went wrong. Please try again.
-    </div>
-  </form>
-</div>
+  </div>
 
-<script>
-  function handleSignup(event) {
-    event.preventDefault();
-    
-    // Show loading state
-    const submitButton = document.getElementById('submit-button');
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Processing...';
-    submitButton.disabled = true;
-    
-    // Hide any existing messages
-    document.getElementById('form-success').classList.add('hidden');
-    document.getElementById('form-error').classList.add('hidden');
-    
-    // Let Formspree handle the form
-    const form = event.target;
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        // Show success message
-        document.getElementById('form-success').classList.remove('hidden');
-        
-        // Store login in localStorage
-        localStorage.setItem('epro_logged_in', 'true');
-        
-        // Redirect after a short delay
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 1500);
-      } else {
+  <script>
+    function handleSignup(event) {
+      event.preventDefault();
+      
+      // Show loading state
+      const submitButton = document.getElementById('submit-button');
+      const originalText = submitButton.textContent;
+      submitButton.textContent = 'Processing...';
+      submitButton.disabled = true;
+      
+      // Hide any existing messages
+      document.getElementById('form-success').style.display = 'none';
+      document.getElementById('form-error').style.display = 'none';
+      
+      // Let Formspree handle the form
+      const form = event.target;
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Show success message
+          document.getElementById('form-success').style.display = 'block';
+          
+          // Store login in localStorage
+          localStorage.setItem('epro_logged_in', 'true');
+          
+          // Redirect after a short delay
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1500);
+        } else {
+          // Show error message
+          document.getElementById('form-error').style.display = 'block';
+          submitButton.textContent = originalText;
+          submitButton.disabled = false;
+        }
+      })
+      .catch(() => {
         // Show error message
-        document.getElementById('form-error').classList.remove('hidden');
+        document.getElementById('form-error').style.display = 'block';
         submitButton.textContent = originalText;
         submitButton.disabled = false;
-      }
-    })
-    .catch(() => {
-      // Show error message
-      document.getElementById('form-error').classList.remove('hidden');
-      submitButton.textContent = originalText;
-      submitButton.disabled = false;
-    });
-  }
-</script>
+      });
+    }
+  </script>
+</body>
+</html>
