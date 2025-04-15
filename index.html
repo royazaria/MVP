@@ -1,4 +1,7 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <script>
   // Check if the user is already "signed up"
   const isSignedUp = localStorage.getItem('epro_signed_up');
 
@@ -7,10 +10,6 @@
     window.location.href = "signup.html";
   }
 </script>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ePro AI | Professional Etsy Listings Generator</title>
@@ -94,6 +93,12 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
+  <script>
+    const isSignedUp = localStorage.getItem('epro_signed_up');
+    if (!isSignedUp) {
+      window.location.href = "signup.html";
+    }
+  </script>
 
   <!-- Navigation -->
 <nav class="bg-white shadow-sm py-4 sticky top-0 z-50">
