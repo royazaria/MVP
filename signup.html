@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - ePro AI | Professional Etsy Listings Generator</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --etsy-orange: #F56400;
+      --etsy-background: #F9F8F4;
+      --primary-gradient: linear-gradient(90deg, #F56400 0%, #F2994A 100%);
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--etsy-background);
+    }
+    .btn-gradient {
+      background: var(--primary-gradient);
+      transition: all 0.3s ease;
+    }
+    .btn-gradient:hover {
+      box-shadow: 0 10px 15px -3px rgba(245, 100, 0, 0.2);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="bg-[#F9F8F4] text-gray-900 min-h-screen flex flex-col">
+
+  <!-- Simple Header -->
+  <header class="bg-white shadow-sm py-4">
+    <div class="container mx-auto px-6">
+      <a href="/" class="flex items-center">
+        <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] text-transparent bg-clip-text">
+          <span class="text-2xl font-bold">ePro</span>
+          <span class="text-xl font-bold ml-1">AI</span>
+        </div>
+        <span class="ml-2 bg-[#F56400] text-white text-xs px-2 py-1 rounded-full">BETA</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex items-center justify-center py-12 px-6">
+    <div class="w-full max-w-md">
+      <!-- Form Card -->
+      <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+        <div class="text-center mb-8">
+          <h1 class="text-2xl font-bold mb-2">Create Your ePro AI Account</h1>
+          <p class="text-gray-600">Start generating professional Etsy listings in minutes</p>
+        </div>
+        
+        <form id="signupForm" class="space-y-6" onsubmit="submitForm(event)">
+          <!-- Name Field -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name <span class="text-red-500">*</span></label>
+            <input type="text" id="name" name="name" required 
+                  class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-colors"
+                  placeholder="Your name">
+          </div>
+          
+          <!-- Email Field -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+            <input type="email" id="email" name="email" required 
+                  class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-colors"
+                  placeholder="your.email@example.com">
+          </div>
+          
+          <!-- Password Field (optional) -->
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Create Password <span class="text-red-500">*</span></label>
+            <input type="password" id="password" name="password" required 
+                  class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-colors"
+                  placeholder="••••••••" minlength="8">
+            <p class="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
+          </div>
+          
+          <!-- Terms & Privacy -->
+          <div class="flex items-start">
+            <input type="checkbox" id="terms" name="terms" required class="mt-1 mr-2">
+            <label for="terms" class="text-sm text-gray-600">
+              I agree to the <a href="#" class="text-[#F56400] hover:underline">Terms of Service</a> and 
+              <a href="#" class="text-[#F56400] hover:underline">Privacy Policy</a>
+            </label>
+          </div>
+          
+          <!-- Signup Button -->
+          <button type="submit" class="w-full bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+            Create Account
+          </button>
+          
+          <!-- Email Marketing (optional) -->
+          <div class="flex items-start">
+            <input type="checkbox" id="marketing" name="marketing" class="mt-1 mr-2" checked>
+            <label for="marketing" class="text-sm text-gray-600">
+              I'd like to receive tips, news and special offers from ePro AI
+            </label>
+          </div>
+        </form>
+        
+        <!-- Already have account -->
+        <div class="text-center mt-6">
+          <p class="text-sm text-gray-600">
+            Already have an account? <a href="/login" class="text-[#F56400] hover:underline font-medium">Log In</a>
+          </p>
+        </div>
+      </div>
+      
+      <!-- Testimonial (optional) -->
+      <div class="mt-8 bg-white p-4 rounded-lg border border-gray-200 flex items-start space-x-4">
+        <div class="flex-shrink-0">
+          <img src="/api/placeholder/48/48" alt="User Avatar" class="w-12 h-12 rounded-full">
+        </div>
+        <div>
+          <p class="text-sm text-gray-600 italic">"I was spending 2 hours per listing before. With ePro AI, it takes just 3 minutes, and my conversion rate has actually gone up by 32%!"</p>
+          <p class="text-sm font-medium mt-2">Sarah K. — Etsy Dropshipper</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Simple Footer -->
+  <footer class="bg-white py-6 border-t border-gray-200">
+    <div class="container mx-auto px-6 text-center text-gray-500 text-sm">
+      <p>&copy; 2025 ePro AI. All rights reserved.</p>
+      <div class="mt-2 space-x-4">
+        <a href="#" class="hover:text-[#F56400]">Terms</a>
+        <a href="#" class="hover:text-[#F56400]">Privacy</a>
+        <a href="#" class="hover:text-[#F56400]">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+      
+      // Get form elements
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const termsCheckbox = document.getElementById('terms');
+      
+      // Basic validation
+      if (!nameInput.value.trim()) {
+        alert('Please enter your name');
+        nameInput.focus();
+        return;
+      }
+      
+      if (!emailInput.value.trim()) {
+        alert('Please enter your email address');
+        emailInput.focus();
+        return;
+      }
+      
+      if (!termsCheckbox.checked) {
+        alert('You must agree to the Terms of Service and Privacy Policy');
+        return;
+      }
+      
+      // In a real application, you would send this data to your server
+      // For now, we'll simulate a successful signup
+      console.log("Form submitted with:", {
+        name: nameInput.value,
+        email: emailInput.value
+      });
+      
+      // Redirect to the dashboard after a brief delay
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 1000);
+      
+      // Show a loading state on the button
+      const submitButton = event.target.querySelector('button[type="submit"]');
+      submitButton.innerHTML = '<span class="inline-block animate-spin mr-2">⟳</span> Creating Account...';
+      submitButton.disabled = true;
+    }
+  </script>
+</body>
+</html>
