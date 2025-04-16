@@ -4,167 +4,238 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up - ePro AI</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
-    body {
-      background-color: #f9f8f4;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    :root {
+      --etsy-orange: #F56400;
+      --etsy-gradient: linear-gradient(90deg, #F56400 0%, #F2994A 100%);
     }
-    .form-container {
-      max-width: 450px;
-      margin: 50px auto;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F9F8F4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .gradient-text {
+      background: var(--etsy-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .token-badge {
+      position: relative;
       overflow: hidden;
     }
-    .form-header {
-      background: linear-gradient(to right, #F56400, #F2994A);
-      padding: 20px;
-      color: white;
-      text-align: center;
+    
+    .token-badge::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(transparent, rgba(255, 255, 255, 0.4), transparent 30%);
+      animation: rotate 2s linear infinite;
     }
-    .form-body {
-      padding: 30px;
+    
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
     }
-    .form-input {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 16px;
-      transition: border 0.3s;
-    }
-    .form-input:focus {
-      border-color: #F56400;
-      outline: none;
+    
+    .input-field:focus {
+      border-color: var(--etsy-orange);
       box-shadow: 0 0 0 3px rgba(245, 100, 0, 0.1);
     }
-    .form-select {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 16px;
-      background-color: white;
-      transition: border 0.3s;
+    
+    .pulse-button {
+      animation: pulse 2s infinite;
     }
-    .form-select:focus {
-      border-color: #F56400;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(245, 100, 0, 0.1);
-    }
-    .form-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: #333;
-    }
-    .submit-button {
-      width: 100%;
-      padding: 14px;
-      background: #F56400;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .submit-button:hover {
-      background: #E05000;
-    }
-    .success-message {
-      background-color: #d1fae5;
-      border: 1px solid #a7f3d0;
-      color: #047857;
-      padding: 12px;
-      border-radius: 5px;
-      margin-top: 20px;
-      text-align: center;
-      display: none;
-    }
-    .error-message {
-      background-color: #fee2e2;
-      border: 1px solid #fecaca;
-      color: #b91c1c;
-      padding: 12px;
-      border-radius: 5px;
-      margin-top: 20px;
-      text-align: center;
-      display: none;
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(245, 100, 0, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(245, 100, 0, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(245, 100, 0, 0);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <div class="form-header">
-      <h2 class="text-2xl font-bold">Join ePro AI</h2>
-      <p class="mt-1">Create perfect Etsy listings in minutes</p>
+  <!-- Header -->
+  <header class="bg-white py-4 shadow-sm">
+    <div class="container mx-auto px-6 flex items-center">
+      <a href="index.html" class="flex items-center">
+        <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] text-transparent bg-clip-text">
+          <span class="text-2xl font-bold">ePro</span>
+          <span class="text-xl font-bold ml-1">AI</span>
+        </div>
+        <span class="ml-2 bg-[#F56400] text-white text-xs px-2 py-1 rounded-full">BETA</span>
+      </a>
     </div>
-    
-    <div class="form-body">
-      <form 
-        action="https://formspree.io/f/xqapjgka"
-        method="POST"
-        id="lead-signup-form"
-        onsubmit="handleSignup(event)"
-      >
-        <label class="form-label" for="full_name">Full Name</label>
-        <input 
-          type="text"
-          id="full_name" 
-          name="full_name" 
-          class="form-input"
-          placeholder="Your name"
-          required
-        >
-        
-        <label class="form-label" for="email">Email Address</label>
-        <input 
-          type="email"
-          id="email" 
-          name="email" 
-          class="form-input"
-          placeholder="you@example.com"
-          required
-        >
-        
-        <label class="form-label" for="business_type">Business Type</label>
-        <select 
-          id="business_type"
-          name="business_type" 
-          class="form-select"
-        >
-          <option value="">Select your business type...</option>
-          <option value="Etsy Seller">Etsy Seller</option>
-          <option value="Dropshipper">Dropshipper</option>
-          <option value="Print on Demand">Print on Demand</option>
-          <option value="Handmade Products">Handmade Products</option>
-          <option value="Other">Other</option>
-        </select>
-        
-        <button
-          type="submit"
-          id="submit-button"
-          class="submit-button"
-        >
-          Get Started
-        </button>
-        
-        <div id="form-success" class="success-message">
-          Thank you for signing up! You'll be redirected shortly.
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex items-center justify-center py-12 px-4">
+    <div class="w-full max-w-md">
+      <!-- Form Container -->
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl">
+        <!-- Form Header -->
+        <div class="relative bg-gradient-to-r from-[#F56400] to-[#F2994A] py-8 px-6 text-white">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-white opacity-5 rounded-full -mr-20 -mt-20"></div>
+          <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-10 -mb-10"></div>
+          
+          <h1 class="text-2xl font-bold relative z-10">Create Your ePro AI Account</h1>
+          <p class="mt-2 opacity-90 relative z-10">Start creating perfect Etsy listings in minutes</p>
+          
+          <!-- Free Token Banner -->
+          <div class="mt-4 bg-white bg-opacity-20 rounded-lg py-2 px-4 inline-flex items-center">
+            <div class="mr-2 h-6 w-6 bg-white rounded-full flex items-center justify-center text-[#F56400] font-bold">
+              <span class="text-sm">E</span>
+            </div>
+            <span class="font-medium">Get 10 free tokens when you sign up!</span>
+          </div>
         </div>
         
-        <div id="form-error" class="error-message">
-          Something went wrong. Please try again.
+        <!-- Form Body -->
+        <div class="p-6">
+          <form 
+            action="https://formspree.io/f/xqapjgka"
+            method="POST"
+            id="lead-signup-form"
+            onsubmit="handleSignup(event)"
+            class="space-y-5"
+          >
+            <div>
+              <label class="block text-gray-700 font-medium mb-2" for="full_name">Full Name</label>
+              <input 
+                type="text"
+                id="full_name" 
+                name="full_name" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-field transition-all"
+                placeholder="John Smith"
+                required
+              >
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 font-medium mb-2" for="email">Email Address</label>
+              <input 
+                type="email"
+                id="email" 
+                name="email" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-field transition-all"
+                placeholder="you@example.com"
+                required
+              >
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 font-medium mb-2" for="business_type">Business Type</label>
+              <select 
+                id="business_type"
+                name="business_type" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-field transition-all appearance-none bg-white"
+              >
+                <option value="">Select your business type...</option>
+                <option value="Etsy Seller">Etsy Seller</option>
+                <option value="Dropshipper">Dropshipper</option>
+                <option value="Print on Demand">Print on Demand</option>
+                <option value="Handmade Products">Handmade Products</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div class="pt-2">
+              <button
+                type="submit"
+                id="submit-button"
+                class="w-full bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 focus:outline-none"
+              >
+                Create Free Account
+              </button>
+              
+              <p class="mt-3 text-center text-sm text-gray-500">
+                By signing up, you agree to our 
+                <a href="terms.html" class="text-[#F56400] hover:underline">Terms of Service</a> and 
+                <a href="privacy.html" class="text-[#F56400] hover:underline">Privacy Policy</a>
+              </p>
+            </div>
+            
+            <!-- Success Message -->
+            <div id="form-success" class="hidden mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+              <div class="flex items-center">
+                <svg class="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <p>Success! Redirecting you to your dashboard...</p>
+              </div>
+            </div>
+            
+            <!-- Error Message -->
+            <div id="form-error" class="hidden mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+              <div class="flex items-center">
+                <svg class="h-5 w-5 text-red-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <p>Something went wrong. Please try again.</p>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
+        
+        <!-- Bottom Banner (Social Proof) -->
+        <div class="bg-gray-50 py-4 px-6 border-t border-gray-100">
+          <div class="flex items-center justify-center space-x-2">
+            <div class="flex -space-x-2">
+              <img class="h-8 w-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=1" alt="User">
+              <img class="h-8 w-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=2" alt="User">
+              <img class="h-8 w-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=3" alt="User">
+            </div>
+            <span class="text-sm text-gray-600">
+              <span class="font-medium">37 people</span> joined in the last 24 hours
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Login Link -->
+      <div class="mt-6 text-center">
+        <p class="text-gray-600">
+          Already have an account? 
+          <a href="login.html" class="text-[#F56400] font-medium hover:underline">Log In</a>
+        </p>
+      </div>
     </div>
-  </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6 px-6">
+    <div class="container mx-auto text-center text-gray-400 text-sm">
+      <p>&copy; 2025 ePro AI. All rights reserved. Operated by Aetophis.</p>
+      <div class="mt-2 space-x-4">
+        <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a>
+        <a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+        <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+        <a href="refund.html" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
     function handleSignup(event) {
@@ -177,23 +248,31 @@
       submitButton.disabled = true;
       
       // Hide any existing messages
-      document.getElementById('form-success').style.display = 'none';
-      document.getElementById('form-error').style.display = 'none';
+      document.getElementById('form-success').classList.add('hidden');
+      document.getElementById('form-error').classList.add('hidden');
       
-      // Let Formspree handle the form
+      // Get form data
       const form = event.target;
+      const formData = new FormData(form);
+      const fullName = formData.get('full_name');
+      const email = formData.get('email');
+      
+      // Send to Formspree
       fetch(form.action, {
         method: "POST",
-        body: new FormData(form),
+        body: formData,
         headers: { 'Accept': 'application/json' }
       })
       .then(response => {
         if (response.ok) {
           // Show success message
-          document.getElementById('form-success').style.display = 'block';
+          document.getElementById('form-success').classList.remove('hidden');
           
-          // Store login in localStorage
+          // Store user info in localStorage
           localStorage.setItem('epro_logged_in', 'true');
+          localStorage.setItem('epro_user_name', fullName);
+          localStorage.setItem('epro_user_email', email);
+          localStorage.setItem('epro_tokens', '10');
           
           // Redirect after a short delay
           setTimeout(() => {
@@ -201,14 +280,14 @@
           }, 1500);
         } else {
           // Show error message
-          document.getElementById('form-error').style.display = 'block';
+          document.getElementById('form-error').classList.remove('hidden');
           submitButton.textContent = originalText;
           submitButton.disabled = false;
         }
       })
       .catch(() => {
         // Show error message
-        document.getElementById('form-error').style.display = 'block';
+        document.getElementById('form-error').classList.remove('hidden');
         submitButton.textContent = originalText;
         submitButton.disabled = false;
       });
