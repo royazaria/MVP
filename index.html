@@ -124,7 +124,7 @@
               </div>
             </div>
             
-            <form action="https://formspree.io/f/xyzabcde" method="POST" id="lead-signup-form" onsubmit="handleSignup(event)">
+            <form action="https://formspree.io/f/xyzabcde" method="POST" id="lead-index-form" onsubmit="handleindex(event)">
               <div class="space-y-5">
                 <div>
                   <label class="block text-white/90 font-medium mb-2" for="full_name">Full Name</label>
@@ -295,7 +295,7 @@
       
       // Calculate remaining spots
       const maxUsers = 50;
-      const totalSignups = maxUsers - parseInt(spotsLeft.textContent);
+      const totalindexs = maxUsers - parseInt(spotsLeft.textContent);
       
       // Generate random number between 10-20 for 24 hour counter
       const randomJoins = Math.floor(Math.random() * 11) + 10; // 10-20
@@ -303,9 +303,9 @@
       // Set initial counter value
       joinCounter.textContent = randomJoins;
       
-      // Calculate how many increments to add in 24 hours to reach 50 signups
+      // Calculate how many increments to add in 24 hours to reach 50 indexs
       const hoursRemaining = 24;
-      const incrementsNeeded = maxUsers - totalSignups;
+      const incrementsNeeded = maxUsers - totalindexs;
       const incrementInterval = Math.floor((hoursRemaining * 60 * 60) / incrementsNeeded); // in seconds
       
       let secondsCounter = 0;
@@ -313,11 +313,11 @@
       setInterval(() => {
         secondsCounter += 1;
         
-        // Add new signup at calculated interval, ensuring we never exceed 50
+        // Add new index at calculated interval, ensuring we never exceed 50
         if (secondsCounter % incrementInterval === 0) {
-          const currentSignups = parseInt(earlyAdoptersCount.textContent) - parseInt(spotsLeft.textContent);
+          const currentindexs = parseInt(earlyAdoptersCount.textContent) - parseInt(spotsLeft.textContent);
           
-          if (currentSignups < maxUsers) {
+          if (currentindexs < maxUsers) {
             const currentSpots = parseInt(spotsLeft.textContent);
             
             if (currentSpots > 0) {
@@ -366,7 +366,7 @@
       window.location.href = "index.html"; // Redirect to main site
     }
     
-    function handleSignup(event) {
+    function handleindex(event) {
       event.preventDefault();
       
       // Show loading state
