@@ -10,33 +10,19 @@
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Your custom styles */
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #0a0a0a;
-      margin: 0;
-      overflow-x: hidden;
+      background-color: #F9F8F4;
     }
-    /* Add your other styles here */
   </style>
 </head>
-<body>
-  <!-- Dark theme hero section here -->
-  
-  <!-- Form section -->
-  <div class="container mx-auto px-6 pt-8">
-    <form 
-      action="https://formspree.io/f/xqapjgka"
-      method="POST"
-      id="lead-signup-form"
-      onsubmit="handleSignup(event)"
-      class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8"
-    >
-      <h2 class="text-2xl font-bold mb-6 text-center">Create Your Account</h2>
-      
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+    <h1 class="text-2xl font-bold text-center mb-6">Create Your Account</h1>
+    
+    <form action="https://formspree.io/f/xqapjgka" method="POST" id="lead-signup-form">
       <div class="mb-4">
         <label class="block text-gray-700 font-medium mb-2" for="full_name">Full Name</label>
         <input 
@@ -84,104 +70,12 @@
       >
         Create Free Account
       </button>
-      
-      <p class="mt-3 text-center text-sm text-gray-500">
-        By signing up, you agree to our 
-        <a href="terms.html" class="text-[#F56400] hover:underline">Terms of Service</a> and 
-        <a href="privacy.html" class="text-[#F56400] hover:underline">Privacy Policy</a>
-      </p>
-      
-      <!-- Success and Error messages -->
-      <div id="form-success" class="hidden mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-        <div class="flex items-center">
-          <svg class="h-5 w-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-          <p>Success! Redirecting you to your dashboard...</p>
-        </div>
-      </div>
-      
-      <div id="form-error" class="hidden mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-        <div class="flex items-center">
-          <svg class="h-5 w-5 text-red-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-          </svg>
-          <p>Something went wrong. Please try again.</p>
-        </div>
-      </div>
     </form>
     
-    <div class="mt-6 text-center">
-      <p class="text-white">
-        Already have an account? 
-        <a href="index.html" class="text-[#F56400] font-medium hover:underline">Log In</a>
-      </p>
+    <div class="mt-6 text-center text-sm text-gray-500">
+      Already have an account? 
+      <a href="index.html" class="text-[#F56400] hover:underline">Log In</a>
     </div>
   </div>
-
-  <script>
-    function handleSignup(event) {
-      event.preventDefault();
-      
-      // Show loading state
-      const submitButton = document.getElementById('submit-button');
-      const originalText = submitButton.textContent;
-      submitButton.textContent = 'Processing...';
-      submitButton.disabled = true;
-      
-      // Hide any existing messages
-      document.getElementById('form-success').classList.add('hidden');
-      document.getElementById('form-error').classList.add('hidden');
-      
-      // Get form data
-      const form = event.target;
-      const formData = new FormData(form);
-      const fullName = formData.get('full_name');
-      const email = formData.get('email');
-      
-      // Send to Formspree
-      fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Show success message
-          document.getElementById('form-success').classList.remove('hidden');
-          
-          // Store user info in localStorage
-          localStorage.setItem('epro_logged_in', 'true');
-          localStorage.setItem('epro_user_name', fullName);
-          localStorage.setItem('epro_user_email', email);
-          localStorage.setItem('epro_tokens', '10');
-          
-          // Redirect after a short delay
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 1500);
-        } else {
-          // Show error message
-          document.getElementById('form-error').classList.remove('hidden');
-          submitButton.textContent = originalText;
-          submitButton.disabled = false;
-        }
-      })
-      .catch(() => {
-        // Show error message
-        document.getElementById('form-error').classList.remove('hidden');
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-      });
-    }
-
-    // Check if we were redirected here from an error
-    document.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('error')) {
-        document.getElementById('form-error').classList.remove('hidden');
-      }
-    });
-  </script>
 </body>
 </html>
