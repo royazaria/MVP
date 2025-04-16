@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <script>
-  const isLoggedIn = localStorage.getItem('epro_logged_in');
-  const currentPage = window.location.pathname;
-
-  // If not logged in AND not already on the login page — force redirect
-  if (!isLoggedIn && !currentPage.includes('signup.html')) {
-    window.location.href = 'signup.html';
-  }
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ePro AI | Professional Etsy Listings Generator</title>
@@ -93,471 +84,563 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <script>
-    const isSignedUp = localStorage.getItem('epro_signed_up');
-    if (!isSignedUp) {
-      window.location.href = "signup.html";
-    }
-  </script>
-
   <!-- Navigation -->
-<nav class="bg-white shadow-sm py-4 sticky top-0 z-50">
   <nav class="bg-white shadow-sm py-4 sticky top-0 z-50">
-  <div class="container mx-auto px-6 flex justify-between items-center">
-    <a href="#" class="flex items-center">
-      <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] text-transparent bg-clip-text">
-        <span class="text-2xl font-bold">ePro</span>
-        <span class="text-xl font-bold ml-1">AI</span>
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <a href="#" class="flex items-center">
+        <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] text-transparent bg-clip-text">
+          <span class="text-2xl font-bold">ePro</span>
+          <span class="text-xl font-bold ml-1">AI</span>
+        </div>
+        <span class="ml-2 bg-[#F56400] text-white text-xs px-2 py-1 rounded-full">BETA</span>
+      </a>
+      
+      <div class="hidden md:flex space-x-8">
+        <a href="#dashboard" class="font-medium hover:text-[#F56400] transition-colors">Create</a>
+        <a href="#pricing" class="font-medium hover:text-[#F56400] transition-colors">Pricing</a>
+        <a href="#calculator-section" class="font-medium hover:text-[#F56400] transition-colors">ROI Calculator</a>
+        <a href="#faq-section" class="font-medium hover:text-[#F56400] transition-colors">FAQ</a>
       </div>
-      <span class="ml-2 bg-[#F56400] text-white text-xs px-2 py-1 rounded-full">BETA</span>
-    </a>
-    
-    <div class="hidden md:flex space-x-8">
-      <a href="#dashboard" class="font-medium hover:text-[#F56400] transition-colors">Create</a>
-      <a href="#pricing" class="font-medium hover:text-[#F56400] transition-colors">Pricing</a>
-      <a href="#calculator-section" class="font-medium hover:text-[#F56400] transition-colors">ROI Calculator</a>
-      <a href="#faq-section" class="font-medium hover:text-[#F56400] transition-colors">FAQ</a>
+      
+      <div class="flex items-center space-x-4">
+        <!-- Token display for logged in users -->
+        <div class="logged-in-only bg-gray-100 rounded-lg px-3 py-2 flex items-center text-sm font-medium" style="display: none;">
+          <div class="h-4 w-4 bg-[#F56400] bg-opacity-10 rounded-full flex items-center justify-center text-[#F56400] font-bold mr-1">
+            <span class="text-xs">E</span>
+          </div>
+          <span class="text-gray-700" id="token-display">0</span>
+          <a href="#pricing" class="ml-2 text-[#F56400] hover:underline">Get More</a>
+        </div>
+        
+        <!-- User avatar for logged in users -->
+        <div class="logged-in-only flex items-center space-x-2" style="display: none;">
+          <div id="user-avatar" class="h-8 w-8 bg-[#F56400] text-white rounded-full flex items-center justify-center font-bold">
+            US
+          </div>
+          <button onclick="handleLogout()" class="text-sm text-gray-600 hover:text-[#F56400]">Log Out</button>
+        </div>
+        
+        <!-- Login/Signup for logged out users -->
+        <div class="logged-out-only flex space-x-4 items-center">
+          <a href="#" onclick="openLoginModal(); return false;" class="text-gray-700 hover:text-[#F56400] transition-colors font-medium">Log In</a>
+          <a href="#" onclick="openSignupModal(); return false;" class="bg-[#F56400] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#E05000] transition-all duration-300">
+            Sign Up Free
+          </a>
+        </div>
+      </div>
     </div>
-    
-    <div class="flex items-center space-x-4">
-      <!-- Token display for logged in users -->
-      <div class="logged-in-only bg-gray-100 rounded-lg px-3 py-2 flex items-center text-sm font-medium" style="display: none;">
-        <div class="h-4 w-4 bg-[#F56400] bg-opacity-10 rounded-full flex items-center justify-center text-[#F56400] font-bold mr-1">
-          <span class="text-xs">E</span>
-        </div>
-        <span class="text-gray-700" id="token-display">0</span>
-        <a href="#pricing" class="ml-2 text-[#F56400] hover:underline">Get More</a>
-      </div>
-      
-      <!-- User avatar for logged in users -->
-      <div class="logged-in-only flex items-center space-x-2" style="display: none;">
-        <div id="user-avatar" class="h-8 w-8 bg-[#F56400] text-white rounded-full flex items-center justify-center font-bold">
-          US
-        </div>
-        <button onclick="handleLogout()" class="text-sm text-gray-600 hover:text-[#F56400]">Log Out</button>
-      </div>
-      
-      <!-- Login/Signup for logged out users -->
-      <div class="logged-out-only">
-        <a href="signup.html" class="bg-[#F56400] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#E05000] transition-all duration-300">
+  </nav>
+
+  <!-- Start of Dashboard Section -->
+  <section id="dashboard" class="py-12 md:py-20 bg-gradient-to-b from-[#F9F8F4] to-white relative overflow-hidden">
+    <!-- Login Required Message (shown to non-logged in users) -->
+    <div id="login-required-message" class="container mx-auto px-6 text-center py-20">
+      <h2 class="text-3xl font-bold mb-4">Sign Up Required</h2>
+      <p class="text-lg text-gray-600 mb-8">Please sign up or log in to create Etsy listings.</p>
+      <div class="flex justify-center space-x-4">
+        <a href="#" onclick="openLoginModal(); return false;" class="bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-all">
+          Log In
+        </a>
+        <a href="#" onclick="openSignupModal(); return false;" class="bg-[#F56400] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#E05000] transition-all">
           Sign Up Free
         </a>
       </div>
     </div>
-  </div>
-</nav>
-      
-      <!-- User avatar for logged in users -->
-      <div class="logged-in-only flex items-center space-x-2" style="display: none;">
-        <div id="user-avatar" class="h-8 w-8 bg-[#F56400] text-white rounded-full flex items-center justify-center font-bold">
-          US
-        </div>
-        <button onclick="handleLogout()" class="text-sm text-gray-600 hover:text-[#F56400]">Log Out</button>
-      </div>
-      
-      <!-- Login/Signup for logged out users -->
-      <a href="login.html" class="logged-out-only text-gray-700 hover:text-[#F56400] transition-colors font-medium">Log In</a>
-      <a href="signup.html" class="logged-out-only bg-[#F56400] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#E05000] transition-all duration-300">
-        Sign Up Free
-      </a>
-    </div>
-  </div>
-</nav>
-<!-- Start of Dashboard Section -->
-<section id="dashboard" class="py-12 md:py-20 bg-gradient-to-b from-[#F9F8F4] to-white relative overflow-hidden">
-  <!-- Login Required Message (shown to non-logged in users) -->
-  <div id="login-required-message" class="container mx-auto px-6 text-center py-20">
-    <h2 class="text-3xl font-bold mb-4">Sign Up Required</h2>
-    <p class="text-lg text-gray-600 mb-8">Please sign up or log in to create Etsy listings.</p>
-    <div class="flex justify-center space-x-4">
-      <a href="signup.html" class="bg-[#F56400] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#E05000] transition-all">
-        Sign Up Free
-      </a>
-    </div>
-  </div>
-  
-  <!-- Dashboard Content (only visible to logged in users) -->
-  <div id="dashboard-content" style="display: none;">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-10">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">Create Perfect Etsy Listings in Minutes</h1>
-        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
-          Upload your product photo and let ePro AI generate professional titles, descriptions, tags, and studio-quality images - ready to publish and sell.
-        </p>
-      </div>
-
-      <!-- Product Creation Area -->
-      <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <!-- Steps Navigation -->
-        <div class="bg-gray-50 border-b border-gray-200">
-          <div class="flex">
-            <button class="py-4 px-6 border-b-2 border-[#F56400] text-[#F56400] font-medium">
-              Create New Listing
-            </button>
-            <button class="py-4 px-6 text-gray-500 hover:text-gray-700 transition-colors">
-              My Listings
-            </button>
-          </div>
+    
+    <!-- Dashboard Content (only visible to logged in users) -->
+    <div id="dashboard-content" style="display: none;">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-10">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">Create Perfect Etsy Listings in Minutes</h1>
+          <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+            Upload your product photo and let ePro AI generate professional titles, descriptions, tags, and studio-quality images - ready to publish and sell.
+          </p>
         </div>
 
-        <!-- Token info bar -->
-        <div class="bg-gray-50 p-3 flex justify-between items-center border-b border-gray-200">
-          <div class="flex items-center">
-            <!-- Updated token icon to letter E -->
-            <div class="h-5 w-5 bg-[#F56400] bg-opacity-10 rounded-full flex items-center justify-center text-[#F56400] font-bold mr-1">
-              <span class="text-xs">E</span>
-            </div>
-            <span class="text-gray-700 font-medium">Your Tokens: <span class="text-[#F56400]" id="token-display-dashboard">10</span></span>
-            <a href="#pricing" class="ml-2 text-[#F56400] text-sm hover:underline">Get More</a>
-          </div>
-          <div class="text-sm text-gray-500">
-            Selected process: <span id="selectedProcessDisplay" class="font-medium">Professional (2 tokens)</span>
-          </div>
-        </div>
-
-        <!-- Form Area -->
-        <div class="p-6 md:p-8">
-          <!-- Process Selection -->
-          <div class="mb-8">
-            <h2 class="text-xl font-bold mb-4 flex items-center">
-              <span class="w-8 h-8 bg-[#F56400] rounded-full text-white flex items-center justify-center mr-3 text-sm">1</span>
-              Choose the Process
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <!-- Standard Process -->
-              <div class="border-2 border-gray-200 hover:border-[#F56400] rounded-xl p-5 cursor-pointer transition-all hover-card relative group process-option" data-process="standard" data-tokens="1" onclick="selectProcess('standard', 1, this)">
-                <div class="absolute inset-0 bg-[#F56400] opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
-                <div class="flex justify-between items-start mb-3">
-                  <h3 class="font-bold text-lg">Standard</h3>
-                  <div class="bg-gray-100 text-gray-800 px-3 py-1 rounded-lg text-sm font-medium">
-                    <!-- Updated token icon -->
-                    <span class="inline-flex items-center">
-                      <span class="w-3 h-3 bg-[#F56400] bg-opacity-20 rounded-full text-[#F56400] flex items-center justify-center text-xs mr-1 font-bold">E</span>
-                      1 Token
-                    </span>
-                  </div>
-                </div>
-                <ul class="space-y-2 mb-4 text-gray-600">
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>SEO-optimized title</span>
-                  </li>
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>Professional description</span>
-                  </li>
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>13 strategic tags</span>
-                  </li>
-                  <li class="flex items-start text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                    <span>No product images</span>
-                  </li>
-                </ul>
-                <div class="mt-auto">
-                  <div class="w-full h-10 bg-gray-100 rounded-lg flex items-center justify-center font-medium text-gray-700 group-hover:bg-[#F56400] group-hover:text-white transition-colors duration-300 process-select-btn">
-                    Select
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Professional Process (Featured) -->
-              <div class="border-2 border-[#F56400] bg-[#FEF8F4] rounded-xl p-5 cursor-pointer transition-all hover-card shadow-md relative pricing-card featured process-option selected" data-process="professional" data-tokens="2" onclick="selectProcess('professional', 2, this)">
-                <div class="flex justify-between items-start mb-3">
-                  <h3 class="font-bold text-lg">Professional</h3>
-                  <div class="bg-[#F56400] bg-opacity-10 text-[#F56400] px-3 py-1 rounded-lg text-sm font-medium">
-                    <!-- Updated token icon -->
-                    <span class="inline-flex items-center">
-                      <span class="w-3 h-3 bg-[#F56400] bg-opacity-20 rounded-full text-[#F56400] flex items-center justify-center text-xs mr-1 font-bold">E</span>
-                      2 Tokens
-                    </span>
-                  </div>
-                </div>
-                <ul class="space-y-2 mb-4 text-gray-600">
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>Everything in Standard</span>
-                  </li>
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>5 studio-quality images</span>
-                  </li>
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>Model showcase images</span>
-                  </li>
-                  <li class="flex items-start text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                    <span>No product videos</span>
-                  </li>
-                </ul>
-                <div class="mt-auto">
-                  <div class="w-full h-10 bg-[#F56400] rounded-lg flex items-center justify-center font-medium text-white process-select-btn">
-                    Selected
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Premium Process -->
-              <div class="border-2 border-gray-200 hover:border-[#F56400] rounded-xl p-5 cursor-pointer transition-all hover-card relative group process-option" data-process="premium" data-tokens="5" onclick="selectProcess('premium', 5, this)">
-                <div class="absolute inset-0 bg-[#F56400] opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
-                <div class="flex justify-between items-start mb-3">
-                  <h3 class="font-bold text-lg">Premium</h3>
-                  <div class="bg-gray-100 text-gray-800 px-3 py-1 rounded-lg text-sm font-medium">
-                    <!-- Updated token icon -->
-                    <span class="inline-flex items-center">
-                      <span class="w-3 h-3 bg-[#F56400] bg-opacity-20 rounded-full text-[#F56400] flex items-center justify-center text-xs mr-1 font-bold">E</span>
-                      5 Tokens
-                    </span>
-                  </div>
-                </div>
-                <ul class="space-y-2 mb-4 text-gray-600">
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>Everything in Professional</span>
-                  </li>
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>8 ultra-realistic images</span>
-                  </li>
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>Multiple lifestyle variations</span>
-                  </li>
-                  <li class="flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    <span>Product creation video</span>
-                  </li>
-                </ul>
-                <div class="mt-auto">
-                  <div class="w-full h-10 bg-gray-100 rounded-lg flex items-center justify-center font-medium text-gray-700 group-hover:bg-[#F56400] group-hover:text-white transition-colors duration-300 process-select-btn">
-                    Select
-                  </div>
-                </div>
-              </div>
+        <!-- Product Creation Area -->
+        <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+          <!-- Steps Navigation -->
+          <div class="bg-gray-50 border-b border-gray-200">
+            <div class="flex">
+              <button class="py-4 px-6 border-b-2 border-[#F56400] text-[#F56400] font-medium">
+                Create New Listing
+              </button>
+              <button class="py-4 px-6 text-gray-500 hover:text-[#F56400] transition-colors">
+                My Listings
+              </button>
             </div>
           </div>
-          
-          <!-- Upload Options -->
-          <div class="mb-8">
-            <h2 class="text-xl font-bold mb-4 flex items-center">
-              <span class="w-8 h-8 bg-[#F56400] rounded-full text-white flex items-center justify-center mr-3 text-sm">2</span>
-              Upload Your Product
-            </h2>
-            
-            <div class="flex flex-col md:flex-row gap-6">
-              <!-- Tabs -->
-              <div class="w-full md:w-1/4">
-                <div class="flex md:flex-col border-b md:border-b-0 md:border-r border-gray-200">
-                  <button id="singleUploadTab" class="py-3 px-4 border-b-2 md:border-b-0 md:border-r-2 border-[#F56400] text-[#F56400] font-medium text-left upload-tab active" onclick="switchUploadTab('single')">Single Upload</button>
-                  <button id="bulkCsvTab" class="py-3 px-4 text-gray-500 font-medium text-left upload-tab hover:text-gray-700 transition-colors" onclick="switchUploadTab('csv')">Bulk CSV</button>
-                </div>
+
+          <!-- Token info bar -->
+          <div class="bg-gray-50 p-3 flex justify-between items-center border-b border-gray-200">
+            <div class="flex items-center">
+              <!-- Updated token icon to letter E -->
+              <div class="h-5 w-5 bg-[#F56400] bg-opacity-10 rounded-full flex items-center justify-center text-[#F56400] font-bold mr-1">
+                <span class="text-xs">E</span>
               </div>
+              <span class="text-gray-700 font-medium">Your Tokens: <span class="text-[#F56400]" id="token-display-dashboard">10</span></span>
+              <a href="#pricing" class="ml-2 text-[#F56400] text-sm hover:underline">Get More</a>
+            </div>
+            <div class="text-sm text-gray-500">
+              Selected process: <span id="selectedProcessDisplay" class="font-medium">Professional (2 tokens)</span>
+            </div>
+          </div>
+
+          <!-- Form Area -->
+          <div class="p-6 md:p-8">
+            <!-- Process Selection -->
+            <div class="mb-8">
+              <h2 class="text-xl font-bold mb-4 flex items-center">
+                <span class="w-8 h-8 bg-[#F56400] rounded-full text-white flex items-center justify-center mr-3 text-sm">1</span>
+                Choose the Process
+              </h2>
               
-              <!-- Upload Areas Container -->
-              <div class="w-full md:w-3/4">
-                <!-- Single Upload Area -->
-                <div id="singleUploadArea" class="upload-area active">
-                  <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Upload Zone -->
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-[#F56400] transition-colors flex flex-col items-center justify-center h-64">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                      </svg>
-                      <p class="mt-4 text-center text-gray-600">Drag & drop your product photo here</p>
-                      <p class="text-sm text-gray-500 mt-2 text-center">or</p>
-                      <label class="mt-4 px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors cursor-pointer">
-                        <span>Browse Files</span>
-                        <input type="file" class="hidden" accept="image/*" required />
-                      </label>
-                      <p class="mt-4 text-xs text-gray-400 text-center">Supports: JPG, PNG (Max 10MB)</p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Standard Process -->
+                <div class="border-2 border-gray-200 hover:border-[#F56400] rounded-xl p-5 cursor-pointer transition-all hover-card relative group process-option" data-process="standard" data-tokens="1" onclick="selectProcess('standard', 1, this)">
+                  <div class="absolute inset-0 bg-[#F56400] opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
+                  <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-bold text-lg">Standard</h3>
+                    <div class="bg-gray-100 text-gray-800 px-3 py-1 rounded-lg text-sm font-medium">
+                      <!-- Updated token icon -->
+                      <span class="inline-flex items-center">
+                        <span class="w-3 h-3 bg-[#F56400] bg-opacity-20 rounded-full text-[#F56400] flex items-center justify-center text-xs mr-1 font-bold">E</span>
+                        1 Token
+                      </span>
                     </div>
-                    
-                    <!-- Product Details - UPDATED SECTION -->
-                    <div class="flex flex-col space-y-4">
-                      <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Product Category <span class="text-xs text-gray-500">(optional)</span></label>
-                        <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm appearance-none bg-white">
-                          <option>Select from Etsy categories...</option>
-                          <option value="custom">Custom Category...</option>
-                          <!-- Categories omitted for brevity -->
-                        </select>
-                      </div>
-                      
-                      <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Materials <span class="text-red-500">*</span> <span class="text-xs text-gray-500">(helps ePro AI write the product description perfectly)</span></label>
-                        <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., cotton, wood, ceramic" required>
-                      </div>
-                      
-                      <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Product Size/Dimensions/Style <span class="text-red-500">*</span> <span class="text-xs text-gray-500">(helps ePro AI show customers the different sizes you're offering)</span></label>
-                        <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., S, M, L or 10x12 inches, Modern style" required>
-                      </div>
-                      
-                      <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1 flex justify-between">
-                          <div>Variations <span class="text-xs text-gray-500">(optional)</span></div>
-                          <div class="text-xs text-gray-500" id="variationsCounter">0/10 variations</div>
-                        </label>
-                        <div id="variations-container" class="space-y-2">
-                          <div class="flex items-center space-x-2">
-                            <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm variation-input" 
-                                  placeholder="e.g., Size: S, M, L, XL" 
-                                  maxlength="100"
-                                  onkeyup="updateCharCounter(this)"
-                                  onchange="updateVariationsCounter()">
-                            <div class="text-xs text-gray-500 w-20 char-counter">0/100</div>
-                            <button type="button" class="text-[#F56400] hover:text-[#E05000]" onclick="removeVariation(this)">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                        
-                        <button type="button" id="add-variation-btn" 
-                                class="mt-2 text-sm text-[#F56400] hover:underline flex items-center" 
-                                onclick="addVariation()">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-                          </svg>
-                          Add variation
-                        </button>
-                        
-                        <div id="variations-error" class="hidden mt-2 text-xs text-red-500">
-                          Too many variations or characters. Maximum 10 variations with 100 characters each.
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Basic Description <span class="text-xs text-gray-500">(optional)</span></label>
-                        <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" rows="3" placeholder="Brief description of your product..."></textarea>
-                      </div>
+                  </div>
+                  <ul class="space-y-2 mb-4 text-gray-600">
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>SEO-optimized title</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>Professional description</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>13 strategic tags</span>
+                    </li>
+                    <li class="flex items-start text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                      <span>No product images</span>
+                    </li>
+                  </ul>
+                  <div class="mt-auto">
+                    <div class="w-full h-10 bg-gray-100 rounded-lg flex items-center justify-center font-medium text-gray-700 group-hover:bg-[#F56400] group-hover:text-white transition-colors duration-300 process-select-btn">
+                      Select
                     </div>
                   </div>
                 </div>
                 
-                <!-- Bulk CSV Upload Area (hidden by default) -->
-                <div id="bulkCsvArea" class="upload-area hidden">
-                  <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="font-medium mb-2">CSV Template Format</h3>
-                    <p class="text-sm text-gray-600 mb-4">Fill in the details below or upload your own CSV file:</p>
-                    
-                    <div class="overflow-x-auto bg-white rounded-lg border border-gray-200 mb-6">
-                      <table class="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead>
-                          <tr class="bg-gray-50">
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">image_url</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">description</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">material</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">size_style</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">category</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">variations</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">shop_name</th>
-                          </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                          <tr>
-                            <td class="px-4 py-2">
-                              <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="https://i.postimg.cc/example-image.jpg">
-                            </td>
-                            <td class="px-4 py-2">
-                              <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Elegant off-shoulder bridal gown with lace bodice and flowing satin skirt.">
-                            </td>
-                            <td class="px-4 py-2">
-                              <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Satin, Lace">
-                            </td>
-                            <td class="px-4 py-2">
-                              <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="S,M,L,XL, Modern Style">
-                            </td>
-                            <td class="px-4 py-2">
-                              <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Bridal Dresses">
-                            </td>
-                            <td class="px-4 py-2">
-                              <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Size: S,M,L,XL|Color: White,Ivory,Blush">
-                            </td>
-                            <td class="px-4 py-2">
-                              <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Roza Bridal">
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="px-4 py-2">
- <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Image URL here...">
-</td>
-<td class="px-4 py-2">
- <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Product description...">
-</td>
-<td class="px-4 py-2">
- <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Materials...">
-</td>
-<td class="px-4 py-2">
- <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Size, Style...">
-</td>
-<td class="px-4 py-2">
- <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Category...">
-</td>
-<td class="px-4 py-2">
- <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Size: S,M,L|Color: Red,Blue...">
-</td>
-<td class="px-4 py-2">
- <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Shop name...">
-</td>
-</tr>
-<!-- Add button for a new row -->
-<tr>
-<td colspan="7" class="px-4 py-2">
- <button class="w-full text-center text-sm text-[#F56400] hover:underline py-1" id="addRowBtn">
-   + Add Another Row
- </button>
-</td>
-</tr>
+                <!-- Professional Process (Featured) -->
+                <div class="border-2 border-[#F56400] bg-[#FEF8F4] rounded-xl p-5 cursor-pointer transition-all hover-card shadow-md relative pricing-card featured process-option selected" data-process="professional" data-tokens="2" onclick="selectProcess('professional', 2, this)">
+                  <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-bold text-lg">Professional</h3>
+                    <div class="bg-[#F56400] bg-opacity-10 text-[#F56400] px-3 py-1 rounded-lg text-sm font-medium">
+                      <!-- Updated token icon -->
+                      <span class="inline-flex items-center">
+                        <span class="w-3 h-3 bg-[#F56400] bg-opacity-20 rounded-full text-[#F56400] flex items-center justify-center text-xs mr-1 font-bold">E</span>
+                        2 Tokens
+                      </span>
+                    </div>
+                  </div>
+                  <ul class="space-y-2 mb-4 text-gray-600">
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>Everything in Standard</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>5 studio-quality images</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>Model showcase images</span>
+                    </li>
+                    <li class="flex items-start text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                      <span>No product videos</span>
+                    </li>
+                  </ul>
+                  <div class="mt-auto">
+                    <div class="w-full h-10 bg-[#F56400] rounded-lg flex items-center justify-center font-medium text-white process-select-btn">
+                      Selected
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Premium Process -->
+                <div class="border-2 border-gray-200 hover:border-[#F56400] rounded-xl p-5 cursor-pointer transition-all hover-card relative group process-option" data-process="premium" data-tokens="5" onclick="selectProcess('premium', 5, this)">
+                  <div class="absolute inset-0 bg-[#F56400] opacity-0 group-hover:opacity-5 rounded-xl transition-all duration-300"></div>
+                  <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-bold text-lg">Premium</h3>
+                    <div class="bg-gray-100 text-gray-800 px-3 py-1 rounded-lg text-sm font-medium">
+                      <!-- Updated token icon -->
+                      <span class="inline-flex items-center">
+                        <span class="w-3 h-3 bg-[#F56400] bg-opacity-20 rounded-full text-[#F56400] flex items-center justify-center text-xs mr-1 font-bold">E</span>
+                        5 Tokens
+                      </span>
+                    </div>
+                  </div>
+                  <ul class="space-y-2 mb-4 text-gray-600">
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>Everything in Professional</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>8 ultra-realistic images</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>Multiple lifestyle variations</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span>Product creation video</span>
+                    </li>
+                  </ul>
+                  <div class="mt-auto">
+                    <div class="w-full h-10 bg-gray-100 rounded-lg flex items-center justify-center font-medium text-gray-700 group-hover:bg-[#F56400] group-hover:text-white transition-colors duration-300 process-select-btn">
+                      Select
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Upload Options -->
+            <div class="mb-8">
+              <h2 class="text-xl font-bold mb-4 flex items-center">
+                <span class="w-8 h-8 bg-[#F56400] rounded-full text-white flex items-center justify-center mr-3 text-sm">2</span>
+                Upload Your Product
+              </h2>
+              
+              <div class="flex flex-col md:flex-row gap-6">
+                <!-- Tabs -->
+                <div class="w-full md:w-1/4">
+                  <div class="flex md:flex-col border-b md:border-b-0 md:border-r border-gray-200">
+                    <button id="singleUploadTab" class="py-3 px-4 border-b-2 md:border-b-0 md:border-r-2 border-[#F56400] text-[#F56400] font-medium text-left upload-tab active" onclick="switchUploadTab('single')">Single Upload</button>
+                    <button id="bulkCsvTab" class="py-3 px-4 text-gray-500 font-medium text-left upload-tab hover:text-[#F56400] transition-colors" onclick="switchUploadTab('csv')">Bulk CSV</button>
+                  </div>
+                </div>
+                
+                <!-- Upload Areas Container -->
+                <div class="w-full md:w-3/4">
+                  <!-- Single Upload Area -->
+                  <div id="singleUploadArea" class="upload-area active">
+                    <div class="grid md:grid-cols-2 gap-6">
+                      <!-- Upload Zone -->
+                      <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-[#F56400] transition-colors flex flex-col items-center justify-center h-64">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <p class="mt-4 text-center text-gray-600">Drag & drop your product photo here</p>
+                        <p class="text-sm text-gray-500 mt-2 text-center">or</p>
+                        <label class="mt-4 px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors cursor-pointer">
+                          <span>Browse Files</span>
+                          <input type="file" class="hidden" accept="image/*" required />
+                        </label>
+                        <p class="mt-4 text-xs text-gray-400 text-center">Supports: JPG, PNG (Max 10MB)</p>
+                      </div>
+                      
+                      <!-- Product Details - UPDATED SECTION -->
+                      <div class="flex flex-col space-y-4">
+                        <div>
+                          <label class="block text-sm font-medium text-gray-700 mb-1">Product Category <span class="text-xs text-gray-500">(optional)</span></label>
+                          <select id="productCategory" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm appearance-none bg-white">
+                            <option value="">Select from Etsy categories...</option>
+                            <optgroup label="Clothing & Shoes">
+                              <option value="womens-clothing">Women's Clothing</option>
+                              <option value="mens-clothing">Men's Clothing</option>
+                              <option value="unisex-clothing">Unisex Clothing</option>
+                              <option value="baby-toddler-clothing">Baby & Toddler Clothing</option>
+                              <option value="girls-clothing">Girls' Clothing</option>
+                              <option value="boys-clothing">Boys' Clothing</option>
+                              <option value="shoes">Shoes</option>
+                              <option value="clothing-accessories">Accessories</option>
+                            </optgroup>
+                            <optgroup label="Jewelry & Accessories">
+                              <option value="necklaces">Necklaces</option>
+                              <option value="rings">Rings</option>
+                              <option value="earrings">Earrings</option>
+                              <option value="bracelets">Bracelets</option>
+                              <option value="brooches-pins-clips">Brooches, Pins & Clips</option>
+                              <option value="body-jewelry">Body Jewelry</option>
+                              <option value="cufflinks-tie-clips">Cuff Links & Tie Clips</option>
+                              <option value="hair-jewelry">Hair Jewelry</option>
+                            </optgroup>
+                            <optgroup label="Home & Living">
+                              <option value="home-decor">Home Décor</option>
+                              <option value="wall-decor">Wall Décor</option>
+                             <option value="decorative-pillows">Decorative Pillows</option>
+<option value="candles-holders">Candles & Holders</option>
+<option value="picture-frames">Picture Frames & Displays</option>
+<option value="clocks">Clocks</option>
+<option value="vases">Vases</option>
+<option value="rugs">Rugs</option>
+<option value="lighting">Lighting</option>
+<option value="bedding">Bedding</option>
+<option value="bath-accessories">Bath Accessories</option>
+<option value="storage-organization">Storage & Organization</option>
+<option value="office">Office</option>
+<option value="kitchen-dining">Kitchen & Dining</option>
+</optgroup>
+<optgroup label="Wedding & Party">
+<option value="wedding-dresses">Wedding Dresses</option>
+<option value="bridesmaid-dresses">Bridesmaid Dresses</option>
+<option value="wedding-decor">Wedding Décor</option>
+<option value="invitations-paper">Invitations & Paper</option>
+<option value="favors-gifts">Favors & Gifts</option>
+<option value="cake-toppers">Cake Toppers</option>
+<option value="guest-books">Guest Books</option>
+<option value="bouquets-corsages">Bouquets & Corsages</option>
+<option value="centerpieces">Centerpieces</option>
+</optgroup>
+<optgroup label="Toys & Entertainment">
+<option value="toys">Toys</option>
+<option value="games-puzzles">Games & Puzzles</option>
+<option value="dolls-action-figures">Dolls & Action Figures</option>
+<option value="learning-school">Learning & School</option>
+<option value="kids-crafts">Kids' Crafts</option>
+<option value="stuffed-animals">Stuffed Animals & Plushies</option>
+<option value="sports-outdoor">Sports & Outdoor Games</option>
+</optgroup>
+<optgroup label="Art & Collectibles">
+<option value="prints">Prints</option>
+<option value="paintings">Paintings</option>
+<option value="photography">Photography</option>
+<option value="sculpture">Sculpture</option>
+<option value="mixed-media">Mixed Media</option>
+<option value="fiber-arts">Fiber Arts</option>
+<option value="glass-art">Glass Art</option>
+<option value="collectibles">Collectibles</option>
+</optgroup>
+<optgroup label="Craft Supplies & Tools">
+<option value="beading-jewelry">Beading & Jewelry Making</option>
+<option value="sewing-fiber">Sewing & Fiber</option>
+<option value="scrapbooking">Scrapbooking</option>
+<option value="drawing-illustration">Drawing & Illustration</option>
+<option value="home-improvement">Home Improvement</option>
+<option value="tools">Tools</option>
+</optgroup>
+<optgroup label="Vintage">
+<option value="vintage-clothing">Clothing</option>
+<option value="vintage-jewelry">Jewelry</option>
+<option value="vintage-home-goods">Home Goods</option>
+<option value="vintage-books">Books</option>
+<option value="vintage-electronics">Electronics</option>
+<option value="vintage-furniture">Furniture</option>
+<option value="vintage-collectibles">Collectibles</option>
+</optgroup>
+<optgroup label="Bath & Beauty">
+<option value="skin-care">Skin Care</option>
+<option value="hair-care">Hair Care</option>
+<option value="essential-oils">Essential Oils</option>
+<option value="fragrances">Fragrances</option>
+<option value="makeup-cosmetics">Makeup & Cosmetics</option>
+<option value="bath-bombs">Bath Bombs</option>
+<option value="soaps">Soaps</option>
+</optgroup>
+<optgroup label="Pet Supplies">
+<option value="pet-clothing">Pet Clothing</option>
+<option value="pet-collars">Pet Collars & Leashes</option>
+<option value="pet-furniture">Pet Furniture</option>
+<option value="pet-carriers">Pet Carriers & Houses</option>
+<option value="feeding-watering">Feeding & Watering</option>
+<option value="pet-toys">Toys</option>
+</optgroup>
+<optgroup label="Books, Movies & Music">
+<option value="books">Books</option>
+<option value="movies">Movies</option>
+<option value="music">Music</option>
+<option value="zines-magazines">Zines & Magazines</option>
+</optgroup>
+<optgroup label="Electronics & Accessories">
+<option value="phone-cases">Phone Cases</option>
+<option value="laptop-tablet">Laptop & Tablet Sleeves</option>
+<option value="audio">Audio</option>
+<option value="cameras">Cameras</option>
+<option value="chargers-cables">Chargers & Cables</option>
+</optgroup>
+<option value="custom">Custom Category...</option>
+</select>
+<!-- Custom category input field (hidden by default) -->
+<input type="text" id="customCategory" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mt-2 hidden" placeholder="Enter your custom category...">
+</div>
+
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Materials <span class="text-red-500">*</span> <span class="text-xs text-gray-500">(helps ePro AI write the product description perfectly)</span></label>
+<input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., cotton, wood, ceramic" required>
+</div>
+
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Product Size/Dimensions/Style <span class="text-red-500">*</span> <span class="text-xs text-gray-500">(helps ePro AI show customers the different sizes you're offering)</span></label>
+<input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g., S, M, L or 10x12 inches, Modern style" required>
+</div>
+
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1 flex justify-between">
+<div>Variations <span class="text-xs text-gray-500">(optional)</span></div>
+<div class="text-xs text-gray-500" id="variationsCounter">0/10 variations</div>
+</label>
+<div id="variations-container" class="space-y-2">
+<div class="flex items-center space-x-2">
+<input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm variation-input" 
+      placeholder="e.g., Size: S, M, L, XL" 
+      maxlength="100"
+      onkeyup="updateCharCounter(this)"
+      onchange="updateVariationsCounter()">
+<div class="text-xs text-gray-500 w-20 char-counter">0/100</div>
+<button type="button" class="text-[#F56400] hover:text-[#E05000]" onclick="removeVariation(this)">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+  </svg>
+</button>
+</div>
+</div>
+
+<button type="button" id="add-variation-btn" 
+        class="mt-2 text-sm text-[#F56400] hover:underline flex items-center" 
+        onclick="addVariation()">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+<path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+</svg>
+Add variation
+</button>
+
+<div id="variations-error" class="hidden mt-2 text-xs text-red-500">
+Too many variations or characters. Maximum 10 variations with 100 characters each.
+</div>
+</div>
+
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Basic Description <span class="text-xs text-gray-500">(optional)</span></label>
+<textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" rows="3" placeholder="Brief description of your product..."></textarea>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Bulk CSV Upload Area (hidden by default) -->
+<div id="bulkCsvArea" class="upload-area hidden">
+<div class="bg-gray-50 p-4 rounded-lg">
+<h3 class="font-medium mb-2">CSV Template Format</h3>
+<p class="text-sm text-gray-600 mb-4">Fill in the details below or use our pre-built template:</p>
+
+<div class="overflow-x-auto bg-white rounded-lg border border-gray-200 mb-6">
+<table class="min-w-full divide-y divide-gray-200 text-sm">
+<thead>
+  <tr class="bg-gray-50">
+    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">image_url</th>
+    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">description</th>
+    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">material</th>
+    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">size_style</th>
+    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">category</th>
+    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">variations</th>
+    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">shop_name</th>
+  </tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+  <tr>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="https://i.postimg.cc/example-image.jpg">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Elegant off-shoulder bridal gown with lace bodice and flowing satin skirt.">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Satin, Lace">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="S,M,L,XL, Modern Style">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Bridal Dresses">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Size: S,M,L,XL|Color: White,Ivory,Blush">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" value="Roza Bridal">
+    </td>
+  </tr>
+  <tr>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Image URL here...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Product description...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Materials...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Size, Style...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Category...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Size: S,M,L|Color: Red,Blue...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Shop name...">
+    </td>
+  </tr>
+  <!-- Add button for a new row -->
+  <tr>
+    <td colspan="7" class="px-4 py-2">
+      <button class="w-full text-center text-sm text-[#F56400] hover:underline py-1" id="addRowBtn" onclick="addCsvRow()">
+        + Add Another Row
+      </button>
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
 
 <div class="flex justify-between items-center">
 <div>
-<p class="text-sm text-gray-600 mb-2">Or upload your own CSV file:</p>
+<p class="text-sm text-gray-600 mb-2">Need template reference?</p>
 <div class="flex items-center">
- <label class="px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors cursor-pointer inline-flex items-center">
-   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-   </svg>
-   <span>Upload CSV File</span>
-   <input type="file" class="hidden" accept=".csv" />
- </label>
- <a href="#" class="ml-4 text-sm text-[#F56400] hover:underline">Download Template</a>
+  <button id="downloadTemplateCsv" class="px-4 py-2 bg-[#F56400] text-white rounded-lg hover:bg-[#E05000] transition-colors cursor-pointer inline-flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+    </svg>
+    <span>Download Template</span>
+  </button>
 </div>
 </div>
 
 <div class="text-right">
-<p class="text-sm text-gray-600">This will create <span class="font-bold">2</span> listings</p>
+<p class="text-sm text-gray-600">This will create <span class="font-bold" id="bulkListingCount">2</span> listings</p>
 <p class="text-sm text-gray-600">Total tokens required: <span class="font-bold" id="bulkTokensRequired">4</span></p>
 </div>
 </div>
@@ -612,476 +695,279 @@ Average time to create a professional listing: <span class="font-bold">Just 2 mi
 </div>
 </div>
 
-<!-- Login Check Script -->
-<script>
-// Check if user is logged in for this dashboard section
-document.addEventListener('DOMContentLoaded', function() {
-const dashboardMessage = document.getElementById('login-required-message');
-const dashboardContent = document.getElementById('dashboard-content');
+<!-- Token Packages Section -->
+<section id="pricing" class="py-16 bg-white px-6">
+<div class="container mx-auto max-w-6xl">
+<div class="text-center mb-8">
+<span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">TOKENS</span>
+<h2 class="text-3xl md:text-4xl font-bold mb-4">Token Packages</h2>
+<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+Purchase tokens to create professional Etsy listings
+</p>
+</div>
 
-// Get login status
-const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+<!-- Package 1 -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-r from-[#F56400] to-[#F2994A] rounded-full opacity-0 group-hover:opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
+<h4 class="font-bold text-lg mb-2">Starter</h4>
+<p class="text-3xl font-bold text-gradient mb-2">50</p>
+<p class="text-gray-600 mb-4">Tokens</p>
+<p class="text-lg font-bold mb-4">$45 <span class="text-gray-500 text-sm">($0.90/token)</span></p>
+<a href="#" onclick="openSignupModal(); return false;" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-[#F2994A] group-hover:text-white transition-all duration-300">
+Purchase
+</a>
+</div>
 
-if (isLoggedIn) {
-// User is logged in, show dashboard
-dashboardMessage.style.display = 'none';
-dashboardContent.style.display = 'block';
+<!-- Package 2 -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-r from-[#F56400] to-[#F2994A] rounded-full opacity-0 group-hover:opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
+<h4 class="font-bold text-lg mb-2">Growth</h4>
+<p class="text-3xl font-bold text-gradient mb-2">100</p>
+<p class="text-gray-600 mb-4">Tokens</p>
+<p class="text-lg font-bold mb-4">$80 <span class="text-gray-500 text-sm">($0.80/token)</span></p>
+<a href="#" onclick="openSignupModal(); return false;" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-[#F2994A] group-hover:text-white transition-all duration-300">
+Purchase
+</a>
+</div>
 
-// Update token display in dashboard
-const userTokens = localStorage.getItem('epro_tokens') || '10';
-const tokenDisplayDashboard = document.getElementById('token-display-dashboard');
-if (tokenDisplayDashboard) {
- tokenDisplayDashboard.textContent = userTokens;
-}
-} else {
-// User is not logged in, show message
-dashboardMessage.style.display = 'block';
-dashboardContent.style.display = 'none';
-}
-});
+<!-- Package 3 (Popular) -->
+<div class="bg-white p-6 pt-8 rounded-xl shadow-md border-2 border-[#F56400] text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden pricing-card featured">
+<h4 class="font-bold text-lg mb-2">Pro</h4>
+<p class="text-3xl font-bold text-gradient mb-2">250</p>
+<p class="text-gray-600 mb-4">Tokens</p>
+<p class="text-lg font-bold mb-4">$175 <span class="text-gray-500 text-sm">($0.70/token)</span></p>
+<a href="#" onclick="openSignupModal(); return false;" class="block text-center bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white text-sm font-medium py-2 px-4 rounded-lg hover:shadow-lg transition-all duration-300">
+Purchase
+</a>
+</div>
 
-// Function to handle token deduction when generating listing
-function generateListing() {
-// Get current token count
-let userTokens = parseInt(localStorage.getItem('epro_tokens') || '0');
-const userEmail = localStorage.getItem('epro_user_email');
+<!-- Package 4 -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-r from-[#F56400] to-[#F2994A] rounded-full opacity-0 group-hover:opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
+<h4 class="font-bold text-lg mb-2">Enterprise</h4>
+<p class="text-3xl font-bold text-gradient mb-2">500</p>
+<p class="text-gray-600 mb-4">Tokens</p>
+<p class="text-lg font-bold mb-4">$300 <span class="text-gray-500 text-sm">($0.60/token)</span></p>
+<a href="#" onclick="openSignupModal(); return false;" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-[#F2994A] group-hover:text-white transition-all duration-300">
+Purchase
+</a>
+</div>
 
-// Get token cost from selected plan
-const selectedTokens = parseInt(document.getElementById('actionTokens').textContent) || 2;
-
-// Check if user has enough tokens
-if (userTokens < selectedTokens) {
-// Show insufficient tokens warning
-document.getElementById('insufficientTokensWarning').classList.remove('hidden');
-document.getElementById('tokensNeeded').textContent = selectedTokens;
-document.getElementById('tokensAvailable').textContent = userTokens;
-return;
-}
-
-// Deduct tokens
-userTokens -= selectedTokens;
-
-// Update localStorage
-localStorage.setItem('epro_tokens', userTokens.toString());
-
-// Update token displays
-const tokenDisplay = document.getElementById('token-display');
-if (tokenDisplay) {
-tokenDisplay.textContent = userTokens.toString();
-}
-
-const tokenDisplayDashboard = document.getElementById('token-display-dashboard');
-if (tokenDisplayDashboard) {
-tokenDisplayDashboard.textContent = userTokens.toString();
-}
-
-// Update user tokens in Google Sheets
-updateUserTokens(userEmail, userTokens);
-
-// Proceed with listing generation (your original code)
-alert(`Processing! ${selectedTokens} tokens have been deducted from your account.`);
-
-// Continue with your original checkTokens() function if needed
-// or replace with your actual listing generation code
-}
-
-// Function to update tokens in Google Sheets
-function updateUserTokens(email, newTokenAmount) {
-if (!email) return; // No email, can't update
-
-// Prepare data
-const data = {
-email: email,
-tokens: newTokenAmount,
-action: 'updateTokens'
-};
-
-// Send update to Google Sheets
-fetch('https://script.google.com/macros/s/AKfycbziTHEPobE_vdhFN2sNpGgy2zdNpXklN0g_CqWHCGWHkAy86vmaa8pFy-rOK7vz2ddO/exec', {
-method: 'POST',
-body: JSON.stringify(data),
-headers: {
- 'Content-Type': 'application/json'
-},
-mode: 'no-cors'
-})
-.catch(error => {
-console.error('Error updating tokens:', error);
-});
-}
-</script>
+<!-- Custom Amount (Free Rider) -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-r from-[#F56400] to-[#F2994A] rounded-full opacity-0 group-hover:opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
+<h4 class="font-bold text-lg mb-2">Free Rider</h4>
+<div class="flex items-center justify-center mb-2">
+<input type="number" min="10" value="10" class="w-20 h-12 text-center text-3xl font-bold text-gradient border-b-2 border-gray-200 focus:border-[#F56400] outline-none" id="customTokenAmount" oninput="updateCustomTokenPrice()">
+</div>
+<p class="text-gray-600 mb-4">Tokens</p>
+<p class="text-lg font-bold mb-4">$<span id="customTokenPrice">10</span> <span class="text-gray-500 text-sm">($1.00/token)</span></p>
+<a href="#" onclick="openSignupModal(); return false;" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-[#F2994A] group-hover:text-white transition-all duration-300">
+Purchase
+</a>
+</div>
+</div>
+</div>
 </section>
-<!-- JavaScript for new Variations feature -->
-<script>
- // JavaScript for Variations Management
- function addVariation() {
-   const container = document.getElementById('variations-container');
-   const variations = container.querySelectorAll('.variation-input');
-   
-   if (variations.length >= 10) {
-     showVariationsError('Too many variations. Maximum 10 variations allowed.');
-     return;
-   }
-   
-   const newVariation = document.createElement('div');
-   newVariation.className = 'flex items-center space-x-2';
-   newVariation.innerHTML = `
-     <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm variation-input" 
-            placeholder="e.g., Color: Red, Blue, Green" 
-            maxlength="100"
-            onkeyup="updateCharCounter(this)"
-            onchange="updateVariationsCounter()">
-     <div class="text-xs text-gray-500 w-20 char-counter">0/100</div>
-     <button type="button" class="text-[#F56400] hover:text-[#E05000]" onclick="removeVariation(this)">
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-       </svg>
-     </button>
-   `;
-   
-   container.appendChild(newVariation);
-   updateVariationsCounter();
- }
- 
- function removeVariation(button) {
-   const container = document.getElementById('variations-container');
-   const variationRow = button.closest('.flex');
-   
-   if (container.querySelectorAll('.variation-input').length > 1) {
-     container.removeChild(variationRow);
-   } else {
-     // Clear the input instead of removing the last row
-     const input = variationRow.querySelector('.variation-input');
-     input.value = '';
-     updateCharCounter(input);
-   }
-   
-   updateVariationsCounter();
-   hideVariationsError();
- }
- 
- function updateCharCounter(input) {
-   const counter = input.parentElement.querySelector('.char-counter');
-   const length = input.value.length;
-   counter.textContent = `${length}/100`;
-   
-   if (length >= 100) {
-     counter.classList.add('text-red-500');
-     counter.classList.remove('text-gray-500');
-   } else {
-     counter.classList.remove('text-red-500');
-     counter.classList.add('text-gray-500');
-   }
- }
- 
- function updateVariationsCounter() {
-   const container = document.getElementById('variations-container');
-   const variations = container.querySelectorAll('.variation-input');
-   const counter = document.getElementById('variationsCounter');
-   
-   let filledVariations = 0;
-   variations.forEach(variation => {
-     if (variation.value.trim() !== '') {
-       filledVariations++;
-     }
-   });
-   
-   counter.textContent = `${filledVariations}/10 variations`;
- }
- 
- function showVariationsError(message) {
-   const error = document.getElementById('variations-error');
-   error.textContent = message;
-   error.classList.remove('hidden');
- }
- 
- function hideVariationsError() {
-   const error = document.getElementById('variations-error');
-   error.classList.add('hidden');
- }
- 
- // Initialize with one empty variation
- document.addEventListener('DOMContentLoaded', function() {
-   // Already have one variation by default in the HTML
-   updateVariationsCounter();
- });
-</script>
- <!-- Token Packages Section -->
- <section id="pricing" class="py-16 bg-white px-6">
-   <div class="container mx-auto max-w-6xl">
-     <div class="text-center mb-8">
-       <span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">TOKENS</span>
-       <h2 class="text-3xl md:text-4xl font-bold mb-4">Token Packages</h2>
-       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-         Purchase tokens to create professional Etsy listings
-       </p>
-     </div>
-     
-     <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
-       <!-- Package 1 -->
-       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-         <div class="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-r from-[#F56400] to-[#F2994A] rounded-full opacity-0 group-hover:opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
-         <h4 class="font-bold text-lg mb-2">Starter</h4>
-         <p class="text-3xl font-bold text-gradient mb-2">50</p>
-         <p class="text-gray-600 mb-4">Tokens</p>
-         <p class="text-lg font-bold mb-4">$45 <span class="text-gray-500 text-sm">($0.90/token)</span></p>
-         <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-[#F2994A] group-hover:text-white transition-all duration-300">
-           Purchase
-         </a>
-       </div>
-       
-       <!-- Package 2 -->
-       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-         <div class="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-r from-[#F56400] to-[#F2994A] rounded-full opacity-0 group-hover:opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
-         <h4 class="font-bold text-lg mb-2">Growth</h4>
-         <p class="text-3xl font-bold text-gradient mb-2">100</p>
-         <p class="text-gray-600 mb-4">Tokens</p>
-         <p class="text-lg font-bold mb-4">$80 <span class="text-gray-500 text-sm">($0.80/token)</span></p>
-         <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-[#F2994A] group-hover:text-white transition-all duration-300">
-           Purchase
-         </a>
-       </div>
-       
-       <!-- Package 3 (Popular) -->
-       <div class="bg-white p-6 pt-8 rounded-xl shadow-md border-2 border-[#F56400] text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-         <!-- Popular badge -->
-         <div class="absolute top-0 right-0 bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white text-xs px-3 py-1.5 rounded-bl-lg font-bold z-10">BEST VALUE</div>
-         
-         <h4 class="font-bold text-lg mb-2">Pro</h4>
-         <p class="text-3xl font-bold text-gradient mb-2">250</p>
-         <p class="text-gray-600 mb-4">Tokens</p>
-         <p class="text-lg font-bold mb-4">$175 <span class="text-gray-500 text-sm">($0.70/token)</span></p>
-         <a href="#signup" class="block text-center bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white text-sm font-medium py-2 px-4 rounded-lg hover:shadow-lg transition-all duration-300">
-           Purchase
-         </a>
-       </div>
-       
-       <!-- Package 4 -->
-       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-         <div class="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-r from-[#F56400] to-[#F2994A] rounded-full opacity-0 group-hover:opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
-         <h4 class="font-bold text-lg mb-2">Enterprise</h4>
-         <p class="text-3xl font-bold text-gradient mb-2">500</p>
-         <p class="text-gray-600 mb-4">Tokens</p>
-         <p class="text-lg font-bold mb-4">$300 <span class="text-gray-500 text-sm">($0.60/token)</span></p>
-         <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-[#F2994A] group-hover:text-white transition-all duration-300">
-           Purchase
-         </a>
-       </div>
-       
-       <!-- Custom Amount (Free Rider) -->
-       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-         <div class="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-r from-[#F56400] to-[#F2994A] rounded-full opacity-0 group-hover:opacity-5 transform scale-0 group-hover:scale-100 transition-all duration-700"></div>
-         <h4 class="font-bold text-lg mb-2">Free Rider</h4>
-         <div class="flex items-center justify-center mb-2">
-           <input type="number" min="10" value="10" class="w-20 h-12 text-center text-3xl font-bold text-gradient border-b-2 border-gray-200 focus:border-[#F56400] outline-none" id="customTokenAmount">
-         </div>
-         <p class="text-gray-600 mb-4">Tokens</p>
-         <p class="text-lg font-bold mb-4">$<span id="customTokenPrice">10</span> <span class="text-gray-500 text-sm">($1.00/token)</span></p>
-         <a href="#signup" class="block text-center bg-gray-100 text-gray-800 text-sm font-medium py-2 px-4 rounded-lg group-hover:bg-gradient-to-r group-hover:from-[#F56400] group-hover:to-[#F2994A] group-hover:text-white transition-all duration-300">
-           Purchase
-         </a>
-       </div>
-     </div>
-   </div>
- </section>
 
- <!-- ROI Calculator Section -->
- <section id="calculator-section" class="py-20 bg-gradient-to-b from-gray-50 to-white px-6">
-   <div class="container mx-auto max-w-5xl">
-     <div class="text-center mb-12">
-       <span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">MONEY TALKS</span>
-       <h2 class="text-3xl md:text-5xl font-bold mb-4 relative inline-block">
-         See Your <span class="text-[#F56400]">INSANE SAVINGS</span>
-         <svg class="absolute -top-6 -right-8 w-12 h-12 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-           <path d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm6 0a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0V6h-1a1 1 0 110-2h1V3a1 1 0 011-1z"></path>
-         </svg>
-       </h2>
-       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-         Dropshippers using AI tools save an average of <span class="font-bold underline decoration-[#F56400]">28 hours per month</span> and <span class="font-bold underline decoration-[#F56400]">$420 in costs</span>
-       </p>
-     </div>
-
-     <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 lg:p-10 transform transition-all duration-500 hover:shadow-xl border border-gray-100">
-       <!-- Progress bar for calculations -->
-       <div class="h-1 w-full bg-gray-100 rounded-full mb-8 overflow-hidden">
-         <div id="calcProgress" class="h-full bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full" style="width: 0%"></div>
-       </div>
-       
-       <div class="grid md:grid-cols-2 gap-12">
-         <!-- Calculator Inputs -->
-         <div class="relative">
-           <div class="absolute -top-10 -left-6 bg-yellow-300 text-gray-800 rounded-lg py-1 px-3 text-sm font-bold transform -rotate-3 shadow-md">
-             Your Current Setup 👇
-           </div>
-           
-           <h3 class="text-2xl font-bold mb-6 text-gray-800">Current Etsy Workflow</h3>
-
-           <div class="space-y-6">
-             <div class="transition-all duration-300 transform hover:scale-102">
-               <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                 <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+<!-- ROI Calculator Section -->
+<section id="calculator-section" class="py-20 bg-gradient-to-b from-gray-50 to-white px-6">
+<div class="container mx-auto max-w-5xl">
+<div class="text-center mb-12">
+<span class="inline-block px-4 py-1 bg-[#F56400] bg-opacity-20 text-[#F56400] font-semibold rounded-full text-sm mb-3">MONEY TALKS</span>
+<h2 class="text-3xl md:text-5xl font-bold mb-4 relative inline-block">
+See Your <span class="text-[#F56400]">INSANE SAVINGS</span>
+<svg class="absolute -top-6 -right-8 w-12 h-12 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm6 0a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0V6h-1a1 1 0 110-2h1V3a1 1 0 011-1z"></path>
 </svg>
-New listings you create per month
+</h2>
+<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+Dropshippers using AI tools save an average of <span class="font-bold underline decoration-[#F56400]">28 hours per month</span> and <span class="font-bold underline decoration-[#F56400]">$420 in costs</span>
+</p>
+</div>
+
+<div class="bg-white rounded-xl shadow-lg p-6 md:p-8 lg:p-10 transform transition-all duration-500 hover:shadow-xl border border-gray-100">
+<!-- Progress bar for calculations -->
+<div class="h-1 w-full bg-gray-100 rounded-full mb-8 overflow-hidden">
+<div id="calcProgress" class="h-full bg-gradient-to-r from-[#F56400] to-yellow-500 rounded-full" style="width: 0%"></div>
+</div>
+
+<div class="grid md:grid-cols-2 gap-12">
+<!-- Calculator Inputs -->
+<div class="relative">
+<div class="absolute -top-10 -left-6 bg-yellow-300 text-gray-800 rounded-lg py-1 px-3 text-sm font-bold transform -rotate-3 shadow-md">
+Your Current Setup 👇
+</div>
+
+<h3 class="text-2xl font-bold mb-6 text-gray-800">Current Etsy Workflow</h3>
+
+<div class="space-y-6">
+<div class="transition-all duration-300 transform hover:scale-102">
+<label class="block text-gray-700 font-medium mb-2 flex items-center">
+  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+  </svg>
+  New listings you create per month
 </label>
 <div class="relative">
- <input 
-   type="number" 
-   min="1" 
-   value="10" 
-   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-   id="listingsPerMonth"
- />
- <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-   listings
- </div>
+  <input 
+    type="number" 
+    min="1" 
+    value="10" 
+    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+    id="listingsPerMonth"
+  />
+  <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+    listings
+  </div>
 </div>
 </div>
 
 <div id="minutesPerListingContainer" class="transition-all duration-300 transform hover:scale-102">
 <label class="block text-gray-700 font-medium mb-2 flex items-center">
- <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
- </svg>
- Minutes spent per listing currently
+  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+  </svg>
+  Minutes spent per listing currently
 </label>
 <div class="relative">
- <input 
-   type="number" 
-   min="1" 
-   max="300" 
-   value="60" 
-   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-   id="minutesPerListing"
- />
- <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-   minutes
- </div>
+  <input 
+    type="number" 
+    min="1" 
+    max="300" 
+    value="60" 
+    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+    id="minutesPerListing"
+  />
+  <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+    minutes
+  </div>
 </div>
 </div>
 
 <div id="vaListingsPerMonthContainer" class="hidden transition-all duration-300 transform hover:scale-102">
 <label class="block text-gray-700 font-medium mb-2 flex items-center">
- <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
- </svg>
- Listings your VA handles per month
+  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+  </svg>
+  Listings your VA handles per month
 </label>
 <div class="relative">
- <input 
-   type="number" 
-   min="1" 
-   max="500" 
-   value="30" 
-   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-   id="vaListingsPerMonth"
- />
- <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-   listings/month
- </div>
+  <input 
+    type="number" 
+    min="1" 
+    max="500" 
+    value="30" 
+    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+    id="vaListingsPerMonth"
+  />
+  <div class="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+    listings/month
+  </div>
 </div>
 </div>
 
 <div class="transition-all duration-300">
 <label class="block text-gray-700 font-medium mb-2 flex items-center">
- <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
- </svg>
- Do you use a virtual assistant?
+  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+  </svg>
+  Do you use a virtual assistant?
 </label>
 <div class="grid grid-cols-2 gap-4 mt-2">
- <label class="cursor-pointer relative">
-   <input type="radio" name="useVA" value="yes" class="absolute opacity-0 w-0 h-0" id="useVAYes">
-   <span class="block py-3 px-4 text-center rounded-lg bg-white border-2 border-gray-200 hover:border-[#F56400] transition-colors" id="vaYesLabel">
-     Yes, I have a VA
-   </span>
- </label>
- <label class="cursor-pointer relative">
-   <input type="radio" name="useVA" value="no" class="absolute opacity-0 w-0 h-0" id="useVANo" checked>
-   <span class="block py-3 px-4 text-center rounded-lg bg-white border-2 border-gray-200 hover:border-[#F56400] transition-colors" id="vaNoLabel">
-     No, I do it myself
-   </span>
- </label>
+  <label class="cursor-pointer relative">
+    <input type="radio" name="useVA" value="yes" class="absolute opacity-0 w-0 h-0" id="useVAYes">
+    <span class="block py-3 px-4 text-center rounded-lg bg-white border-2 border-gray-200 hover:border-[#F56400] transition-colors" id="vaYesLabel">
+      Yes, I have a VA
+    </span>
+  </label>
+  <label class="cursor-pointer relative">
+    <input type="radio" name="useVA" value="no" class="absolute opacity-0 w-0 h-0" id="useVANo" checked>
+    <span class="block py-3 px-4 text-center rounded-lg bg-white border-2 border-gray-200 hover:border-[#F56400] transition-colors" id="vaNoLabel">
+      No, I do it myself
+    </span>
+  </label>
 </div>
 </div>
 
 <div class="hidden transition-all duration-300 transform hover:scale-102" id="vaRateContainer">
 <label class="block text-gray-700 font-medium mb-2 flex items-center">
- <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
- </svg>
- VA's monthly salary ($)
+  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+  </svg>
+  VA's monthly salary ($)
 </label>
 <div class="relative">
- <input 
-   type="number" 
-   min="50" 
-   max="2000" 
-   value="250" 
-   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-   id="vaSalary"
- />
- <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
-   $
- </div>
+  <input 
+    type="number" 
+    min="50" 
+    max="2000" 
+    value="250" 
+    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+    id="vaSalary"
+  />
+  <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
+    $
+  </div>
 </div>
 </div>
 
 <div id="hourlyRateContainer" class="transition-all duration-300 transform hover:scale-102">
 <label class="block text-gray-700 font-medium mb-2 flex items-center">
- <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
- </svg>
- Value of your time ($/hour)
+  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+  </svg>
+  Value of your time ($/hour)
 </label>
 <div class="relative">
- <input 
-   type="number" 
-   min="10" 
-   max="500" 
-   value="25" 
-   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-   id="hourlyRate"
- />
- <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
-   $
- </div>
+  <input 
+    type="number" 
+    min="10" 
+    max="500" 
+    value="25" 
+    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+    id="hourlyRate"
+  />
+  <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
+    $
+  </div>
 </div>
 </div>
 
 <div class="transition-all duration-300 transform hover:scale-102">
 <label class="block text-gray-700 font-medium mb-2 flex items-center">
- <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
- </svg>
- Monthly cost of other tools ($)
+  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+  </svg>
+  Monthly cost of other tools ($)
 </label>
 <div class="relative">
- <input 
-   type="number" 
-   min="0" 
-   max="1000" 
-   value="30" 
-   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-   id="toolsCost"
- />
- <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
-   $
- </div>
+  <input 
+    type="number" 
+    min="0" 
+    max="1000" 
+    value="30" 
+    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+    id="toolsCost"
+  />
+  <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
+    $
+  </div>
 </div>
 </div>
 
 <div class="transition-all duration-300 transform hover:scale-102">
 <label class="block text-gray-700 font-medium mb-2 flex items-center">
- <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
- </svg>
- ePro AI plan
+  <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+  </svg>
+  ePro AI plan
 </label>
 <select id="eproAiPlan" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent appearance-none bg-white transition-all">
- <option value="1">Standard ($1 per listing)</option>
- <option value="2" selected>Professional ($2 per listing)</option>
- <option value="5">Premium ($5 per listing)</option>
+  <option value="1">Standard ($1 per listing)</option>
+  <option value="2" selected>Professional ($2 per listing)</option>
+  <option value="5">Premium ($5 per listing)</option>
 </select>
 </div>
 </div>
@@ -1089,13 +975,13 @@ New listings you create per month
 <div class="mt-8 bg-gradient-to-r from-[#F3F1E8] to-yellow-50 p-5 rounded-lg border-l-4 border-[#F56400] shadow-sm">
 <div class="flex items-start">
 <div class="bg-[#F56400] rounded-full p-2 mr-3">
- <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
- </svg>
+  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+  </svg>
 </div>
 <div>
- <h4 class="font-bold text-lg text-[#F56400]">With ePro AI</h4>
- <p class="text-gray-700">Average time per listing: <span class="font-bold">2 minutes</span> 🔥</p>
+  <h4 class="font-bold text-lg text-[#F56400]">With ePro AI</h4>
+  <p class="text-gray-700">Average time per listing: <span class="font-bold">2 minutes</span> 🔥</p>
 </div>
 </div>
 </div>
@@ -1105,120 +991,119 @@ New listings you create per month
 <div>
 <div class="relative">
 <div class="absolute -top-10 -right-6 bg-[#F56400] text-white rounded-lg py-1 px-3 text-sm font-bold transform rotate-3 shadow-md">
- Your SAVINGS! 🚀
+  Your SAVINGS! 🚀
 </div>
 
 <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 border border-gray-200 shadow-md">
- <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-   <span>Your Mind-Blowing Results</span>
-   <div class="ml-2" id="recalculating" style="display: none;">
-     <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping mr-1"></span>
-     <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping" style="animation-delay: 0.2s;"></span>
-     <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping" style="animation-delay: 0.4s;"></span>
-   </div>
- </h3>
+  <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+    <span>Your Mind-Blowing Results</span>
+    <div class="ml-2" id="recalculating" style="display: none;">
+      <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping mr-1"></span>
+      <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping" style="animation-delay: 0.2s;"></span>
+      <span class="inline-block w-2 h-2 bg-[#F56400] rounded-full animate-ping" style="animation-delay: 0.4s;"></span>
+    </div>
+  </h3>
 
- <div class="space-y-6">
-   <!-- Time Analysis - Only shown for non-VA users -->
-   <div id="timeAnalysisSection" class="bg-white p-8 rounded-lg border border-gray-100 shadow-sm">
-     <p class="text-lg font-medium text-gray-800 mb-5">Time Analysis</p>
-     
-     <div class="flex justify-between items-center mb-6">
-       <span class="text-gray-600">Current hours per month:</span>
-       <div class="flex items-center">
-         <span class="font-bold text-xl" id="displayCurrentHours">10</span>
-         <span class="ml-1 text-gray-500">hrs</span>
-       </div>
-     </div>
-     
-     <div class="flex justify-between items-center mb-6">
-       <span class="text-gray-600">Hours with ePro AI:</span>
-       <div class="flex items-center">
-         <span class="font-bold text-xl text-[#F56400]" id="displayEproHours">0.3</span>
-         <span class="ml-1 text-gray-500">hrs</span>
-       </div>
-     </div>
-     
-     <div class="flex justify-between items-center pt-6 border-t border-gray-100">
-       <span class="text-gray-700 font-medium">Time saved monthly:</span>
-       <div class="relative">
-         <span class="font-bold text-xl text-green-600" id="displayTimeSaved">9.7</span>
-         <span class="ml-1 text-gray-500">hrs</span>
-         <span id="timeChangeIndicator" class="absolute -top-4 right-0 text-green-500 text-sm font-medium">
-           ↑ 97%
-         </span>
-       </div>
-     </div>
-   </div>
-   
-   <!-- Cost Analysis -->
-   <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
-     <p class="text-lg font-medium text-gray-800 mb-3">Cost Analysis</p>
-     
-     <div class="flex justify-between items-center mb-3">
-       <span class="text-gray-600">Monthly listings:</span>
-       <span class="font-bold text-xl" id="displayMonthlyListings">10</span>
-     </div>
-     
-     <div class="flex justify-between items-center mb-3">
-       <span class="text-gray-600">ePro AI cost:</span>
-       <div class="flex items-center">
-         <span class="font-bold text-xl text-[#F56400]" id="displayEproCost">$20</span>
-         <span id="perListing" class="ml-1 text-xs text-gray-500">($2/listing)</span>
-       </div>
-     </div>
-     
-     <div id="vaCostRow" class="flex justify-between items-center mb-3 hidden">
-       <span class="text-gray-600">Current VA cost:</span>
-       <span class="font-bold text-xl text-gray-800" id="displayVaCost">$0</span>
-     </div>
-     
-     <div class="flex justify-between items-center mb-3">
-       <span class="text-gray-600">Tools you'll no longer need:</span>
-       <span class="font-bold text-xl text-green-600" id="displayToolSavings">$30</span>
-     </div>
-     
-     <div id="timeSavingsValueRow" class="flex justify-between items-center mb-3">
-       <span class="text-gray-600">Value of time saved:</span>
-       <span class="font-bold text-xl text-green-600" id="displayTimeSavingsValue">$242.50</span>
-     </div>
-     
-     <div class="pt-3 border-t border-gray-300 flex justify-between items-center">
-       <span class="text-gray-800 font-medium">Net monthly benefit:</span>
-       <div class="relative">
-         <span class="font-bold text-2xl text-[#F56400]" id="netBenefit">$252.50</span>
-         <span id="benefitChangeIndicator" class="absolute -top-4 right-0 text-green-500 text-sm font-medium">
-           ↑ 95%
-         </span>
-       </div>
-     </div>
-   </div>
-   
-   <!-- Annual Impact -->
-   <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] p-4 rounded-lg text-white shadow-lg">
-     <p class="font-bold mb-3">ANNUAL IMPACT</p>
-     <div class="flex justify-between items-center">
-       <span>Yearly savings:</span>
-       <span class="font-bold text-2xl" id="yearlyNetBenefit">$3,030</span>
-     </div>
-     <div id="yearlyTimeRow" class="flex justify-between items-center mt-2">
-       <span>Hours saved per year:</span>
-       <span class="font-bold text-2xl" id="yearlyTimeSaved">116.4</span>
-     </div>
-     <div id="vacationDaysRow" class="mt-4 text-sm bg-white bg-opacity-20 p-2 rounded">
-       That's <span class="font-bold" id="vacationDays">14.6</span> full 8-hour workdays saved annually!
-     </div>
-   </div>
- </div>
+  <div class="space-y-6">
+    <!-- Time Analysis - Only shown for non-VA users -->
+    <div id="timeAnalysisSection" class="bg-white p-8 rounded-lg border border-gray-100 shadow-sm">
+      <p class="text-lg font-medium text-gray-800 mb-5">Time Analysis</p>
+      
+      <div class="flex justify-between items-center mb-6">
+        <span class="text-gray-600">Current hours per month:</span>
+        <div class="flex items-center">
+          <span class="font-bold text-xl" id="displayCurrentHours">10</span>
+          <span class="ml-1 text-gray-500">hrs</span>
+        </div>
+      </div>
+      
+      <div class="flex justify-between items-center mb-6">
+        <span class="text-gray-600">Hours with ePro AI:</span>
+        <div class="flex items-center">
+          <span class="font-bold text-xl text-[#F56400]" id="displayEproHours">0.3</span>
+          <span class="ml-1 text-gray-500">hrs</span>
+        </div>
+      </div>
+      
+      <div class="flex justify-between items-center pt-6 border-t border-gray-100">
+        <span class="text-gray-700 font-medium">Time saved monthly:</span>
+        <div class="relative">
+          <span class="font-bold text-xl text-green-600" id="displayTimeSaved">9.7</span>
+          <span class="ml-1 text-gray-500">hrs</span>
+          <span id="timeChangeIndicator" class="absolute -top-4 right-0 text-green-500 text-sm font-medium">
+            ↑ 97%
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cost Analysis -->
+    <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+      <p class="text-lg font-medium text-gray-800 mb-3">Cost Analysis</p>
+      
+      <div class="flex justify-between items-center mb-3">
+        <span class="text-gray-600">Monthly listings:</span>
+        <span class="font-bold text-xl" id="displayMonthlyListings">10</span>
+      </div>
+      
+      <div class="flex justify-between items-center mb-3">
+        <span class="text-gray-600">ePro AI cost:</span>
+        <div class="flex items-center">
+          <span class="font-bold text-xl text-[#F56400]" id="displayEproCost">$20</span>
+          <span id="perListing" class="ml-1 text-xs text-gray-500">($2/listing)</span>
+        </div>
+      </div>
+      
+      <div id="vaCostRow" class="flex justify-between items-center mb-3 hidden">
+        <span class="text-gray-600">Current VA cost:</span>
+        <span class="font-bold text-xl text-gray-800" id="displayVaCost">$0</span>
+      </div>
+      
+      <div class="flex justify-between items-center mb-3">
+        <span class="text-gray-600">Tools you'll no longer need:</span>
+        <span class="font-bold text-xl text-green-600" id="displayToolSavings">$30</span>
+      </div>
+      
+      <div id="timeSavingsValueRow" class="flex justify-between items-center mb-3">
+        <span class="text-gray-600">Value of time saved:</span>
+        <span class="font-bold text-xl text-green-600" id="displayTimeSavingsValue">$242.50</span>
+      </div>
+      
+      <div class="pt-3 border-t border-gray-300 flex justify-between items-center">
+        <span class="text-gray-800 font-medium">Net monthly benefit:</span>
+        <div class="relative">
+          <span class="font-bold text-2xl text-[#F56400]" id="netBenefit">$252.50</span>
+          <span id="benefitChangeIndicator" class="absolute -top-4 right-0 text-green-500 text-sm font-medium">
+            ↑ 95%
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Annual Impact -->
+    <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] p-4 rounded-lg text-white shadow-lg">
+      <p class="font-bold mb-3">ANNUAL IMPACT</p>
+      <div class="flex justify-between items-center">
+        <span>Yearly savings:</span>
+        <span class="font-bold text-2xl" id="yearlyNetBenefit">$3,030</span>
+      </div>
+      <div id="yearlyTimeRow" class="flex justify-between items-center mt-2">
+        <span>Hours saved per year:</span>
+        <span class="font-bold text-2xl" id="yearlyTimeSaved">116.4</span>
+      </div>
+      <div id="vacationDaysRow" class="mt-4 text-sm bg-white bg-opacity-20 p-2 rounded">
+        That's <span class="font-bold" id="vacationDays">14.6</span> full 8-hour workdays saved annually!
+      </div>
+    </div>
+  </div>
 
- <!-- Call to action -->
- <div class="mt-8 text-center">
-   <a href="#pricing" class="inline-block bg-[#F56400] hover:bg-[#E05000] transition-colors text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-transform">
-     Start Saving Today →
-   </a>
-   <p class="mt-3 text-sm text-gray-500">No credit card required to start</p>
- </div>
-</div>
+  <!-- Call to action -->
+  <div class="mt-8 text-center">
+    <a href="#" onclick="openSignupModal(); return false;" class="inline-block bg-[#F56400] hover:bg-[#E05000] transition-colors text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-transform">
+      Start Saving Today →
+    </a>
+    <p class="mt-3 text-sm text-gray-500">No credit card required to start</p>
+  </div>
 </div>
 </div>
 </div>
@@ -1236,670 +1121,1078 @@ New listings you create per month
 
 <div class="bg-white rounded-xl shadow-sm p-8 mb-12">
 <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
- <!-- FAQ Item 1 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">How does ePro AI actually work?</h3>
-     <p class="text-gray-700">Upload a single product photo, and our AI analyzes your image, then taps into our proprietary database of winning Etsy listings. The system identifies what's working in your specific category and generates optimized titles, descriptions, tags, and images specifically designed to maximize visibility and sales.</p>
-   </div>
- </div>
- 
- <!-- FAQ Item 2 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">How much time will this actually save me?</h3>
-     <p class="text-gray-700">Our average user reports saving 7-10 hours every week! If you're adding just one new product daily, you're currently spending 1-2 hours per listing on photography, editing, keyword research, and writing descriptions. ePro AI reduces this entire process to 2-5 minutes per listing.</p>
-   </div>
- </div>
- 
- <!-- FAQ Item 3 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">What does a token actually get me?</h3>
-     <p class="text-gray-700">Tokens are your flexible currency within ePro AI. Each token equals $1 USD. Our Standard plan (1 token) delivers SEO-optimized titles, descriptions and tags, while Professional (2 tokens) adds 5 studio-quality images, and Premium (5 tokens) includes 8 images plus a product creation video.</p>
-   </div>
- </div>
- 
- <!-- FAQ Item 4 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">Can I edit the content after it's generated?</h3>
-     <p class="text-gray-700">Yes! While most users find our AI-generated content ready to use immediately, you have complete control to personalize any aspect. Our system provides you with editable text files and high-resolution images that you can tweak before uploading to Etsy.</p>
-   </div>
- </div>
+<!-- FAQ Item 1 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
 
- <!-- FAQ Item 5 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">Is the AI optimized for specific Etsy categories?</h3>
-     <p class="text-gray-700">Absolutely! Our AI has been trained on successful listings across all major Etsy categories. When you select your product category, the system specifically tailors its output to match what performs best in that niche, including category-specific keywords and presentation styles.</p>
-   </div>
- </div>
- 
- <!-- FAQ Item 6 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">How are the product images generated?</h3>
-     <p class="text-gray-700">Our advanced AI imaging technology creates professional studio-quality images by analyzing your original product photo. It maintains the integrity of your product while enhancing lighting, adding appropriate backgrounds, and even placing it in lifestyle contexts or on models when relevant to your product type.</p>
-   </div>
- </div>
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">How does ePro AI actually work?</h3>
+<p class="text-gray-700">Upload a single product photo, and our AI analyzes your image, then taps into our proprietary database of winning Etsy listings. The system identifies what's working in your specific category and generates optimized titles, descriptions, tags, and images specifically designed to maximize visibility and sales.</p>
+</div>
+</div>
 
- <!-- FAQ Item 7 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">What's the difference between the plans?</h3>
-     <p class="text-gray-700">The Standard plan (1 token) provides text content only - optimized title, description, and tags. Professional (2 tokens) adds 5 high-quality product images with various backgrounds. Premium (5 tokens) includes 8 ultra-realistic images with lifestyle contexts plus a short product creation video that showcases craftsmanship.</p>
-   </div>
- </div>
- 
- <!-- FAQ Item 8 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">Is there a limit to how many listings I can create?</h3>
-     <p class="text-gray-700">There's no limit! You can create as many listings as you have tokens for. Our most active sellers typically purchase our Pro package (250 tokens) which allows for creating 125 Professional listings. Unused tokens never expire, so you can use them at your own pace.</p>
-   </div>
- </div>
+<!-- FAQ Item 2 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
 
- <!-- FAQ Item 9 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">How up-to-date is the SEO optimization?</h3>
-     <p class="text-gray-700">Our system connects to real-time Etsy search data through EtsyHunt API, ensuring your listings are optimized for current search trends and buyer behavior. The AI constantly learns from the latest successful listings to keep your content competitive in the marketplace.</p>
-   </div>
- </div>
- 
- <!-- FAQ Item 10 -->
- <div class="relative group">
-   <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-   
-   <div class="pl-4">
-     <h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">Can I use this for bulk listings?</h3>
-     <p class="text-gray-700">Yes! Our CSV upload feature allows you to process up to 50 products at once. Simply follow our template format with your product images, basic descriptions, materials, sizes, and categories. The system will process each item individually with the same quality and optimization as single uploads.</p>
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">How much time will this actually save me?</h3>
+<p class="text-gray-700">Our average user reports saving 7-10 hours every week! If you're adding just one new product daily, you're currently spending 1-2 hours per listing on photography, editing, keyword research, and writing descriptions. ePro AI reduces this entire process to 2-5 minutes per listing.</p>
+</div>
+</div>
+
+<!-- FAQ Item 3 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">What does a token actually get me?</h3>
+<p class="text-gray-700">Tokens are your flexible currency within ePro AI. Each token equals $1 USD. Our Standard plan (1 token) delivers SEO-optimized titles, descriptions and tags, while Professional (2 tokens) adds 5 studio-quality images, and Premium (5 tokens) includes 8 images plus a product creation video.</p>
+</div>
+</div>
+
+<!-- FAQ Item 4 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">Can I edit the content after it's generated?</h3>
+<p class="text-gray-700">Yes! While most users find our AI-generated content ready to use immediately, you have complete control to personalize any aspect. Our system provides you with editable text files and high-resolution images that you can tweak before uploading to Etsy.</p>
+</div>
+</div>
+
+<!-- FAQ Item 5 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">Is the AI optimized for specific Etsy categories?</h3>
+<p class="text-gray-700">Absolutely! Our AI has been trained on successful listings across all major Etsy categories. When you select your product category, the system specifically tailors its output to match what performs best in that niche, including category-specific keywords and presentation styles.</p>
+</div>
+</div>
+
+<!-- FAQ Item 6 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">How are the product images generated?</h3>
+<p class="text-gray-700">Our advanced AI imaging technology creates professional studio-quality images by analyzing your original product photo. It maintains the integrity of your product while enhancing lighting, adding appropriate backgrounds, and even placing it in lifestyle contexts or on models when relevant to your product type.</p>
+</div>
+</div>
+
+<!-- FAQ Item 7 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">What's the difference between the plans?</h3>
+<p class="text-gray-700">The Standard plan (1 token) provides text content only - optimized title, description, and tags. Professional (2 tokens) adds 5 high-quality product images with various backgrounds. Premium (5 tokens) includes 8 ultra-realistic images with lifestyle contexts plus a short product creation video that showcases craftsmanship.</p>
+</div>
+</div>
+
+<!-- FAQ Item 8 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">Is there a limit to how many listings I can create?</h3>
+<p class="text-gray-700">There's no limit! You can create as many listings as you have tokens for. Our most active sellers typically purchase our Pro package (250 tokens) which allows for creating 125 Professional listings. Unused tokens never expire, so you can use them at your own pace.</p>
+</div>
+</div>
+
+<!-- FAQ Item 9 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">How up-to-date is the SEO optimization?</h3>
+<p class="text-gray-700">Our system connects to real-time Etsy search data through EtsyHunt API, ensuring your listings are optimized for current search trends and buyer behavior. The AI constantly learns from the latest successful listings to keep your content competitive in the marketplace.</p>
+</div>
+</div>
+
+<!-- FAQ Item 10 -->
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#F56400] to-yellow-500 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+<div class="pl-4">
+<h3 class="text-xl font-bold mb-3 group-hover:text-[#F56400] transition-all duration-300">Can I use this for bulk listings?</h3>
+<p class="text-gray-700">Yes! Our CSV upload feature allows you to process up to 50 products at once. Simply follow our template format with your product images, basic descriptions, materials, sizes, and categories. The system will process each item individually with the same quality and optimization as single uploads.</p>
+</div>
 </div>
 </div>
 
 <!-- FAQ Summary Call to Action -->
 <div class="mt-12 text-center">
- <div class="inline-block bg-[#F9F8F4] px-8 py-6 rounded-xl border-l-4 border-[#F56400]">
-   <h3 class="text-xl font-bold mb-2">Still have questions?</h3>
-   <p class="text-gray-700 mb-4">Our support team is ready to help you get started</p>
-   <a href="mailto:support@eproai.com" class="inline-block bg-[#F56400] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
-     Contact Support
-   </a>
- </div>
+  <div class="inline-block bg-[#F9F8F4] px-8 py-6 rounded-xl border-l-4 border-[#F56400]">
+    <h3 class="text-xl font-bold mb-2">Still have questions?</h3>
+    <p class="text-gray-700 mb-4">Our support team is ready to help you get started</p>
+    <a href="mailto:support@eproai.com" class="inline-block bg-[#F56400] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+      Contact Support
+    </a>
+  </div>
 </div>
 </div>
 </div>
 </section>
 
+<!-- Login Modal -->
+<div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl p-8 max-w-md w-full shadow-xl relative">
+    <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="text-center mb-6">
+      <div class="inline-block">
+        <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] text-transparent bg-clip-text">
+          <span class="text-2xl font-bold">ePro</span>
+          <span class="text-xl font-bold ml-1">AI</span>
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold mt-2">Log In</h2>
+    </div>
+    
+    <form id="login-form" onsubmit="handleLogin(event)">
+      <div class="mb-4">
+        <label for="login-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input 
+          type="email" 
+          id="login-email" 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F56400] focus:border-transparent outline-none transition-all"
+          placeholder="your@email.com"
+          required
+        >
+      </div>
+      
+      <div class="mb-6">
+        <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input 
+          type="password" 
+          id="login-password" 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F56400] focus:border-transparent outline-none transition-all"
+          placeholder="••••••••••"
+          required
+        >
+      </div>
+      
+      <button 
+        type="submit"
+        class="w-full bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white py-3 rounded-lg font-medium hover:shadow-md transition-all"
+      >
+        Log In
+      </button>
+      
+      <div class="mt-4 text-center">
+        <p class="text-sm text-gray-600">
+          Don't have an account? 
+          <a href="#" onclick="switchToSignup(); return false;" class="text-[#F56400] hover:underline font-medium">Sign Up</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signup-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl p-8 max-w-md w-full shadow-xl relative">
+    <button onclick="closeSignupModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="text-center mb-6">
+      <div class="inline-block">
+        <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] text-transparent bg-clip-text">
+          <span class="text-2xl font-bold">ePro</span>
+          <span class="text-xl font-bold ml-1">AI</span>
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold mt-2">Create Your Account</h2>
+      <p class="text-sm text-gray-600 mt-1">Get 10 free tokens to start creating listings!</p>
+    </div>
+    
+    <form id="signup-form" onsubmit="handleSignup(event)">
+      <div class="mb-4">
+        <label for="signup-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+        <input 
+          type="text" 
+          id="signup-name" 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F56400] focus:border-transparent outline-none transition-all"
+          placeholder="John Smith"
+          required
+        >
+      </div>
+      
+      <div class="mb-4">
+        <label for="signup-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input 
+          type="email" 
+          id="signup-email" 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F56400] focus:border-transparent outline-none transition-all"
+          placeholder="your@email.com"
+          required
+        >
+      </div>
+      
+      <div class="mb-6">
+        <label for="signup-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input 
+          type="password" 
+          id="signup-password" 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F56400] focus:border-transparent outline-none transition-all"
+          placeholder="••••••••••"
+          required
+          minlength="8"
+        >
+        <p class="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
+      </div>
+      
+      <button 
+        type="submit"
+        class="w-full bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white py-3 rounded-lg font-medium hover:shadow-md transition-all"
+      >
+        Create Account
+      </button>
+      
+      <div class="mt-4 text-center">
+        <p class="text-sm text-gray-600">
+          Already have an account? 
+          <a href="#" onclick="switchToLogin(); return false;" class="text-[#F56400] hover:underline font-medium">Log In</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Footer -->
 <footer class="bg-gray-900 text-white py-12 px-6">
-<div class="container mx-auto max-w-6xl">
- <div class="grid md:grid-cols-3 gap-8">
-   <div>
-     <div class="flex items-center mb-4">
-       <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] text-transparent bg-clip-text">
-         <span class="text-2xl font-bold">ePro</span>
-         <span class="text-xl font-bold ml-1">AI</span>
-       </div>
-       <span class="ml-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full">BETA</span>
-     </div>
-     <p class="text-gray-400 mb-6">
-       Transforming Etsy stores with AI-powered product listings and optimized content.
-     </p>
-   </div>
-   
-   <div>
-     <h3 class="text-lg font-bold mb-4">Product</h3>
-     <ul class="space-y-2">
-       <li><a href="#dashboard" class="text-gray-400 hover:text-white transition-colors">Dashboard</a></li>
-       <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-       <li><a href="#faq-section" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
-     </ul>
-   </div>
-   
-   <div>
-     <h3 class="text-lg font-bold mb-4">Legal</h3>
-     <ul class="space-y-2">
-       <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
-       <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-       <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a></li>
-       <li><a href="mailto:support@eproai.com" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
-     </ul>
-   </div>
- </div>
- 
- <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-   <p>&copy; 2025 ePro AI. All rights reserved. Operated by Aetophis.</p>
- </div>
-</div>
+  <div class="container mx-auto max-w-6xl">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div>
+        <div class="flex items-center mb-4">
+          <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] text-transparent bg-clip-text">
+            <span class="text-2xl font-bold">ePro</span>
+            <span class="text-xl font-bold ml-1">AI</span>
+          </div>
+          <span class="ml-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full">BETA</span>
+        </div>
+        <p class="text-gray-400 mb-6">
+          Transforming Etsy stores with AI-powered product listings and optimized content.
+        </p>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-bold mb-4">Product</h3>
+        <ul class="space-y-2">
+          <li><a href="#dashboard" class="text-gray-400 hover:text-white transition-colors">Dashboard</a></li>
+          <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+          <li><a href="#calculator-section" class="text-gray-400 hover:text-white transition-colors">ROI Calculator</a></li>
+          <li><a href="#faq-section" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-bold mb-4">Legal</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a></li>
+          <li><a href="mailto:support@eproai.com" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+      <p>&copy; 2025 ePro AI. All rights reserved. Operated by Aetophis.</p>
+    </div>
+  </div>
 </footer>
 
 <!-- JavaScript -->
 <script>
-// Process selection
-let selectedProcess = "professional";
-let selectedTokens = 2;
-let userTokens = 28; // Simulate user's token balance
+// User Authentication
+let userTokens = 10; // Default tokens for new users
 
+// Login/Signup Modal Functions
+function openLoginModal() {
+  document.getElementById('login-modal').classList.remove('hidden');
+}
+
+function closeLoginModal() {
+  document.getElementById('login-modal').classList.add('hidden');
+}
+
+function openSignupModal() {
+  document.getElementById('signup-modal').classList.remove('hidden');
+}
+
+function closeSignupModal() {
+  document.getElementById('signup-modal').classList.add('hidden');
+}
+
+function switchToLogin() {
+  closeSignupModal();
+  openLoginModal();
+}
+
+function switchToSignup() {
+  closeLoginModal();
+  openSignupModal();
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+  
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  
+  // Simple login simulation
+  localStorage.setItem('epro_logged_in', 'true');
+  localStorage.setItem('epro_user_email', email);
+  
+  // Get user name from email or use default
+  const username = email.split('@')[0] || 'User';
+  localStorage.setItem('epro_user_name', username);
+  
+  // Set default tokens if none exist
+  if (!localStorage.getItem('epro_tokens')) {
+    localStorage.setItem('epro_tokens', '10');
+  }
+  
+  closeLoginModal();
+  window.location.reload();
+}
+
+function handleSignup(event) {
+  event.preventDefault();
+  
+  const name = document.getElementById('signup-name').value;
+  const email = document.getElementById('signup-email').value;
+  
+  // Simple signup simulation
+  localStorage.setItem('epro_logged_in', 'true');
+  localStorage.setItem('epro_user_email', email);
+  localStorage.setItem('epro_user_name', name);
+  localStorage.setItem('epro_tokens', '10'); // New users get 10 tokens
+  
+  closeSignupModal();
+  window.location.reload();
+}
+
+function handleLogout() {
+  localStorage.setItem('epro_logged_in', 'false');
+  window.location.reload();
+}
+
+// Update user avatar with initials
+function updateUserAvatar(fullName) {
+  const userAvatar = document.getElementById('user-avatar');
+  if (!userAvatar) return;
+  
+  let initials = '';
+  const nameParts = fullName.split(' ');
+  
+  if (nameParts.length >= 2) {
+    // Get first letter of first and last name
+    initials = nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0);
+  } else {
+    // Just use first 2 letters of the name
+    initials = nameParts[0].substring(0, 2);
+  }
+  
+  userAvatar.textContent = initials.toUpperCase();
+}
+
+// Process selection in dashboard
 function selectProcess(process, tokens, element) {
- // Update selected process
- selectedProcess = process;
- selectedTokens = tokens;
- 
- // Update display
- document.getElementById('selectedProcessDisplay').textContent = `${process.charAt(0).toUpperCase() + process.slice(1)} (${tokens} tokens)`;
- document.getElementById('actionTokens').textContent = tokens;
- 
- // Update bulk tokens required
- updateBulkTokensRequired();
- 
- // Reset all process options
- const options = document.querySelectorAll('.process-option');
- options.forEach(opt => {
-   opt.classList.remove('selected');
-   opt.classList.add('hover-card');
-   opt.classList.remove('border-[#F56400]');
-   opt.classList.add('border-gray-200');
-   opt.classList.remove('bg-[#FEF8F4]');
-   
-   // Reset all buttons
-   const btn = opt.querySelector('.process-select-btn');
-   btn.textContent = 'Select';
-   btn.classList.remove('bg-[#F56400]');
-   btn.classList.remove('text-white');
-   btn.classList.add('bg-gray-100');
-   btn.classList.add('text-gray-700');
- });
- 
- // Update selected option
- element.classList.add('selected');
- element.classList.remove('hover-card');
- element.classList.add('border-[#F56400]');
- element.classList.remove('border-gray-200');
- element.classList.add('bg-[#FEF8F4]');
- 
- // Update button
- const btn = element.querySelector('.process-select-btn');
- btn.textContent = 'Selected';
- btn.classList.add('bg-[#F56400]');
- btn.classList.add('text-white');
- btn.classList.remove('bg-gray-100');
- btn.classList.remove('text-gray-700');
+  // Update selected process
+  const selectedProcess = process;
+  const selectedTokens = tokens;
+  
+  // Update display
+  document.getElementById('selectedProcessDisplay').textContent = `${process.charAt(0).toUpperCase() + process.slice(1)} (${tokens} tokens)`;
+  document.getElementById('actionTokens').textContent = tokens;
+  
+  // Update bulk tokens required
+  updateBulkTokensRequired(tokens);
+  
+  // Reset all process options
+  const options = document.querySelectorAll('.process-option');
+  options.forEach(opt => {
+    opt.classList.remove('selected');
+    opt.classList.add('hover-card');
+    opt.classList.remove('border-[#F56400]');
+    opt.classList.add('border-gray-200');
+    opt.classList.remove('bg-[#FEF8F4]');
+    
+    // Reset all buttons
+    const btn = opt.querySelector('.process-select-btn');
+    btn.textContent = 'Select';
+    btn.classList.remove('bg-[#F56400]');
+    btn.classList.remove('text-white');
+    btn.classList.add('bg-gray-100');
+    btn.classList.add('text-gray-700');
+  });
+  
+  // Update selected option
+  element.classList.add('selected');
+  element.classList.remove('hover-card');
+  element.classList.add('border-[#F56400]');
+  element.classList.remove('border-gray-200');
+  element.classList.add('bg-[#FEF8F4]');
+  
+  // Update button
+  const btn = element.querySelector('.process-select-btn');
+  btn.textContent = 'Selected';
+  btn.classList.add('bg-[#F56400]');
+  btn.classList.add('text-white');
+  btn.classList.remove('bg-gray-100');
+  btn.classList.remove('text-gray-700');
 }
 
 // Tab switching for upload options
 function switchUploadTab(tab) {
- const singleTab = document.getElementById('singleUploadTab');
- const csvTab = document.getElementById('bulkCsvTab');
- const singleArea = document.getElementById('singleUploadArea');
- const csvArea = document.getElementById('bulkCsvArea');
- 
- if (tab === 'single') {
-   // Update tabs
-   singleTab.classList.add('border-[#F56400]', 'text-[#F56400]');
-   csvTab.classList.remove('border-[#F56400]', 'text-[#F56400]');
-   
-   // Show areas
-   singleArea.classList.remove('hidden');
-   csvArea.classList.add('hidden');
- } else {
-   // Update tabs
-   csvTab.classList.add('border-[#F56400]', 'text-[#F56400]');
-   singleTab.classList.remove('border-[#F56400]', 'text-[#F56400]');
-   
-   // Show areas
-   csvArea.classList.remove('hidden');
-   singleArea.classList.add('hidden');
- }
+  const singleTab = document.getElementById('singleUploadTab');
+  const csvTab = document.getElementById('bulkCsvTab');
+  const singleArea = document.getElementById('singleUploadArea');
+  const csvArea = document.getElementById('bulkCsvArea');
+  
+  if (tab === 'single') {
+    // Update tabs
+    singleTab.classList.add('border-[#F56400]', 'text-[#F56400]');
+    csvTab.classList.remove('border-[#F56400]', 'text-[#F56400]');
+    singleTab.classList.add('border-b-2', 'md:border-b-0', 'md:border-r-2');
+    csvTab.classList.remove('border-b-2', 'md:border-b-0', 'md:border-r-2');
+    
+    // Show/hide areas
+    singleArea.classList.remove('hidden');
+    csvArea.classList.add('hidden');
+  } else {
+    // Update tabs
+    csvTab.classList.add('border-[#F56400]', 'text-[#F56400]');
+    singleTab.classList.remove('border-[#F56400]', 'text-[#F56400]');
+    csvTab.classList.add('border-b-2', 'md:border-b-0', 'md:border-r-2');
+    singleTab.classList.remove('border-b-2', 'md:border-b-0', 'md:border-r-2');
+    
+    // Show/hide areas
+    csvArea.classList.remove('hidden');
+    singleArea.classList.add('hidden');
+  }
 }
 
 // Update bulk tokens required
-function updateBulkTokensRequired() {
- const bulkTokensRequired = document.getElementById('bulkTokensRequired');
- const rows = document.querySelectorAll('tbody tr').length - 1; // Subtract one for the "add row" button
- const totalTokens = rows * selectedTokens;
- bulkTokensRequired.textContent = totalTokens;
+function updateBulkTokensRequired(selectedTokens) {
+  const bulkTokensRequired = document.getElementById('bulkTokensRequired');
+  const bulkListingCount = document.getElementById('bulkListingCount');
+  
+  // Count rows with content in CSV table
+  const rows = document.querySelectorAll('tbody tr');
+  let filledRows = 0;
+  
+  rows.forEach(row => {
+    if (!row.querySelector('#addRowBtn')) {
+      const inputs = row.querySelectorAll('input');
+      let hasContent = false;
+      
+      inputs.forEach(input => {
+        if (input.value.trim() !== '') {
+          hasContent = true;
+        }
+      });
+      
+      if (hasContent) filledRows++;
+    }
+  });
+  
+  // Update displays
+  if (bulkListingCount) bulkListingCount.textContent = filledRows;
+  if (bulkTokensRequired) bulkTokensRequired.textContent = filledRows * selectedTokens;
 }
 
-// Add row function for CSV table
-document.getElementById('addRowBtn').addEventListener('click', function() {
- const tbody = this.closest('tbody');
- const newRow = document.createElement('tr');
- newRow.innerHTML = `
-   <td class="px-4 py-2">
-     <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Image URL here...">
-   </td>
-   <td class="px-4 py-2">
-     <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Product description...">
-   </td>
-   <td class="px-4 py-2">
-     <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Materials...">
-   </td>
-   <td class="px-4 py-2">
-     <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Size(s)...">
-   </td>
-   <td class="px-4 py-2">
-     <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Category...">
-   </td>
-   <td class="px-4 py-2">
-     <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Logo URL (optional)">
-   </td>
-   <td class="px-4 py-2">
-     <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Shop name...">
-   </td>
- `;
- 
- // Insert the new row before the "add row" button row
- const addRowBtn = this.closest('tr');
- tbody.insertBefore(newRow, addRowBtn);
- 
- // Update bulk tokens required
- updateBulkTokensRequired();
-});
-
-// Custom token amount logic
-const customTokenInput = document.getElementById('customTokenAmount');
-const customTokenPrice = document.getElementById('customTokenPrice');
-
-if (customTokenInput && customTokenPrice) {
- customTokenInput.addEventListener('input', function() {
-   let value = parseInt(this.value) || 0;
-   
-   // Ensure minimum of 10 tokens
-   if (value < 10) {
-     value = 10;
-     this.value = 10;
-   }
-   
-   // Update price (1:1 ratio)
-   customTokenPrice.textContent = value;
- });
+// Add row to CSV table
+function addCsvRow() {
+  const tbody = document.querySelector('tbody');
+  const addRowBtn = document.getElementById('addRowBtn').closest('tr');
+  const newRow = document.createElement('tr');
+  
+  newRow.innerHTML = `
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Image URL here...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Product description...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Materials...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Size, Style...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Category...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Size: S,M,L|Color: Red,Blue...">
+    </td>
+    <td class="px-4 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" placeholder="Shop name...">
+    </td>
+  `;
+  
+  // Insert the new row before the add button row
+  tbody.insertBefore(newRow, addRowBtn);
+  
+  // Update bulk tokens required
+  const selectedTokens = parseInt(document.getElementById('actionTokens').textContent);
+  updateBulkTokensRequired(selectedTokens);
+  
+  // Add event listeners to inputs for real-time updates
+  newRow.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', () => {
+      updateBulkTokensRequired(selectedTokens);
+    });
+  });
 }
 
-// Token validation
-function checkTokens() {
- const warning = document.getElementById('insufficientTokensWarning');
- const tokensNeeded = document.getElementById('tokensNeeded');
- const tokensAvailable = document.getElementById('tokensAvailable');
- 
- // Check if bulk or single
- const isBulk = !document.getElementById('bulkCsvArea').classList.contains('hidden');
- let requiredTokens = selectedTokens;
- 
- if (isBulk) {
-   const rows = document.querySelectorAll('tbody tr').length - 1; // Subtract one for the "add row" button
-   requiredTokens = rows * selectedTokens;
- }
- 
- if (requiredTokens > userTokens) {
-   // Show warning
-   warning.classList.remove('hidden');
-   tokensNeeded.textContent = requiredTokens;
-   tokensAvailable.textContent = userTokens;
-   
-   // Scroll to warning
-   warning.scrollIntoView({ behavior: 'smooth', block: 'center' });
-   return false;
- } else {
-   // Hide warning if it's showing
-   warning.classList.add('hidden');
-   
-   // Proceed with generation (in a real app)
-   alert(`Processing! ${requiredTokens} tokens will be deducted from your account.`);
-   return true;
- }
+// Download CSV template
+function downloadCsvTemplate() {
+  const csvContent = 'image_url,description,material,size_style,category,variations,shop_name\nhttps://i.postimg.cc/example-image.jpg,"Elegant off-shoulder bridal gown with lace bodice and flowing satin skirt.","Satin, Lace","S,M,L,XL, Modern Style",Bridal Dresses,"Size: S,M,L,XL|Color: White,Ivory,Blush",Roza Bridal';
+  
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', 'ePro_AI_CSV_Template.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
-// Initialize calculator
-document.addEventListener('DOMContentLoaded', function() {
- // DOM Elements
- const listingsPerMonth = document.getElementById('listingsPerMonth');
- const minutesPerListing = document.getElementById('minutesPerListing');
- const vaListingsPerMonth = document.getElementById('vaListingsPerMonth');
- const useVAYes = document.getElementById('useVAYes');
- const useVANo = document.getElementById('useVANo');
- const vaYesLabel = document.getElementById('vaYesLabel');
- const vaNoLabel = document.getElementById('vaNoLabel');
- const vaSalary = document.getElementById('vaSalary');
- const hourlyRate = document.getElementById('hourlyRate');
- const toolsCost = document.getElementById('toolsCost');
- const eproAiPlan = document.getElementById('eproAiPlan');
- 
- // Display Elements
- const displayMonthlyListings = document.getElementById('displayMonthlyListings');
- const displayCurrentHours = document.getElementById('displayCurrentHours');
- const displayEproHours = document.getElementById('displayEproHours');
- const displayTimeSaved = document.getElementById('displayTimeSaved');
- const displayEproCost = document.getElementById('displayEproCost');
- const displayVaCost = document.getElementById('displayVaCost');
- const displayToolSavings = document.getElementById('displayToolSavings');
- const displayTimeSavingsValue = document.getElementById('displayTimeSavingsValue');
- const netBenefit = document.getElementById('netBenefit');
- const timeChangeIndicator = document.getElementById('timeChangeIndicator');
- const benefitChangeIndicator = document.getElementById('benefitChangeIndicator');
- const yearlyNetBenefit = document.getElementById('yearlyNetBenefit');
- const yearlyTimeSaved = document.getElementById('yearlyTimeSaved');
- const vacationDays = document.getElementById('vacationDays');
- const calcProgress = document.getElementById('calcProgress');
- const perListing = document.getElementById('perListing');
- const recalculating = document.getElementById('recalculating');
- 
- // Section Elements
- const timeAnalysisSection = document.getElementById('timeAnalysisSection');
- const timeSavingsValueRow = document.getElementById('timeSavingsValueRow');
- const yearlyTimeRow = document.getElementById('yearlyTimeRow');
- const vacationDaysRow = document.getElementById('vacationDaysRow');
- const vaCostRow = document.getElementById('vaCostRow');
- 
- // Container Elements
- const minutesPerListingContainer = document.getElementById('minutesPerListingContainer');
- const vaListingsPerMonthContainer = document.getElementById('vaListingsPerMonthContainer');
- const vaRateContainer = document.getElementById('vaRateContainer');
- const hourlyRateContainer = document.getElementById('hourlyRateContainer');
- 
- // Constants
- const EPRO_AI_MINUTES_PER_LISTING = 2;
- const MINUTES_PER_HOUR = 60;
- const MONTHS_PER_YEAR = 12;
- const HOURS_PER_WORKDAY = 8;
- 
- // Animation settings
- let progressInterval;
- 
- function showRecalculating() {
-   if (recalculating) {
-     recalculating.style.display = 'inline-block';
-     
-     // Progress animation
-     let progress = 0;
-     if (progressInterval) clearInterval(progressInterval);
-     
-     progressInterval = setInterval(() => {
-       progress += 5;
-       if (calcProgress) calcProgress.style.width = `${progress}%`;
-       
-       if (progress >= 100) {
-         clearInterval(progressInterval);
-         setTimeout(() => {
-           if (recalculating) recalculating.style.display = 'none';
-         }, 200);
-       }
-     }, 25);
-   }
- }
- 
- function calculateROI() {
-   if (!listingsPerMonth) return;
-   
-   // Get values from inputs
-   const listings = parseInt(listingsPerMonth.value) || 10;
-   const minutes = parseInt(minutesPerListing?.value || 60);
-   const vaListings = parseInt(vaListingsPerMonth?.value || 30);
-   const vaSalaryValue = parseInt(vaSalary?.value || 250);
-   const hourlyRateValue = parseInt(hourlyRate?.value || 25);
-   const toolsCostValue = parseInt(toolsCost?.value || 30);
-   const eproRate = parseInt(eproAiPlan?.value || 2);
-   
-   // Determine which mode we're in - VA or self-managed
-   const isVAMode = useVAYes && useVAYes.checked;
-   
-   // Calculate values based on the mode
-   let currentHours, eproHours, timeSaved, monthlyListings;
-   
-   if (isVAMode) {
-     // VA mode logic
-     monthlyListings = vaListings;
-     currentHours = 0; // Not relevant for VA mode
-     eproHours = (monthlyListings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
-     timeSaved = 0; // No time saved for owner in VA mode
-   } else {
-     // Self-managed mode logic
-     monthlyListings = listings;
-     currentHours = (listings * minutes) / MINUTES_PER_HOUR;
-     eproHours = (listings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
-     timeSaved = currentHours - eproHours;
-   }
-   
-   // Calculate cost savings
-   const eproCost = monthlyListings * eproRate;
-   const vaCost = isVAMode ? vaSalaryValue : 0;
-   const toolSavings = toolsCostValue;
-   const timeSavingsValue = timeSaved * hourlyRateValue;
-   
-   // Calculate net benefit
-   let benefit;
-   
-   if (isVAMode) {
-     // For VA users, benefit = VA cost + tool savings - ePro AI cost
-     benefit = vaCost + toolSavings - eproCost;
-   } else {
-     // For self-doers, benefit = time savings value + tool savings - ePro AI cost
-     benefit = timeSavingsValue + toolSavings - eproCost;
-   }
-   
-   // Annual calculations
-   const yearlyBenefit = benefit * MONTHS_PER_YEAR;
-   const yearlyTimeSavedValue = timeSaved * MONTHS_PER_YEAR;
-   const workdaysSaved = yearlyTimeSavedValue / HOURS_PER_WORKDAY;
-   
-   // Update DOM with calculated values
-   if (displayMonthlyListings) displayMonthlyListings.textContent = monthlyListings;
-   
-   // Time analysis updates - only relevant for self-managed mode
-   if (!isVAMode) {
-     if (displayCurrentHours) displayCurrentHours.textContent = currentHours.toFixed(1);
-     if (displayEproHours) displayEproHours.textContent = eproHours.toFixed(1);
-     if (displayTimeSaved) displayTimeSaved.textContent = timeSaved.toFixed(1);
-     
-     const timeChangePercentage = currentHours > 0 ? Math.round(timeSaved / currentHours * 100) : 0;
-     if (timeChangeIndicator) timeChangeIndicator.textContent = `↑ ${timeChangePercentage}%`;
-     
-     if (displayTimeSavingsValue) displayTimeSavingsValue.textContent = `$${timeSavingsValue.toFixed(2)}`;
-     
-     if (yearlyTimeSaved) yearlyTimeSaved.textContent = yearlyTimeSavedValue.toFixed(1);
-     if (vacationDays) vacationDays.textContent = workdaysSaved.toFixed(1);
-   }
-   
-   // Cost-related updates
-   if (displayEproCost) displayEproCost.textContent = `$${eproCost}`;
-   if (perListing) perListing.textContent = `($${eproRate}/listing)`;
-   if (displayVaCost) displayVaCost.textContent = `$${vaCost}`;
-   if (displayToolSavings) displayToolSavings.textContent = `$${toolSavings}`;
-   if (netBenefit) netBenefit.textContent = `$${benefit.toFixed(2)}`;
-   
-   // Update benefit indicator with a proper calculation
-   if (benefitChangeIndicator) {
-     const previousCost = vaCost + toolsCostValue + (currentHours * hourlyRateValue);
-     const newCost = eproCost;
-     const savingsPercent = previousCost > 0 ? Math.round((previousCost - newCost) / previousCost * 100) : 0;
-     benefitChangeIndicator.textContent = `↑ ${savingsPercent}%`;
-   }
-   
-   // Update yearly calculations
-   if (yearlyNetBenefit) yearlyNetBenefit.textContent = `$${yearlyBenefit.toFixed(2)}`;
-   
-   // Show/hide sections based on mode
-   if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
-   if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
-   if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
-   if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
-   if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
-   
-   // Make sure the progress bar completes
-   if (calcProgress) calcProgress.style.width = '100%';
- }
- 
- // Initialize UI based on selected mode
- function updateUIBasedOnMode() {
-   const isVAMode = useVAYes && useVAYes.checked;
-   
-   // Update styles for radio buttons
-   if (vaYesLabel) {
-     vaYesLabel.classList.toggle('bg-[#F56400]', isVAMode);
-     vaYesLabel.classList.toggle('text-white', isVAMode);
-     vaYesLabel.classList.toggle('border-[#F56400]', isVAMode);
-   }
-   
-   if (vaNoLabel) {
-     vaNoLabel.classList.toggle('bg-[#F56400]', !isVAMode);
-     vaNoLabel.classList.toggle('text-white', !isVAMode);
-     vaNoLabel.classList.toggle('border-[#F56400]', !isVAMode);
-   }
-   
-   // Show/hide VA specific fields
-   if (vaRateContainer) vaRateContainer.classList.toggle('hidden', !isVAMode);
-   if (vaListingsPerMonthContainer) vaListingsPerMonthContainer.classList.toggle('hidden', !isVAMode);
+// Custom token amount input handler
+function updateCustomTokenPrice() {
+  const input = document.getElementById('customTokenAmount');
+  const priceDisplay = document.getElementById('customTokenPrice');
+  
+  let value = parseInt(input.value) || 0;
+  
+  // Enforce minimum 10 tokens
+  if (value < 10) {
+    value = 10;
+    input.value = 10;
+  }
+  
+  // Update price (1:1 ratio)
+  priceDisplay.textContent = value;
+}
 
-   // Show/hide owner specific fields
-   if (minutesPerListingContainer) minutesPerListingContainer.classList.toggle('hidden', isVAMode);
-   if (hourlyRateContainer) hourlyRateContainer.classList.toggle('hidden', isVAMode);
-   if (listingsPerMonth) listingsPerMonth.parentElement.parentElement.classList.toggle('hidden', isVAMode);
-
-   // Show/hide sections
-   if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
-   if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
-   if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
-   if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
-   if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
- }
-
- // Add event listeners for form inputs
- // User type selection
- if (useVAYes) {
-   useVAYes.addEventListener('change', function() {
-     if (this.checked) {
-       updateUIBasedOnMode();
-       showRecalculating();
-       setTimeout(calculateROI, 300);
-     }
-   });
- }
- 
- if (useVANo) {
-   useVANo.addEventListener('change', function() {
-     if (this.checked) {
-       updateUIBasedOnMode();
-       showRecalculating();
-       setTimeout(calculateROI, 300);
-     }
-   });
- }
- 
- // Number inputs
- const inputIds = [
-   'listingsPerMonth', 
-   'minutesPerListing', 
-   'vaListingsPerMonth', 
-   'vaSalary', 
-   'hourlyRate', 
-   'toolsCost'
- ];
- 
- inputIds.forEach(id => {
-   const element = document.getElementById(id);
-   if (element) {
-     element.addEventListener('input', function() {
-       showRecalculating();
-       setTimeout(calculateROI, 300);
-     });
-   }
- });
- 
- // Plan selection
- if (eproAiPlan) {
-   eproAiPlan.addEventListener('change', function() {
-     showRecalculating();
-     setTimeout(calculateROI, 300);
-   });
- }
- 
- // Initialize the UI and calculations
- updateUIBasedOnMode();
- calculateROI();
-});
-   <!-- Login status handler script -->
-<script>
-  // Check if user is logged in when page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+// Generate listing function
+function generateListing() {
+  // Get current token count
+  userTokens = parseInt(localStorage.getItem('epro_tokens')) || 0;
+  
+  // Determine which tab is active
+  const isBulk = !document.getElementById('bulkCsvArea').classList.contains('hidden');
+  const requiredTokens = isBulk ? 
+    parseInt(document.getElementById('bulkTokensRequired').textContent) : 
+    parseInt(document.getElementById('actionTokens').textContent);
+  
+  // Check if user has enough tokens
+  if (requiredTokens > userTokens) {
+    // Show warning
+    const warning = document.getElementById('insufficientTokensWarning');
+    warning.classList.remove('hidden');
     
-    if (isLoggedIn) {
-      // Hide login/signup buttons
-      document.querySelectorAll('.logged-out-only').forEach(el => {
-        el.style.display = 'none';
-      });
+    // Update warning text
+    document.getElementById('tokensNeeded').textContent = requiredTokens;
+    document.getElementById('tokensAvailable').textContent = userTokens;
+    
+    // Scroll to warning
+    warning.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  
+  // Process successful generation
+  userTokens -= requiredTokens;
+  
+  // Update token displays
+  localStorage.setItem('epro_tokens', userTokens.toString());
+  document.getElementById('token-display-dashboard').textContent = userTokens;
+  document.getElementById('token-display').textContent = userTokens;
+  
+  // Hide any warnings
+  document.getElementById('insufficientTokensWarning').classList.add('hidden');
+  
+  // Show success message
+  alert(`Success! Your ${isBulk ? 'listings have' : 'listing has'} been generated and ${requiredTokens} tokens have been deducted.`);
+}
+
+// Variations Management
+function addVariation() {
+  const container = document.getElementById('variations-container');
+  const variations = container.querySelectorAll('.variation-input');
+  
+  if (variations.length >= 10) {
+    showVariationsError('Too many variations. Maximum 10 variations allowed.');
+    return;
+  }
+  
+  const newVariation = document.createElement('div');
+  newVariation.className = 'flex items-center space-x-2';
+  newVariation.innerHTML = `
+    <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm variation-input" 
+           placeholder="e.g., Color: Red, Blue, Green" 
+           maxlength="100"
+           onkeyup="updateCharCounter(this)"
+           onchange="updateVariationsCounter()">
+    <div class="text-xs text-gray-500 w-20 char-counter">0/100</div>
+    <button type="button" class="text-[#F56400] hover:text-[#E05000]" onclick="removeVariation(this)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </button>
+  `;
+  
+  container.appendChild(newVariation);
+  updateVariationsCounter();
+}
+
+function removeVariation(button) {
+  const container = document.getElementById('variations-container');
+  const variationRow = button.closest('.flex');
+  
+  if (container.querySelectorAll('.variation-input').length > 1) {
+    container.removeChild(variationRow);
+  } else {
+    // Just clear the input if it's the last one
+    const input = variationRow.querySelector('.variation-input');
+    input.value = '';
+    updateCharCounter(input);
+  }
+  
+  updateVariationsCounter();
+  hideVariationsError();
+}
+
+function updateCharCounter(input) {
+  const counter = input.parentElement.querySelector('.char-counter');
+  const length = input.value.length;
+  counter.textContent = `${length}/100`;
+  
+  if (length >= 100) {
+    counter.classList.add('text-red-500');
+    counter.classList.remove('text-gray-500');
+  } else {
+    counter.classList.remove('text-red-500');
+    counter.classList.add('text-gray-500');
+  }
+}
+
+function updateVariationsCounter() {
+  const container = document.getElementById('variations-container');
+  const variations = container.querySelectorAll('.variation-input');
+  const counter = document.getElementById('variationsCounter');
+  
+  let filledVariations = 0;
+  variations.forEach(variation => {
+    if (variation.value.trim() !== '') {
+      filledVariations++;
+    }
+  });
+  
+  counter.textContent = `${filledVariations}/10 variations`;
+}
+
+function showVariationsError(message) {
+  const error = document.getElementById('variations-error');
+  error.textContent = message;
+  error.classList.remove('hidden');
+}
+
+function hideVariationsError() {
+  const error = document.getElementById('variations-error');
+  error.classList.add('hidden');
+}
+
+// Custom category input toggle
+function toggleCustomCategoryInput() {
+  const categorySelect = document.getElementById('productCategory');
+  const customInput = document.getElementById('customCategory');
+  
+  if (categorySelect.value === 'custom') {
+    customInput.classList.remove('hidden');
+  } else {
+    customInput.classList.add('hidden');
+  }
+}
+
+// ROI Calculator
+function initializeROICalculator() {
+  // Get all DOM elements
+  const listingsPerMonth = document.getElementById('listingsPerMonth');
+  const minutesPerListing = document.getElementById('minutesPerListing');
+  const vaListingsPerMonth = document.getElementById('vaListingsPerMonth');
+  const useVAYes = document.getElementById('useVAYes');
+  const useVANo = document.getElementById('useVANo');
+  const vaYesLabel = document.getElementById('vaYesLabel');
+  const vaNoLabel = document.getElementById('vaNoLabel');
+  const vaSalary = document.getElementById('vaSalary');
+  const hourlyRate = document.getElementById('hourlyRate');
+  const toolsCost = document.getElementById('toolsCost');
+  const eproAiPlan = document.getElementById('eproAiPlan');
+  
+  // Display elements
+  const displayMonthlyListings = document.getElementById('displayMonthlyListings');
+  const displayCurrentHours = document.getElementById('displayCurrentHours');
+  const displayEproHours = document.getElementById('displayEproHours');
+  const displayTimeSaved = document.getElementById('displayTimeSaved');
+  const displayEproCost = document.getElementById('displayEproCost');
+  const displayVaCost = document.getElementById('displayVaCost');
+  const displayToolSavings = document.getElementById('displayToolSavings');
+  const displayTimeSavingsValue = document.getElementById('displayTimeSavingsValue');
+  const netBenefit = document.getElementById('netBenefit');
+  const timeChangeIndicator = document.getElementById('timeChangeIndicator');
+  const benefitChangeIndicator = document.getElementById('benefitChangeIndicator');
+  const yearlyNetBenefit = document.getElementById('yearlyNetBenefit');
+  const yearlyTimeSaved = document.getElementById('yearlyTimeSaved');
+  const vacationDays = document.getElementById('vacationDays');
+  const calcProgress = document.getElementById('calcProgress');
+  const perListing = document.getElementById('perListing');
+  const recalculating = document.getElementById('recalculating');
+  
+  // Section elements
+  const timeAnalysisSection = document.getElementById('timeAnalysisSection');
+  const timeSavingsValueRow = document.getElementById('timeSavingsValueRow');
+  const yearlyTimeRow = document.getElementById('yearlyTimeRow');
+  const vacationDaysRow = document.getElementById('vacationDaysRow');
+  const vaCostRow = document.getElementById('vaCostRow');
+  
+  // Container elements
+  const minutesPerListingContainer = document.getElementById('minutesPerListingContainer');
+  const vaListingsPerMonthContainer = document.getElementById('vaListingsPerMonthContainer');
+  const vaRateContainer = document.getElementById('vaRateContainer');
+  const hourlyRateContainer = document.getElementById('hourlyRateContainer');
+  
+  // Constants
+  const EPRO_AI_MINUTES_PER_LISTING = 2;
+  const MINUTES_PER_HOUR = 60;
+  const MONTHS_PER_YEAR = 12;
+  const HOURS_PER_WORKDAY = 8;
+  
+  // Animation settings
+  let progressInterval;
+  
+  function showRecalculating() {
+    if (!recalculating) return;
+    
+    recalculating.style.display = 'inline-block';
+    
+    // Progress animation
+    let progress = 0;
+    if (progressInterval) clearInterval(progressInterval);
+    
+    progressInterval = setInterval(() => {
+      progress += 5;
+      if (calcProgress) calcProgress.style.width = `${progress}%`;
       
-      // Show user-specific elements
-      document.querySelectorAll('.logged-in-only').forEach(el => {
-        el.style.display = 'flex';
-      });
-      
-      // Update user avatar with initials
-      const userName = localStorage.getItem('epro_user_name') || 'User';
-      updateUserAvatar(userName);
-      
-      // Update token count
-      const userTokens = localStorage.getItem('epro_tokens') || '0';
-      const tokenDisplay = document.getElementById('token-display');
-      if (tokenDisplay) {
-        tokenDisplay.textContent = userTokens;
+      if (progress >= 100) {
+        clearInterval(progressInterval);
+        setTimeout(() => {
+          if (recalculating) recalculating.style.display = 'none';
+        }, 200);
       }
+    }, 25);
+  }
+  
+  function calculateROI() {
+    if (!listingsPerMonth) return;
+    
+    // Get values from inputs
+    const listings = parseInt(listingsPerMonth.value) || 10;
+    const minutes = parseInt(minutesPerListing?.value || 60);
+    const vaListings = parseInt(vaListingsPerMonth?.value || 30);
+    const vaSalaryValue = parseInt(vaSalary?.value || 250);
+    const hourlyRateValue = parseInt(hourlyRate?.value || 25);
+    const toolsCostValue = parseInt(toolsCost?.value || 30);
+    const eproRate = parseInt(eproAiPlan?.value || 2);
+    
+    // Determine which mode we're in - VA or self-managed
+    const isVAMode = useVAYes && useVAYes.checked;
+    
+    // Calculate values based on the mode
+    let currentHours, eproHours, timeSaved, monthlyListings;
+    
+    if (isVAMode) {
+      // VA mode logic
+      monthlyListings = vaListings;
+      currentHours = 0; // Not relevant for VA mode
+      eproHours = (monthlyListings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
+      timeSaved = 0; // No time saved for owner in VA mode
     } else {
-      // Show login/signup buttons
-      document.querySelectorAll('.logged-out-only').forEach(el => {
-        el.style.display = 'flex';
-      });
+      // Self-managed mode logic
+      monthlyListings = listings;
+      currentHours = (listings * minutes) / MINUTES_PER_HOUR;
+      eproHours = (listings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
+      timeSaved = currentHours - eproHours;
+    }
+    
+    // Calculate cost savings
+    const eproCost = monthlyListings * eproRate;
+    const vaCost = isVAMode ? vaSalaryValue : 0;
+    const toolSavings = toolsCostValue;
+    const timeSavingsValue = timeSaved * hourlyRateValue;
+    
+    // Calculate net benefit
+    let benefit;
+    
+    if (isVAMode) {
+      // For VA users, benefit = VA cost + tool savings - ePro AI cost
+      benefit = vaCost + toolSavings - eproCost;
+    } else {
+      // For self-doers, benefit = time savings value + tool savings - ePro AI cost
+      benefit = timeSavingsValue + toolSavings - eproCost;
+    }
+    
+    // Annual calculations
+    const yearlyBenefit = benefit * MONTHS_PER_YEAR;
+    const yearlyTimeSavedValue = timeSaved * MONTHS_PER_YEAR;
+    const workdaysSaved = yearlyTimeSavedValue / HOURS_PER_WORKDAY;
+    
+    // Update DOM with calculated values
+    if (displayMonthlyListings) displayMonthlyListings.textContent = monthlyListings;
+    
+    // Time analysis updates - only relevant for self-managed mode
+    if (!isVAMode) {
+      if (displayCurrentHours) displayCurrentHours.textContent = currentHours.toFixed(1);
+      if (displayEproHours) displayEproHours.textContent = eproHours.toFixed(1);
+      if (displayTimeSaved) displayTimeSaved.textContent = timeSaved.toFixed(1);
       
-      // Hide user-specific elements
-      document.querySelectorAll('.logged-in-only').forEach(el => {
-        el.style.display = 'none';
+      const timeChangePercentage = currentHours > 0 ? Math.round(timeSaved / currentHours * 100) : 0;
+      if (timeChangeIndicator) timeChangeIndicator.textContent = `↑ ${timeChangePercentage}%`;
+      
+      if (displayTimeSavingsValue) displayTimeSavingsValue.textContent = `$${timeSavingsValue.toFixed(2)}`;
+      
+      if (yearlyTimeSaved) yearlyTimeSaved.textContent = yearlyTimeSavedValue.toFixed(1);
+      if (vacationDays) vacationDays.textContent = workdaysSaved.toFixed(1);
+    }
+    
+    // Cost-related updates
+    if (displayEproCost) displayEproCost.textContent = `$${eproCost}`;
+    if (perListing) perListing.textContent = `($${eproRate}/listing)`;
+    if (displayVaCost) displayVaCost.textContent = `$${vaCost}`;
+    if (displayToolSavings) displayToolSavings.textContent = `$${toolSavings}`;
+    if (netBenefit) netBenefit.textContent = `$${benefit.toFixed(2)}`;
+    
+    // Update benefit indicator with a proper calculation
+    if (benefitChangeIndicator) {
+      const previousCost = vaCost + toolsCostValue + (currentHours * hourlyRateValue);
+      const newCost = eproCost;
+      const savingsPercent = previousCost > 0 ? Math.round((previousCost - newCost) / previousCost * 100) : 0;
+      benefitChangeIndicator.textContent = `↑ ${savingsPercent}%`;
+    }
+    
+    // Update yearly calculations
+    if (yearlyNetBenefit) yearlyNetBenefit.textContent = `$${yearlyBenefit.toFixed(2)}`;
+    
+    // Show/hide sections based on mode
+    if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
+    if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
+    if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
+    if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
+    if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
+    
+    // Make sure the progress bar completes
+    if (calcProgress) calcProgress.style.width = '100%';
+  }
+  
+  // Initialize UI based on selected mode
+  function updateUIBasedOnMode() {
+    const isVAMode = useVAYes && useVAYes.checked;
+    
+    // Update styles for radio buttons
+    if (vaYesLabel) {
+      vaYesLabel.classList.toggle('bg-[#F56400]', isVAMode);
+      vaYesLabel.classList.toggle('text-white', isVAMode);
+      vaYesLabel.classList.toggle('border-[#F56400]', isVAMode);
+    }
+    
+    if (vaNoLabel) {
+      vaNoLabel.classList.toggle('bg-[#F56400]', !isVAMode);
+      vaNoLabel.classList.toggle('text-white', !isVAMode);
+      vaNoLabel.classList.toggle('border-[#F56400]', !isVAMode);
+    }
+    
+    // Show/hide VA specific fields
+    if (vaRateContainer) vaRateContainer.classList.toggle('hidden', !isVAMode);
+    if (vaListingsPerMonthContainer) vaListingsPerMonthContainer.classList.toggle('hidden', !isVAMode);
+    
+    // Show/hide owner specific fields
+    if (minutesPerListingContainer) minutesPerListingContainer.classList.toggle('hidden', isVAMode);
+    if (hourlyRateContainer) hourlyRateContainer.classList.toggle('hidden', isVAMode);
+    if (listingsPerMonth) listingsPerMonth.parentElement.parentElement.classList.toggle('hidden', isVAMode);
+    
+    // Show/hide sections
+    if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
+    if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
+    if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
+    if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
+    if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
+  }
+  
+  // Add event listeners
+  if (useVAYes) {
+    useVAYes.addEventListener('change', function() {
+      if (this.checked) {
+        updateUIBasedOnMode();
+        showRecalculating();
+        setTimeout(calculateROI, 300);
+      }
+    });
+  }
+  
+  if (useVANo) {
+    useVANo.addEventListener('change', function() {
+      if (this.checked) {
+        updateUIBasedOnMode();
+        showRecalculating();
+        setTimeout(calculateROI, 300);
+      }
+    });
+  }
+  
+  // Add listeners to all number inputs
+  const inputIds = [
+    'listingsPerMonth', 
+    'minutesPerListing', 
+    'vaListingsPerMonth', 
+    'vaSalary', 
+    'hourlyRate', 
+    'toolsCost'
+  ];
+  
+  inputIds.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.addEventListener('input', function() {
+        showRecalculating();
+        setTimeout(calculateROI, 300);
       });
     }
   });
   
-  // Generate and set user initials
-  function updateUserAvatar(fullName) {
-    const userAvatar = document.getElementById('user-avatar');
-    if (!userAvatar) return;
-    
-    const nameParts = fullName.split(' ');
-    let initials = '';
-    
-    if (nameParts.length >= 2) {
-      // Get first letter of first and last name
-      initials = nameParts[0][0] + nameParts[nameParts.length - 1][0];
-    } else {
-      // Just use the first letter if there's only one name
-      initials = nameParts[0][0];
-    }
-    
-    userAvatar.textContent = initials.toUpperCase();
+  // Add listener to plan selection
+  if (eproAiPlan) {
+    eproAiPlan.addEventListener('change', function() {
+      showRecalculating();
+      setTimeout(calculateROI, 300);
+    });
   }
   
-  // Handle logout
-  function handleLogout() {
-    localStorage.setItem('epro_logged_in', 'false');
-    window.location.reload();
+  // Initialize the UI and calculations
+  updateUIBasedOnMode();
+  calculateROI();
+}
+
+// Document ready function
+document.addEventListener('DOMContentLoaded', function() {
+  // Check login status
+  const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+  
+  if (isLoggedIn) {
+    // Show logged in elements
+    document.querySelectorAll('.logged-in-only').forEach(el => {
+      el.style.display = 'flex';
+    });
+    
+    // Hide logged out elements
+    document.querySelectorAll('.logged-out-only').forEach(el => {
+      el.style.display = 'none';
+    });
+    
+    // Show dashboard content
+    const loginMessage = document.getElementById('login-required-message');
+    const dashboardContent = document.getElementById('dashboard-content');
+    
+    if (loginMessage && dashboardContent) {
+      loginMessage.style.display = 'none';
+      dashboardContent.style.display = 'block';
+    }
+    
+    // Update user avatar with name
+    const userName = localStorage.getItem('epro_user_name') || 'User';
+    updateUserAvatar(userName);
+    
+    // Update token display
+    const userTokens = localStorage.getItem('epro_tokens') || '10';
+    
+    const tokenDisplay = document.getElementById('token-display');
+    if (tokenDisplay) tokenDisplay.textContent = userTokens;
+    
+    const dashboardTokenDisplay = document.getElementById('token-display-dashboard');
+    if (dashboardTokenDisplay) dashboardTokenDisplay.textContent = userTokens;
+  } else {
+    // Show logged out elements
+    document.querySelectorAll('.logged-out-only').forEach(el => {
+      el.style.display = 'flex';
+    });
+    
+    // Hide logged in elements
+    document.querySelectorAll('.logged-in-only').forEach(el => {
+      el.style.display = 'none';
+    });
+    
+    // Show login required message
+    const loginMessage = document.getElementById('login-required-message');
+    const dashboardContent = document.getElementById('dashboard-content');
+    
+    if (loginMessage && dashboardContent) {
+      loginMessage.style.display = 'block';
+      dashboardContent.style.display = 'none';
+    }
   }
+  
+  // Initialize event listeners
+  
+  // Category dropdown
+  const categorySelect = document.getElementById('productCategory');
+  if (categorySelect) {
+    categorySelect.addEventListener('change', function() {
+      toggleCustomCategoryInput();
+    });
+  }
+  
+  // CSV table inputs
+  const csvTable = document.querySelector('#bulkCsvArea table');
+  if (csvTable) {
+    csvTable.addEventListener('input', function(e) {
+      if (e.target.tagName === 'INPUT') {
+        const selectedTokens = parseInt(document.getElementById('actionTokens').textContent);
+        updateBulkTokensRequired(selectedTokens);
+      }
+    });
+  }
+  
+  // CSV template download
+  const downloadBtn = document.getElementById('downloadTemplateCsv');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', downloadCsvTemplate);
+  }
+  
+  // Custom token amount
+  const customTokenInput = document.getElementById('customTokenAmount');
+  if (customTokenInput) {
+    customTokenInput.addEventListener('input', updateCustomTokenPrice);
+  }
+  
+  // Initialize variations counter
+  updateVariationsCounter();
+  
+  // Initialize ROI calculator
+  initializeROICalculator();
+});
 </script>
 </body>
 </html>
