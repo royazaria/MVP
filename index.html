@@ -56,7 +56,7 @@
       </a>
       
       <div>
-        <a href="index.html" class="text-white/80 hover:text-white transition-colors">Back to Home</a>
+        <button onclick="openLoginModal()" class="text-white/80 hover:text-white transition-colors">Log In</button>
       </div>
     </div>
   </header>
@@ -76,23 +76,23 @@
           </h1>
           
           <p class="text-lg text-white/80 mb-8 max-w-xl mx-auto md:mx-0">
-            Join thousands of Etsy sellers who are saving hours every week with AI-generated titles, descriptions, tags, and product images.
+            Join the early adopters who are revolutionizing how they list products on Etsy with AI-generated content.
           </p>
           
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
             <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-lg">
-              <div class="text-xl font-bold text-[#F56400] mb-1">10+</div>
-              <div class="text-sm text-white/70">Hours saved weekly</div>
+              <div class="text-xl font-bold text-[#F56400] mb-1">2+ hrs</div>
+              <div class="text-sm text-white/70">Saved per listing</div>
             </div>
             
             <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-lg">
               <div class="text-xl font-bold text-[#F56400] mb-1">37%</div>
-              <div class="text-sm text-white/70">More search visibility</div>
+              <div class="text-sm text-white/70">Higher visibility in tests</div>
             </div>
             
             <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-lg">
-              <div class="text-xl font-bold text-[#F56400] mb-1">1,200+</div>
-              <div class="text-sm text-white/70">Active sellers</div>
+              <div class="text-xl font-bold text-[#F56400] mb-1">180+</div>
+              <div class="text-sm text-white/70">Beta sellers</div>
             </div>
           </div>
           
@@ -103,7 +103,7 @@
                 <span class="relative rounded-full h-2 w-2 bg-green-500"></span>
               </span>
               <span class="text-white/80 text-sm">
-                <span class="font-bold text-white">37 people</span> joined in the last 24 hours
+                <span class="font-bold text-white" id="joinCounter">37</span> people joined in the last 24 hours
               </span>
             </div>
           </div>
@@ -117,7 +117,7 @@
               <p class="text-white/70 mt-2">Get 10 free tokens to start using ePro AI</p>
             </div>
             
-            <form action="https://formspree.io/f/xqapjgka" method="POST" id="lead-signup-form" onsubmit="handleSignup(event)">
+            <form action="https://formspree.io/f/xyzabcde" method="POST" id="lead-signup-form" onsubmit="handleSignup(event)">
               <div class="space-y-5">
                 <div>
                   <label class="block text-white/90 font-medium mb-2" for="full_name">Full Name</label>
@@ -205,22 +205,66 @@
                 <img class="h-8 w-8 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=3" alt="User">
               </div>
               <span class="text-sm text-white/70">
-                Join 1,200+ happy sellers
+                Join <span id="totalUsers">180</span>+ early adopters
               </span>
             </div>
-          </div>
-          
-          <!-- Login Link -->
-          <div class="mt-6 text-center">
-            <p class="text-white/70">
-              Already have an account? 
-              <a href="index.html" class="text-[#F56400] font-medium hover:underline">Log In</a>
-            </p>
           </div>
         </div>
       </div>
     </div>
   </main>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center hidden">
+    <div class="bg-black/80 backdrop-blur-sm border border-white/10 rounded-xl p-8 max-w-md w-full shadow-xl relative glow">
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-white/60 hover:text-white/90 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div class="text-center mb-6">
+        <div class="inline-block">
+          <div class="gradient-text">
+            <span class="text-2xl font-bold">ePro</span>
+            <span class="text-xl font-bold ml-1">AI</span>
+          </div>
+        </div>
+        <h2 class="text-2xl font-bold mt-2 text-white">Log In</h2>
+      </div>
+      
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="mb-4">
+          <label for="login-email" class="block text-sm font-medium text-white/90 mb-1">Email</label>
+          <input 
+            type="email" 
+            id="login-email" 
+            class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-[#F56400] transition-all text-white"
+            placeholder="your@email.com"
+            required
+          >
+        </div>
+        
+        <div class="mb-6">
+          <label for="login-password" class="block text-sm font-medium text-white/90 mb-1">Password</label>
+          <input 
+            type="password" 
+            id="login-password" 
+            class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-[#F56400] transition-all text-white"
+            placeholder="••••••••••"
+            required
+          >
+        </div>
+        
+        <button 
+          type="submit"
+          class="w-full btn-gradient text-white py-3 rounded-lg font-medium hover:shadow-md transition-all"
+        >
+          Log In
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-black text-white py-6 px-6">
@@ -236,6 +280,69 @@
   </footer>
 
   <script>
+    // Counter update function
+    function updateJoinCounter() {
+      const counter = document.getElementById('joinCounter');
+      const totalUsers = document.getElementById('totalUsers');
+      
+      // Generate random number between 0-100 for 24 hour counter
+      const randomJoins = Math.floor(Math.random() * 101);
+      
+      // Set initial counter value
+      counter.textContent = randomJoins;
+      
+      // Increment by 1 every 30 seconds
+      let secondsCounter = 0;
+      
+      setInterval(() => {
+        secondsCounter += 1;
+        if (secondsCounter % 30 === 0) {
+          const currentValue = parseInt(counter.textContent);
+          counter.textContent = currentValue + 1;
+          
+          // Also update total users occasionally
+          if (Math.random() > 0.7) {
+            const currentTotal = parseInt(totalUsers.textContent);
+            totalUsers.textContent = currentTotal + 1;
+          }
+        }
+      }, 1000);
+    }
+    
+    // Login Modal Functions
+    function openLoginModal() {
+      document.getElementById('login-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    
+    function closeLoginModal() {
+      document.getElementById('login-modal').classList.add('hidden');
+      document.body.style.overflow = ''; // Re-enable scrolling
+    }
+    
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      
+      // Simple login simulation
+      localStorage.setItem('epro_logged_in', 'true');
+      localStorage.setItem('epro_user_email', email);
+      
+      // Get user name from email or use default
+      const username = email.split('@')[0] || 'User';
+      localStorage.setItem('epro_user_name', username);
+      
+      // Set default tokens if none exist
+      if (!localStorage.getItem('epro_tokens')) {
+        localStorage.setItem('epro_tokens', '10');
+      }
+      
+      closeLoginModal();
+      window.location.href = "index.html";
+    }
+    
     function handleSignup(event) {
       event.preventDefault();
       
@@ -290,6 +397,22 @@
         submitButton.disabled = false;
       });
     }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Start counter updates
+      updateJoinCounter();
+      
+      // Close modal if clicked outside
+      const loginModal = document.getElementById('login-modal');
+      if (loginModal) {
+        loginModal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            closeLoginModal();
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>
