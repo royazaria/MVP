@@ -1414,6 +1414,17 @@ Your Current Setup 👇
 
 <!-- JavaScript -->
 <script>
+  // Add this as the FIRST code inside your <script> tag
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if user has authenticated
+  const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+  
+  // If not logged in, redirect to signup/dashboard page
+  if (!isLoggedIn) {
+    window.location.href = "dashboard.html"; // This now points to your signup page
+    return; // Stop executing the rest of the script
+  }
+});
 // User Authentication
 let userTokens = 10; // Default tokens for new users
 
