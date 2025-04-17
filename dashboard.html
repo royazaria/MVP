@@ -2217,7 +2217,20 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize ROI calculator
   initializeROICalculator();
-});
+// Direct click handler for login button
+const loginButton = document.querySelector('#login-modal button[type="submit"]');
+if (loginButton) {
+  loginButton.addEventListener('click', function() {
+    const email = document.getElementById('login-email').value;
+    localStorage.setItem('epro_logged_in', 'true');
+    localStorage.setItem('epro_user_email', email);
+    localStorage.setItem('epro_user_name', email.split('@')[0] || 'User');
+    localStorage.setItem('epro_tokens', '10');
+    
+    closeLoginModal();
+    window.location.reload();
+  });
+}
 </script>
 </body>
 </html>
