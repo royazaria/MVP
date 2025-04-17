@@ -119,12 +119,12 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <p class="text-white/90 text-sm">
-                  <span class="font-medium">Limited offer:</span> 5 free tokens for first <span id="earlyAdoptersCount">50</span> users
+                  <span class="font-medium">Limited offer:</span> 10 free tokens for first <span id="earlyAdoptersCount">50</span> users
                 </p>
               </div>
             </div>
             
-            <form action="https://formspree.io/f/xyzabcde" method="POST" id="lead-index-form" onsubmit="handlesignup(event)">
+            <form id="signup-form" onsubmit="handleSignup(event)">
               <div class="space-y-5">
                 <div>
                   <label class="block text-white/90 font-medium mb-2" for="full_name">Full Name</label>
@@ -177,8 +177,8 @@
                   
                   <p class="mt-3 text-center text-sm text-white/50">
                     By signing up, you agree to our 
-                    <a href="terms.html" class="text-[#F56400] hover:underline">Terms of Service</a> and 
-                    <a href="privacy.html" class="text-[#F56400] hover:underline">Privacy Policy</a>
+                    <a href="#" class="text-[#F56400] hover:underline">Terms of Service</a> and 
+                    <a href="#" class="text-[#F56400] hover:underline">Privacy Policy</a>
                   </p>
                 </div>
                 
@@ -269,6 +269,16 @@
         >
           Log In
         </button>
+        
+        <!-- Login Error Message -->
+        <div id="login-error" class="hidden mt-4 bg-red-900/30 border border-red-500/30 text-red-300 px-4 py-3 rounded-lg text-sm">
+          <div class="flex items-center">
+            <svg class="h-5 w-5 text-red-400 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+            <p>Login failed. Please try again.</p>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -279,14 +289,23 @@
       <p>&copy; 2025 ePro AI. All rights reserved. Operated by Aetophis.</p>
       <div class="mt-2 space-x-4">
         <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a>
-        <a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
-        <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
-        <a href="refund.html" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a>
       </div>
     </div>
   </footer>
 
   <script>
+    // Check if user is already logged in - if so, redirect to dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+      
+      if (isLoggedIn) {
+        window.location.href = "dashboard.html";
+      }
+    });
+    
     // Counter update function
     function updateCounters() {
       const joinCounter = document.getElementById('joinCounter');
@@ -295,7 +314,7 @@
       
       // Calculate remaining spots
       const maxUsers = 50;
-      const totalindexs = maxUsers - parseInt(spotsLeft.textContent);
+      const totalSignups = maxUsers - parseInt(spotsLeft.textContent);
       
       // Generate random number between 10-20 for 24 hour counter
       const randomJoins = Math.floor(Math.random() * 11) + 10; // 10-20
@@ -303,9 +322,9 @@
       // Set initial counter value
       joinCounter.textContent = randomJoins;
       
-      // Calculate how many increments to add in 24 hours to reach 50 indexs
+      // Calculate how many increments to add in 24 hours to reach 50 signups
       const hoursRemaining = 24;
-      const incrementsNeeded = maxUsers - totalindexs;
+      const incrementsNeeded = maxUsers - totalSignups;
       const incrementInterval = Math.floor((hoursRemaining * 60 * 60) / incrementsNeeded); // in seconds
       
       let secondsCounter = 0;
@@ -313,11 +332,11 @@
       setInterval(() => {
         secondsCounter += 1;
         
-        // Add new index at calculated interval, ensuring we never exceed 50
+        // Add new signup at calculated interval, ensuring we never exceed 50
         if (secondsCounter % incrementInterval === 0) {
-          const currentindexs = parseInt(earlyAdoptersCount.textContent) - parseInt(spotsLeft.textContent);
+          const currentSignups = parseInt(earlyAdoptersCount.textContent) - parseInt(spotsLeft.textContent);
           
-          if (currentindexs < maxUsers) {
+          if (currentSignups < maxUsers) {
             const currentSpots = parseInt(spotsLeft.textContent);
             
             if (currentSpots > 0) {
@@ -341,15 +360,22 @@
     function closeLoginModal() {
       document.getElementById('login-modal').classList.add('hidden');
       document.body.style.overflow = ''; // Re-enable scrolling
+      document.getElementById('login-error').classList.add('hidden'); // Hide any error messages
     }
     
+    // Handle Login Submission
     function handleLogin(event) {
       event.preventDefault();
       
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
       
-      // Simple login simulation
+      if (!email || !password) {
+        document.getElementById('login-error').classList.remove('hidden');
+        return;
+      }
+      
+      // For demo purposes, accept any login
       localStorage.setItem('epro_logged_in', 'true');
       localStorage.setItem('epro_user_email', email);
       
@@ -359,14 +385,15 @@
       
       // Set default tokens if none exist
       if (!localStorage.getItem('epro_tokens')) {
-        localStorage.setItem('epro_tokens', '5');
+        localStorage.setItem('epro_tokens', '10');
       }
       
-      closeLoginModal();
-      window.location.href = "dashboard.html";  // Point to your renamed main page
+      // Redirect to dashboard
+      window.location.href = "dashboard.html";
     }
     
-    function handlesignup(event) {
+    // Handle Signup Submission
+    function handleSignup(event) {
       event.preventDefault();
       
       // Show loading state
@@ -380,13 +407,25 @@
       document.getElementById('form-error').classList.add('hidden');
       
       // Get form data
-      const form = event.target;
-      const formData = new FormData(form);
-      const fullName = formData.get('full_name');
-      const email = formData.get('email');
+      const fullName = document.getElementById('full_name').value;
+      const email = document.getElementById('email').value;
+      const businessType = document.getElementById('business_type').value;
       
-      // Send to Formspree
-      fetch(form.action, {
+      if (!fullName || !email) {
+        document.getElementById('form-error').classList.remove('hidden');
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+        return;
+      }
+      
+      // Create FormData object for submission to Formspree
+      const formData = new FormData();
+      formData.append('full_name', fullName);
+      formData.append('email', email);
+      formData.append('business_type', businessType);
+      
+      // Submit to Formspree
+      fetch("https://formspree.io/f/xqapjgka", {
         method: "POST",
         body: formData,
         headers: { 'Accept': 'application/json' }
@@ -396,13 +435,13 @@
           // Show success message
           document.getElementById('form-success').classList.remove('hidden');
           
-          // Store user info in localStorage
+          // Store user data in localStorage
           localStorage.setItem('epro_logged_in', 'true');
           localStorage.setItem('epro_user_name', fullName);
           localStorage.setItem('epro_user_email', email);
-          localStorage.setItem('epro_tokens', '5');
+          localStorage.setItem('epro_tokens', '10');
           
-          // Redirect after a short delay to the actual site
+          // Redirect after a short delay
           setTimeout(() => {
             window.location.href = "dashboard.html";
           }, 1500);
@@ -413,8 +452,9 @@
           submitButton.disabled = false;
         }
       })
-      .catch(() => {
+      .catch(error => {
         // Show error message
+        console.error('Form submission error:', error);
         document.getElementById('form-error').classList.remove('hidden');
         submitButton.textContent = originalText;
         submitButton.disabled = false;
@@ -434,40 +474,6 @@
             closeLoginModal();
           }
         });
-      }
-      
-      // Check if user is already logged in
-document.addEventListener('DOMContentLoaded', function() {
-  // Start counter updates
-  updateCounters();
-  
-  // Close modal if clicked outside
-  const loginModal = document.getElementById('login-modal');
-  if (loginModal) {
-    loginModal.addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeLoginModal();
-      }
-    });
-  }
-  
-  // Check if user is already logged in - if so, provide a link to dashboard instead of auto-redirect
-  const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
-  if (isLoggedIn) {
-    const mainContent = document.querySelector('main');
-    if (mainContent) {
-      mainContent.innerHTML = `
-        <div class="container mx-auto px-6 py-20 text-center">
-          <h2 class="text-3xl font-bold text-white mb-6">You're already logged in!</h2>
-          <p class="text-xl text-white/80 mb-8">You can proceed to your dashboard.</p>
-          <a href="dashboard.html" class="btn-gradient text-white py-3 px-8 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-            Go to Dashboard
-          </a>
-        </div>
-      `;
-    }
-  }
-});
       }
     });
   </script>
