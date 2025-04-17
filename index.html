@@ -124,7 +124,7 @@
               </div>
             </div>
             
-            <form action="https://formspree.io/f/xyzabcde" method="POST" id="lead-index-form" onsubmit="handleindex(event)">
+            <form action="https://formspree.io/f/xyzabcde" method="POST" id="lead-index-form" onsubmit="handlesignup(event)">
               <div class="space-y-5">
                 <div>
                   <label class="block text-white/90 font-medium mb-2" for="full_name">Full Name</label>
@@ -366,7 +366,7 @@
       window.location.href = "dashboard.html";  // Point to your renamed main page
     }
     
-    function handleindex(event) {
+    function handlesignup(event) {
       event.preventDefault();
       
       // Show loading state
@@ -404,7 +404,7 @@
           
           // Redirect after a short delay to the actual site
           setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "dashboard.html";
           }, 1500);
         } else {
           // Show error message
