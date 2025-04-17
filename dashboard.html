@@ -1415,16 +1415,30 @@ Your Current Setup 👇
 <!-- JavaScript -->
 <script>
   // Add this as the FIRST code inside your <script> tag
-document.addEventListener('DOMContentLoaded', function() {
-  // Check if user has authenticated
-  const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+// Check login status
+const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
   
-  // If not logged in, redirect to signup/dashboard page
-  if (!isLoggedIn) {
-    window.location.href = "index.html"; // Now points correctly to your login page
-    return; // Stop executing the rest of the script
+if (isLoggedIn) {
+  // Show logged in elements
+  document.querySelectorAll('.logged-in-only').forEach(el => {
+    el.style.display = 'flex';
+  });
+  
+  // Hide logged out elements
+  document.querySelectorAll('.logged-out-only').forEach(el => {
+    el.style.display = 'none';
+  });
+  
+  // Show dashboard content
+  const loginMessage = document.getElementById('login-required-message');
+  const dashboardContent = document.getElementById('dashboard-content');
+  
+  if (loginMessage && dashboardContent) {
+    loginMessage.style.display = 'none';
+    dashboardContent.style.display = 'block';
   }
-});
+  
+  // Rest of the code...
 // User Authentication
 let userTokens = 10; // Default tokens for new users
 
