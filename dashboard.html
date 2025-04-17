@@ -1415,20 +1415,27 @@ Your Current Setup 👇
 <!-- JavaScript -->
 <script>
   // Add this as the FIRST code inside your <script> tag
-// Check login status
-const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+  // Check login status
+  const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
   
-if (isLoggedIn) {
-  // Show logged in elements
-  document.querySelectorAll('.logged-in-only').forEach(el => {
-    el.style.display = 'flex';
-  });
+  if (!isLoggedIn) {
+    // Send them back to the login page
+    window.location.href = "index.html";
+  }
   
-  // Hide logged out elements
-  document.querySelectorAll('.logged-out-only').forEach(el => {
-    el.style.display = 'none';
-  });
+  if (isLoggedIn) {
+    // Show logged in elements
+    document.querySelectorAll('.logged-in-only').forEach(el => {
+      el.style.display = 'flex';
+    });
+    
+    // Hide logged out elements
+    document.querySelectorAll('.logged-out-only').forEach(el => {
+      el.style.display = 'none';
+    });
+  }
   
+  // Rest of your JavaScript code follows...
   // Show dashboard content
   const loginMessage = document.getElementById('login-required-message');
   const dashboardContent = document.getElementById('dashboard-content');
