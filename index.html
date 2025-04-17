@@ -44,16 +44,25 @@
   </style>
 </head>
 <body>
+  <!-- Check for existing login session first -->
+  <script>
+    // Check if user is already logged in - if so, redirect to dashboard
+    const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+    if (isLoggedIn) {
+      window.location.href = "dashboard.html";
+    }
+  </script>
+
   <!-- Header -->
   <header class="bg-black bg-opacity-20 backdrop-blur-sm py-4 fixed top-0 w-full z-50">
     <div class="container mx-auto px-6 flex justify-between items-center">
-      <a href="index.html" class="flex items-center">
+      <div class="flex items-center">
         <div class="gradient-text">
           <span class="text-2xl font-bold font-['Poppins']">ePro</span>
           <span class="text-xl font-bold font-['Poppins'] ml-1">AI</span>
         </div>
         <span class="ml-2 bg-[#F56400] text-white text-xs px-2 py-1 rounded-full">BETA</span>
-      </a>
+      </div>
       
       <div>
         <button onclick="openLoginModal()" class="text-white/80 hover:text-white transition-colors">Log In</button>
@@ -156,6 +165,7 @@
                     id="business_type"
                     name="business_type" 
                     class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-[#F56400] transition-all appearance-none text-white"
+                    required
                   >
                     <option value="" class="bg-gray-900">Select your business type...</option>
                     <option value="Etsy Seller" class="bg-gray-900">Etsy Seller</option>
@@ -288,7 +298,6 @@
     <div class="container mx-auto text-center text-gray-400 text-sm">
       <p>&copy; 2025 ePro AI. All rights reserved. Operated by Aetophis.</p>
       <div class="mt-2 space-x-4">
-        <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a>
         <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
         <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
         <a href="#" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a>
@@ -297,20 +306,13 @@
   </footer>
 
   <script>
-    // Check if user is already logged in - if so, redirect to dashboard
-    document.addEventListener('DOMContentLoaded', function() {
-      const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
-      
-      if (isLoggedIn) {
-        window.location.href = "dashboard.html";
-      }
-    });
-    
     // Counter update function
     function updateCounters() {
       const joinCounter = document.getElementById('joinCounter');
       const earlyAdoptersCount = document.getElementById('earlyAdoptersCount');
       const spotsLeft = document.getElementById('spotsLeft');
+      
+      if (!joinCounter || !earlyAdoptersCount || !spotsLeft) return;
       
       // Calculate remaining spots
       const maxUsers = 50;
@@ -376,6 +378,7 @@
       }
       
       // For demo purposes, accept any login
+      // In a real environment, you would validate the credentials
       localStorage.setItem('epro_logged_in', 'true');
       localStorage.setItem('epro_user_email', email);
       
@@ -387,6 +390,9 @@
       if (!localStorage.getItem('epro_tokens')) {
         localStorage.setItem('epro_tokens', '10');
       }
+      
+      // Save login timestamp
+      localStorage.setItem('epro_login_time', Date.now());
       
       // Redirect to dashboard
       window.location.href = "dashboard.html";
@@ -411,7 +417,7 @@
       const email = document.getElementById('email').value;
       const businessType = document.getElementById('business_type').value;
       
-      if (!fullName || !email) {
+      if (!fullName || !email || !businessType) {
         document.getElementById('form-error').classList.remove('hidden');
         submitButton.textContent = originalText;
         submitButton.disabled = false;
@@ -440,6 +446,7 @@
           localStorage.setItem('epro_user_name', fullName);
           localStorage.setItem('epro_user_email', email);
           localStorage.setItem('epro_tokens', '10');
+          localStorage.setItem('epro_login_time', Date.now());
           
           // Redirect after a short delay
           setTimeout(() => {
