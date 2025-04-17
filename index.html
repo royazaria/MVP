@@ -363,7 +363,7 @@
       }
       
       closeLoginModal();
-      window.location.href = "index.html"; // Redirect to main site
+      window.location.href = "dashboard.html";  // Point to your renamed main page
     }
     
     function handleindex(event) {
@@ -437,10 +437,11 @@
       }
       
       // Check if user is already logged in
-      const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
-      if (isLoggedIn) {
-        // If already logged in, redirect to the main site
-        window.location.href = "index.html";
+const isLoggedIn = localStorage.getItem('epro_logged_in') === 'true';
+if (isLoggedIn) {
+  // If already logged in, redirect to the dashboard
+  window.location.href = "dashboard.html";  // Point to your renamed main page
+}
       }
     });
   </script>
