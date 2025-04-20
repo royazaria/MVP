@@ -367,8 +367,7 @@
     
     // Handle Login Submission
     function handleLogin(event) {
-      event.preventDefault();
-      
+      event.preventDefault();   
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
       
@@ -396,8 +395,7 @@
       
       // Redirect to dashboard
       window.location.href = "dashboard.html";
-    }
-    
+    }    
     // Handle Signup Submission
     function handleSignup(event) {
       event.preventDefault();
