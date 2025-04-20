@@ -2062,16 +2062,14 @@ function checkLoginStatus() {
   const sessionTimeout = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
   
   // If not logged in or session expired, redirect to login page
-  if (!isLoggedIn || (currentTime - loginTime > sessionTimeout)) {
-    window.location.href = "index.html";
-    return false;
-  }
-  
+  // In dashboard.html - authentication check
+if (!isLoggedIn || (currentTime - loginTime > sessionTimeout)) {
+  window.location.href = "index.html?redirect=dashboard";
+}
   // User is logged in - update UI
   updateUserInfo();
   return true;
 }
-
 // Update User Info in UI
 function updateUserInfo() {
   const userName = localStorage.getItem('epro_user_name') || 'User';
