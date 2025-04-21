@@ -655,11 +655,9 @@
         <div class="flex items-center space-x-4">
           <div id="user-logged-in" class="flex items-center space-x-4">
             <div class="flex items-center space-x-2 text-gray-700 bg-gray-50 px-3 py-1 rounded-lg">
-              <svg class="w-5 h-5 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <span id="token-display" class="font-bold">833</span>E
-            </div>
+  <div class="w-5 h-5 rounded-full bg-[#F56400] flex items-center justify-center text-white font-bold text-xs">E</div>
+  <span id="token-display" class="font-bold">833</span>E
+</div>
             <a href="#pricing-section" class="btn-primary px-4 py-2 rounded-lg font-medium shadow-lg pulse-animation">
               Get More E-Power! 🚀
             </a>
@@ -677,18 +675,18 @@
               </div>
               
               <!-- User dropdown menu -->
-              <div id="user-dropdown" class="user-dropdown absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-                <div class="py-2">
-                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Account</a>
-                  <a href="#" onclick="showListings()" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Listings</a>
-                  <a href="#" onclick="showDrafts()" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Drafts</a>
-                </div>
-                <div class="py-2 border-t border-gray-100">
-                  <button onclick="handleLogout()" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 font-medium">
-                    Log Out
-                  </button>
-                </div>
-              </div>
+              <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+  <div class="py-2">
+    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Account</a>
+    <a href="#" onclick="showListings()" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Listings</a>
+    <a href="#" onclick="showDrafts()" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Drafts</a>
+  </div>
+  <div class="py-2 border-t border-gray-100">
+    <button onclick="handleLogout()" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 font-medium">
+      Log Out
+    </button>
+  </div>
+</div>
             </div>
           </div>
           
@@ -737,13 +735,13 @@
             <p class="text-white">You have <span id="token-display-dashboard" class="font-bold text-white bg-white bg-opacity-20 px-2 py-1 rounded-full">833</span>E ready to create amazing Etsy listings.</p>
           </div>
           <div class="mt-4 md:mt-0">
-            <a href="#pricing-section" class="bg-[#F56400] hover:bg-[#E05000] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-              </svg>
-              Get More E-Power
-            </a>
-          </div>
+  <a href="#pricing-section" class="bg-[#F56400] hover:bg-[#E05000] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all flex items-center">
+    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+    </svg>
+    Get More E-Power
+  </a>
+</div>
         </div>
       </div>
     </div>
@@ -2140,26 +2138,36 @@ Contact Support
 
 <!-- JavaScript -->
 <script>
-// User dropdown functionality
+// Replace the dropdown functionality
 document.addEventListener('DOMContentLoaded', function() {
   const userDropdownToggle = document.getElementById('user-dropdown-toggle');
   const userDropdown = document.getElementById('user-dropdown');
   
   if (userDropdownToggle && userDropdown) {
+    // Toggle dropdown when clicking the toggle element
     userDropdownToggle.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
-      userDropdown.classList.toggle('show');
+      
+      // Toggle dropdown visibility
+      if (userDropdown.classList.contains('hidden')) {
+        userDropdown.classList.remove('hidden');
+      } else {
+        userDropdown.classList.add('hidden');
+      }
     });
+    
+    // Initially hide the dropdown
+    userDropdown.classList.add('hidden');
     
     // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
       if (!userDropdownToggle.contains(e.target) && !userDropdown.contains(e.target)) {
-        userDropdown.classList.remove('show');
+        userDropdown.classList.add('hidden');
       }
     });
   }
-  
+});
   // Initialize image upload functionality
   setupImageUpload();
   
