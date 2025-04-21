@@ -9,68 +9,67 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Button and interaction styles */
-    .btn-primary {
-      background: linear-gradient(90deg, #F56400 0%, #F2994A 100%);
-      color: white;
-      transition: all 0.3s ease;
-    }
+.btn-primary {
+  background: linear-gradient(90deg, #F56400 0%, #F2994A 100%);
+  color: white;
+  transition: all 0.3s ease;
+}
 
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 20px 5px rgba(245, 100, 0, 0.2);
-    }
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px 5px rgba(245, 100, 0, 0.2);
+}
 
-    /* Pulse animation for buttons */
-    .pulse-animation {
-      animation: pulse 2s infinite;
-    }
+/* Pulse animation for buttons */
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
 
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(245, 100, 0, 0.7);
-      }
-      70% {
-        box-shadow: 0 0 0 10px rgba(245, 100, 0, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(245, 100, 0, 0);
-      }
-    }
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 100, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(245, 100, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 100, 0, 0);
+  }
+}
 
-    /* Process selection styling */
-    .process-option {
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
+/* Process selection styling */
+.process-option {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
 
-    .process-option.selected {
-      border: 2px solid #F56400;
-      background-color: #FEF8F4;
-      transform: translateY(-5px);
-    }
+.process-option.selected {
+  border: 2px solid #F56400;
+  background-color: #FEF8F4;
+  transform: translateY(-5px);
+}
 
-    .process-select-btn {
-      transition: all 0.3s ease;
-    }
+.process-select-btn {
+  transition: all 0.3s ease;
+}
 
-    /* Token packages hover effects */
-    .pricing-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
+/* Token packages hover effects */
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-    .pricing-card button {
-      margin-top: auto;
-      transition: all 0.3s ease;
-    }
+.pricing-card button {
+  margin-top: auto;
+  transition: all 0.3s ease;
+}
 
-    .pricing-card button:hover {
-      background: linear-gradient(90deg, #F56400 0%, #F2994A 100%);
-      color: white;
-      transform: translateY(-3px);
-    }
-    
+.pricing-card button:hover {
+  background: linear-gradient(90deg, #F56400 0%, #F2994A 100%);
+  color: white;
+  transform: translateY(-3px);
+}
     :root {
       --primary-color: #F56400;
       --primary-hover: #E05000;
@@ -560,12 +559,14 @@
       visibility: hidden;
       opacity: 0;
       transform: translateY(10px);
+      display: none;
     }
 
     .user-dropdown.show {
       visibility: visible;
       opacity: 1;
       transform: translateY(0);
+      display: block;
     }
 
     /* Bulk CSV table */
@@ -760,147 +761,147 @@
           </h2>
           
           <!-- Process Selection Cards (Updated to be selectable) -->
-          <div class="mb-12">
-            <h3 class="text-xl font-medium mb-6 text-[#F56400]">Choose Process Type</h3>
-            <div class="grid md:grid-cols-3 gap-8">
-              
-              <!-- Standard Option -->
-<div class="card-hover-border bg-white rounded-xl p-6 transition-all duration-300 hover-transform process-option relative overflow-hidden shadow-lg cursor-pointer" onclick="selectProcess('standard', 1, this)">
-  <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#F56400] to-[#F2994A] transform origin-left scale-x-0 group-hover:scale-x-100 transition-all duration-300"></div>
-  <div class="flex justify-between items-start mb-4">
-    <h4 class="font-bold text-xl">Standard</h4>
-    <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-medium">1E</span>
-  </div>
-  <ul class="space-y-3 mb-6">
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      SEO-optimized title
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      Engaging description
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      13 optimized tags
-    </li>
-    <li class="flex items-center text-gray-400">
-      <svg class="w-5 h-5 text-gray-300 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-      No images
-    </li>
-  </ul>
-  <button 
-    class="w-full py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-[#F56400] hover:to-[#F2994A] hover:text-white rounded-lg font-medium transition-all duration-300 process-select-btn"
-    onclick="selectProcess('standard', 1, this.parentElement)"
-  >
-    Select
-  </button>
-</div>
+<div class="mb-12">
+  <h3 class="text-xl font-medium mb-6 text-[#F56400]">Choose Process Type</h3>
+  <div class="grid md:grid-cols-3 gap-8">
+    
+    <!-- Standard Option -->
+    <div class="bg-white rounded-xl p-6 transition-all duration-300 hover-transform process-option relative overflow-hidden shadow-lg cursor-pointer" onclick="selectProcess('standard', 1, this)">
+      <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#F56400] to-[#F2994A] transform origin-left scale-x-0 group-hover:scale-x-100 transition-all duration-300"></div>
+      <div class="flex justify-between items-start mb-4">
+        <h4 class="font-bold text-xl">Standard</h4>
+        <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-medium">1E</span>
+      </div>
+      <ul class="space-y-3 mb-6">
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          SEO-optimized title
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Engaging description
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          13 optimized tags
+        </li>
+        <li class="flex items-center text-gray-400">
+          <svg class="w-5 h-5 text-gray-300 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          No images
+        </li>
+      </ul>
+      <button 
+        class="w-full py-3 rounded-lg font-medium transition-all duration-300 process-select-btn text-gray-700 hover:text-white hover:bg-[#F56400]"
+        onclick="selectProcess('standard', 1, this.parentElement)"
+      >
+        Select
+      </button>
+    </div>
 
-<!-- Professional Option (Selected by default) -->
-<div class="card-hover-border bg-white rounded-xl p-6 transition-all duration-300 hover-transform process-option relative overflow-hidden shadow-lg border-2 border-[#F56400] cursor-pointer" onclick="selectProcess('professional', 2, this)">
-  <div class="absolute -right-4 -top-4 w-20 h-20 bg-gradient-to-br from-[#F56400] to-yellow-300 opacity-10 rounded-full"></div>
-  <div class="flex justify-between items-start mb-4">
-    <h4 class="font-bold text-xl">Professional</h4>
-    <span class="bg-[#F56400] bg-opacity-10 text-[#F56400] px-3 py-1 rounded-full text-sm font-medium">2E</span>
-  </div>
-  <ul class="space-y-3 mb-6">
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      <span class="font-medium">SEO-optimized title</span>
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      <span class="font-medium">Engaging description</span>
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      <span class="font-medium">13 optimized tags</span>
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      <span class="font-medium">5 professional images</span>
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-[#F56400] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      <span class="font-medium text-[#F56400]">Best value for most sellers</span>
-    </li>
-  </ul>
-  <button 
-    class="w-full py-3 bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 process-select-btn"
-    onclick="selectProcess('professional', 2, this.parentElement)"
-  >
-    Select Pro
-  </button>
-</div>
+    <!-- Professional Option (Selected by default) -->
+    <div class="bg-white rounded-xl p-6 transition-all duration-300 hover-transform process-option relative overflow-hidden shadow-lg border-2 border-[#F56400] cursor-pointer" onclick="selectProcess('professional', 2, this)">
+      <div class="absolute -right-4 -top-4 w-20 h-20 bg-gradient-to-br from-[#F56400] to-yellow-300 opacity-10 rounded-full"></div>
+      <div class="flex justify-between items-start mb-4">
+        <h4 class="font-bold text-xl">Professional</h4>
+        <span class="bg-[#F56400] bg-opacity-10 text-[#F56400] px-3 py-1 rounded-full text-sm font-medium">2E</span>
+      </div>
+      <ul class="space-y-3 mb-6">
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="font-medium">SEO-optimized title</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="font-medium">Engaging description</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="font-medium">13 optimized tags</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="font-medium">5 professional images</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-[#F56400] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="font-medium text-[#F56400]">Best value for most sellers</span>
+        </li>
+      </ul>
+      <button 
+        class="w-full py-3 rounded-lg font-medium transition-all duration-300 process-select-btn bg-[#F56400] text-white"
+        onclick="selectProcess('professional', 2, this.parentElement)"
+      >
+        Select Pro
+      </button>
+    </div>
 
-<!-- Premium Option -->
-<div class="card-hover-border bg-white rounded-xl p-6 transition-all duration-300 hover-transform process-option relative overflow-hidden shadow-lg cursor-pointer" onclick="selectProcess('premium', 5, this)">
-  <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-gradient-to-tr from-yellow-400 to-transparent opacity-5 rounded-full"></div>
-  <div class="flex justify-between items-start mb-4">
-    <h4 class="font-bold text-xl">Premium</h4>
-    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">5E</span>
+    <!-- Premium Option -->
+    <div class="bg-white rounded-xl p-6 transition-all duration-300 hover-transform process-option relative overflow-hidden shadow-lg cursor-pointer" onclick="selectProcess('premium', 5, this)">
+      <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-gradient-to-tr from-yellow-400 to-transparent opacity-5 rounded-full"></div>
+      <div class="flex justify-between items-start mb-4">
+        <h4 class="font-bold text-xl">Premium</h4>
+        <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">5E</span>
+      </div>
+      <ul class="space-y-3 mb-6">
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Everything in Professional plan
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          8 ultra-realistic product images
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Multiple lifestyle image variations
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Product creation video
+        </li>
+      </ul>
+      <button 
+        class="w-full py-3 rounded-lg font-medium transition-all duration-300 process-select-btn text-gray-700 hover:text-white hover:bg-[#F56400]"
+        onclick="selectProcess('premium', 5, this.parentElement)"
+      >
+        Select
+      </button>
+    </div>
   </div>
-  <ul class="space-y-3 mb-6">
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      Everything in Professional plan
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      8 ultra-realistic product images
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      Multiple lifestyle image variations
-    </li>
-    <li class="flex items-center">
-      <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      Product creation video
-    </li>
-  </ul>
-  <button 
-    class="w-full py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-[#F56400] hover:to-[#F2994A] hover:text-white rounded-lg font-medium transition-all duration-300 process-select-btn"
-    onclick="selectProcess('premium', 5, this.parentElement)"
-  >
-    Select
-  </button>
-</div>
-</div>
-<!-- Most Popular Badge for Professional Plan -->
-<div class="hidden md:block absolute transform rotate-45 bg-[#F56400] text-white font-bold py-1 px-12 text-sm shadow-md" style="top: 35px; right: -36px;">
-MOST POPULAR
-</div>
+  <!-- Most Popular Badge for Professional Plan -->
+  <div class="hidden md:block absolute transform rotate-45 bg-[#F56400] text-white font-bold py-1 px-12 text-sm shadow-md" style="top: 35px; right: -36px;">
+  MOST POPULAR
+  </div>
 
-<div class="mt-6 flex items-center text-gray-700">
-<p>Selected: <span id="selectedProcessDisplay" class="font-medium text-[#F56400] text-glow">Professional (2E)</span></p>
-</div>
+  <div class="mt-6 flex items-center text-gray-700">
+  <p>Selected: <span id="selectedProcessDisplay" class="font-medium text-[#F56400] text-glow">Professional (2E)</span></p>
+  </div>
 </div>
 
 <!-- Upload Options -->
@@ -1168,12 +1169,13 @@ Upload Product Details
               <p class="text-gray-600">Creating <span id="bulkListingCount" class="font-medium">1</span> listings with <span class="font-medium text-[#F56400]" id="selectedProcessBulk">Professional</span> quality</p>
             </div>
             <div class="text-right">
-  <p class="font-medium text-lg text-[#F56400]">Required E-Power: <span id="bulkTokensRequired">2</span></p>
-  <p class="text-gray-600">Using <span id="actionTokensCSV" class="font-medium">2</span>E per listing</p>
-</div>
-</div>
-</div>
-</div>
+              <p class="font-medium text-lg text-[#F56400]">Required E-Power: <span id="bulkTokensRequired">2</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -1194,59 +1196,39 @@ Upload Product Details
 </div>
 </div>
 </div>
-
-<!-- Action buttons -->
-<div class="mt-8 flex flex-col md:flex-row items-center justify-between">
-<div class="text-gray-700 mb-4 md:mb-0">
-  <span class="font-medium">Selected process: <span id="selectedProcessDisplay2" class="text-[#F56400] font-bold">Professional</span></span>
-  <span class="ml-4">Required tokens: <span id="actionTokens" class="font-bold">2</span></span>
+</div>
 </div>
 
-<div class="flex space-x-4">
-  <button 
-    onclick="saveDraft()" 
-    class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors shadow-sm"
-  >
-    Save as Draft
-  </button>
-
-  <button 
-    onclick="generateListing()"
-    class="px-8 py-3 btn-primary rounded-lg font-bold shadow-lg transform hover:scale-105 transition-all duration-300"
-  >
-    <div class="flex items-center justify-center">
-      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-      </svg>
-      Generate Listing
-      <div class="ml-3 bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
-        <span id="actionTokensDisplay">2</span>E
-      </div>
+<!-- Action buttons on bottom as requested -->
+<div class="fixed inset-x-0 bottom-0 bg-white border-t border-gray-200 shadow-lg p-4 z-40">
+  <div class="container mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between">
+    <div class="text-gray-700 mb-4 sm:mb-0">
+      <span class="font-medium">Selected process: <span id="selectedProcessDisplay2" class="text-[#F56400] font-bold">Professional</span></span>
     </div>
-  </button>  
-</div>
-</div>
-</div>
+
+    <div class="flex space-x-4">
+      <button 
+        onclick="saveDraft()" 
+        class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors shadow-sm"
+      >
+        Save as Draft
+      </button>
+
+      <button 
+        onclick="generateListing()"
+        class="px-8 py-3 btn-primary rounded-lg font-bold shadow-lg transform hover:scale-105 transition-all duration-300"
+      >
+        <div class="flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          Generate Listing
+        </div>
+      </button>  
+    </div>
+  </div>
 </div>
 </section>
-
-<!-- Fixed Generate Button -->
-<div class="fixed-generate-btn hidden">
-  <button 
-    onclick="generateListing()"
-    class="btn-primary px-8 py-4 rounded-lg font-bold text-lg shadow-lg"
-  >
-    <div class="flex items-center justify-center">
-      <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-      </svg>
-      Generate Amazing Etsy Listings
-      <div class="ml-3 bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
-        <span id="fixedActionTokens">2</span>E
-      </div>
-    </div>
-  </button>
-</div>
 
 <!-- My Drafts Section -->
 <section id="drafts-section" class="py-12 px-6 hidden">
@@ -1415,7 +1397,7 @@ Upload Product Details
 </div>
 </section>
 
-<!-- ROI Calculator Section (Updated to make it more visually appealing) -->
+<!-- ROI Calculator Section (Original functionality preserved) -->
 <section id="calculator-section" class="py-20 bg-gradient-to-b from-gray-50 to-white px-6">
   <div class="container mx-auto max-w-5xl">
     <div class="text-center mb-12">
@@ -1558,28 +1540,28 @@ Upload Product Details
             </div>
 
             <div id="hourlyRateContainer" class="transition-all duration-300 transform hover:scale-102">
-  <label class="block text-gray-700 font-medium mb-2 flex items-center">
-    <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-    </svg>
-    Value of your time ($/hour)
-  </label>
-  <div class="relative">
-    <input 
-      type="number" 
-      min="10" 
-      max="500" 
-      value="25" 
-      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
-      id="hourlyRate"
-    />
-    <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
-      $
-    </div>
-  </div>
-</div>
+              <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Value of your time ($/hour)
+              </label>
+              <div class="relative">
+                <input 
+                  type="number" 
+                  min="10" 
+                  max="500" 
+                  value="25" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F56400] focus:border-transparent transition-all" 
+                  id="hourlyRate"
+                />
+                <div class="absolute left-0 top-0 h-full flex items-center pl-3 pointer-events-none text-gray-400 text-sm">
+                  $
+                </div>
+              </div>
+            </div>
 
-<div class="transition-all duration-300 transform hover:scale-102">
+            <div class="transition-all duration-300 transform hover:scale-102">
   <label class="block text-gray-700 font-medium mb-2 flex items-center">
     <svg class="w-5 h-5 mr-2 text-[#F56400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
@@ -1730,14 +1712,14 @@ Upload Product Details
       </div>
       
       <!-- Annual Impact -->
-      <div class="annual-impact p-5 rounded-lg shadow-lg">
-        <p class="text-xl font-bold mb-4 annual-impact-text">ANNUAL IMPACT</p>
-        <div class="flex justify-between items-center mb-3">
-          <span class="text-white font-medium">Yearly savings:</span>
+      <div class="bg-gradient-to-r from-[#F56400] to-[#F2994A] p-5 rounded-lg text-white shadow-lg">
+        <p class="font-bold mb-3 text-xl">ANNUAL IMPACT</p>
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-white">Yearly savings:</span>
           <span class="font-bold text-2xl text-white" id="yearlyNetBenefit">$3,030</span>
         </div>
-        <div id="yearlyTimeRow" class="flex justify-between items-center mb-3">
-          <span class="text-white font-medium">Hours saved per year:</span>
+        <div id="yearlyTimeRow" class="flex justify-between items-center mt-2 mb-2">
+          <span class="text-white">Hours saved per year:</span>
           <span class="font-bold text-2xl text-white" id="yearlyTimeSaved">116.4</span>
         </div>
         <div id="vacationDaysRow" class="mt-4 text-sm bg-white bg-opacity-20 p-3 rounded-lg text-white">
@@ -1748,7 +1730,7 @@ Upload Product Details
 
     <!-- Call to action -->
     <div class="mt-8 text-center">
-      <a href="#pricing-section" class="inline-block btn-primary py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+      <a href="#pricing-section" class="inline-block bg-gradient-to-r from-[#F56400] to-[#F2994A] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
         Start Saving Today →
       </a>
       <p class="mt-3 text-sm text-gray-500">No credit card required to start</p>
@@ -1758,10 +1740,9 @@ Upload Product Details
 </div>
 </div>
 </div>
-</div>
 </section>
 
-<!-- Pricing Section (Updated to improve layout and visibility) -->
+<!-- Pricing Section (Updated for better visibility) -->
 <section id="pricing-section" class="py-20 bg-white px-6">
   <div class="container mx-auto max-w-6xl">
     <div class="text-center mb-12">
@@ -1837,7 +1818,7 @@ Upload Product Details
         </button>
       </div>
 
-      <!-- Pro Builder (Popular) -->
+      <!-- Pro Builder (Popular) - improved to be most appealing -->
       <div class="pricing-card bg-white p-8 pt-10 rounded-xl shadow-xl border-2 border-[#F56400] text-center hover:shadow-2xl transition-all duration-300 relative overflow-hidden z-10 transform hover:-translate-y-1">
         <!-- Popular badge -->
         <div class="absolute top-0 right-0 bg-gradient-to-r from-[#F56400] to-yellow-300 text-white text-xs px-3 py-1.5 rounded-bl-lg font-bold z-10">BEST VALUE</div>
@@ -1906,7 +1887,7 @@ Upload Product Details
   </div>
 </section>
 
-<!-- FAQ Section (Updated for better functionality) -->
+<!-- FAQ Section (Updated with all questions collapsed by default) -->
 <section id="faq-section" class="py-20 bg-[#F3F1E8] px-6">
   <div class="container mx-auto max-w-5xl">
     <div class="text-center mb-16">
@@ -1965,289 +1946,196 @@ Upload Product Details
         </div>
 
         <!-- FAQ Item 3 -->
-<div class="faq-item border-b border-gray-100 pb-6">
-  <button class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer" onclick="toggleFaq(this)">
-    <h3 class="text-xl font-bold">How much time will this realistically save me?</h3>
-    <svg class="w-6 h-6 text-[#F56400] faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-    </svg>
-  </button>
-  <div class="faq-answer mt-4">
-    <p class="text-gray-700">
-      Our average user reports saving 7-10 hours every week! Here's the typical breakdown:
-    </p>
-    <ul class="mt-3 space-y-2 text-gray-700">
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>SEO Research:</strong> 30-45 minutes per listing (finding competitors, analyzing keywords)</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>Image Preparation:</strong> 45-60 minutes per listing (editing, creating lifestyle images)</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>Content Writing:</strong> 20-30 minutes per listing (crafting titles, descriptions, tags)</span>
-      </li>
-    </ul>
-    <p class="mt-3 text-gray-700">ePro AI reduces this entire process to 2-5 minutes per listing. That's over 95% time saved that you can reinvest in creating more products or growing your business in other ways. If you're listing just 10 products a month, that's 16-22 hours saved!</p>
-  </div>
+        <div class="faq-item border-b border-gray-100 pb-6">
+          <button class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer" onclick="toggleFaq(this)">
+            <h3 class="text-xl font-bold">How much time will this realistically save me?</h3>
+            <svg class="w-6 h-6 text-[#F56400] faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="faq-answer mt-4">
+            <p class="text-gray-700">
+              Our average user reports saving 7-10 hours every week! Here's the typical breakdown:
+            </p>
+            <ul class="mt-3 space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <span class="text-[#F56400] font-bold mr-2">•</span>
+                <span><strong>SEO Research:</strong> 30-45 minutes per listing (finding competitors, analyzing keywords)</span>
+              </li>
+             <li class="flex items-start">
+  <span class="text-[#F56400] font-bold mr-2">•</span>
+  <span><strong>Image Preparation:</strong> 45-60 minutes per listing (editing, creating lifestyle images)</span>
+</li>
+<li class="flex items-start">
+  <span class="text-[#F56400] font-bold mr-2">•</span>
+  <span><strong>Content Writing:</strong> 20-30 minutes per listing (crafting titles, descriptions, tags)</span>
+</li>
+</ul>
+<p class="mt-3 text-gray-700">ePro AI reduces this entire process to 2-5 minutes per listing. That's over 95% time saved that you can reinvest in creating more products or growing your business in other ways. If you're listing just 10 products a month, that's 16-22 hours saved!</p>
+</div>
 </div>
 
 <!-- FAQ Item 4 -->
 <div class="faq-item border-b border-gray-100 pb-6">
-  <button class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer" onclick="toggleFaq(this)">
-    <h3 class="text-xl font-bold">Can I edit the content after it's generated?</h3>
-    <svg class="w-6 h-6 text-[#F56400] faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-    </svg>
-  </button>
-  <div class="faq-answer mt-4">
-    <p class="text-gray-700">
-      Absolutely! While most users find our AI-generated content ready to use immediately, you have complete control to personalize any aspect. Here's what you can edit:
-    </p>
-    <ul class="mt-3 space-y-2 text-gray-700">
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>Text Content:</strong> Modify titles, descriptions, and tags to match your brand voice</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>Images:</strong> Download and edit the generated images with your preferred tools</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>Selection:</strong> Choose which elements from the generated content you want to use</span>
-      </li>
-    </ul>
-    <p class="mt-3 text-gray-700">Our system provides you with editable files that you can tweak before uploading to Etsy. This flexibility ensures your listings maintain your unique brand identity while benefiting from our optimization expertise.</p>
-  </div>
+<button class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer" onclick="toggleFaq(this)">
+<h3 class="text-xl font-bold">Can I edit the content after it's generated?</h3>
+<svg class="w-6 h-6 text-[#F56400] faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="faq-answer mt-4">
+<p class="text-gray-700">
+  Absolutely! While most users find our AI-generated content ready to use immediately, you have complete control to personalize any aspect. Here's what you can edit:
+</p>
+<ul class="mt-3 space-y-2 text-gray-700">
+  <li class="flex items-start">
+    <span class="text-[#F56400] font-bold mr-2">•</span>
+    <span><strong>Text Content:</strong> Modify titles, descriptions, and tags to match your brand voice</span>
+  </li>
+  <li class="flex items-start">
+    <span class="text-[#F56400] font-bold mr-2">•</span>
+    <span><strong>Images:</strong> Download and edit the generated images with your preferred tools</span>
+  </li>
+  <li class="flex items-start">
+    <span class="text-[#F56400] font-bold mr-2">•</span>
+    <span><strong>Selection:</strong> Choose which elements from the generated content you want to use</span>
+  </li>
+</ul>
+<p class="mt-3 text-gray-700">Our system provides you with editable files that you can tweak before uploading to Etsy. This flexibility ensures your listings maintain your unique brand identity while benefiting from our optimization expertise.</p>
+</div>
 </div>
 
 <!-- FAQ Item 5 -->
 <div class="faq-item border-b border-gray-100 pb-6">
-  <button class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer" onclick="toggleFaq(this)">
-    <h3 class="text-xl font-bold">Is the AI optimized for specific Etsy categories?</h3>
-    <svg class="w-6 h-6 text-[#F56400] faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-    </svg>
-  </button>
-  <div class="faq-answer mt-4">
-    <p class="text-gray-700">
-      Definitely! Our AI has been trained on successful listings across all major Etsy categories. When you select your product category, the system specifically tailors its output for:
-    </p>
-    <ul class="mt-3 space-y-2 text-gray-700">
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>Category-Specific Keywords:</strong> Optimized vocabulary for your particular niche</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>Market-Appropriate Styling:</strong> Images that match what buyers expect in your category</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-[#F56400] font-bold mr-2">•</span>
-        <span><strong>Competitive Differentiation:</strong> Content that helps you stand out in your specific market</span>
-      </li>
-    </ul>
-    <p class="mt-3 text-gray-700">Whether you're selling jewelry, home decor, digital downloads, or handmade clothing, our system understands the unique market dynamics of your specific category and creates listings that resonate with your target audience.</p>
-  </div>
+<button class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer" onclick="toggleFaq(this)">
+<h3 class="text-xl font-bold">Is the AI optimized for specific Etsy categories?</h3>
+<svg class="w-6 h-6 text-[#F56400] faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="faq-answer mt-4">
+<p class="text-gray-700">
+  Definitely! Our AI has been trained on successful listings across all major Etsy categories. When you select your product category, the system specifically tailors its output for:
+</p>
+<ul class="mt-3 space-y-2 text-gray-700">
+  <li class="flex items-start">
+    <span class="text-[#F56400] font-bold mr-2">•</span>
+    <span><strong>Category-Specific Keywords:</strong> Optimized vocabulary for your particular niche</span>
+  </li>
+  <li class="flex items-start">
+    <span class="text-[#F56400] font-bold mr-2">•</span>
+    <span><strong>Market-Appropriate Styling:</strong> Images that match what buyers expect in your category</span>
+  </li>
+  <li class="flex items-start">
+    <span class="text-[#F56400] font-bold mr-2">•</span>
+    <span><strong>Competitive Differentiation:</strong> Content that helps you stand out in your specific market</span>
+  </li>
+</ul>
+<p class="mt-3 text-gray-700">Whether you're selling jewelry, home decor, digital downloads, or handmade clothing, our system understands the unique market dynamics of your specific category and creates listings that resonate with your target audience.</p>
+</div>
 </div>
 
 <!-- FAQ Item 6 -->
 <div class="faq-item">
-  <button class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer" onclick="toggleFaq(this)">
-    <h3 class="text-xl font-bold">How does the bulk listing feature work?</h3>
-    <svg class="w-6 h-6 text-[#F56400] faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-    </svg>
-  </button>
-  <div class="faq-answer mt-4">
-    <p class="text-gray-700">
-      Our integrated bulk processing system allows you to create multiple listings at once, following these simple steps:
-    </p>
-    <ol class="mt-3 space-y-2 text-gray-700 list-decimal pl-5">
-      <li>
-        <strong>Select your process type</strong> (Standard, Professional, or Premium) which applies to all items in your bulk queue
-      </li>
-      <li>
-        <strong>Add your products</strong> to the built-in template, including product name, category, materials, size, shop name, and image
-      </li>
-      <li>
-        <strong>Add as many products</strong> as you need using the simple interface (similar to spreadsheet entry)
-      </li>
-      <li>
-        <strong>Click "Generate"</strong> to process all items at once
-      </li>
-      <li>
-        <strong>Download your package</strong> containing all optimized listings ready for Etsy
-      </li>
-    </ol>
-    <p class="mt-3 text-gray-700">Each product is processed with the same quality and optimization as single uploads. This is perfect for sellers who need to list multiple variations or an entire product line at once, saving hours of repetitive work.</p>
-  </div>
+<button class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer" onclick="toggleFaq(this)">
+<h3 class="text-xl font-bold">How does the bulk listing feature work?</h3>
+<svg class="w-6 h-6 text-[#F56400] faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="faq-answer mt-4">
+<p class="text-gray-700">
+  Our integrated bulk processing system allows you to create multiple listings at once, following these simple steps:
+</p>
+<ol class="mt-3 space-y-2 text-gray-700 list-decimal pl-5">
+  <li>
+    <strong>Select your process type</strong> (Standard, Professional, or Premium) which applies to all items in your bulk queue
+  </li>
+  <li>
+    <strong>Add your products</strong> to the built-in template, including product name, category, materials, size, shop name, and image
+  </li>
+  <li>
+    <strong>Add as many products</strong> as you need using the simple interface (similar to spreadsheet entry)
+  </li>
+  <li>
+    <strong>Click "Generate"</strong> to process all items at once
+  </li>
+  <li>
+    <strong>Download your package</strong> containing all optimized listings ready for Etsy
+  </li>
+</ol>
+<p class="mt-3 text-gray-700">Each product is processed with the same quality and optimization as single uploads. This is perfect for sellers who need to list multiple variations or an entire product line at once, saving hours of repetitive work.</p>
+</div>
 </div>
 </div>
 
 <!-- Contact support -->
 <div class="mt-12 text-center">
-  <div class="inline-block bg-[#F3F1E8] px-8 py-6 rounded-xl border-l-4 border-[#F56400] shadow-lg">
-    <h3 class="text-xl font-bold mb-2">Still have questions?</h3>
-    <p class="text-gray-700 mb-4">Our support team is ready to help you get started</p>
-    <a href="mailto:support@eproai.com" class="inline-block btn-primary px-6 py-3 rounded-lg font-medium shadow-md">
-      Contact Support
-    </a>
-  </div>
+<div class="inline-block bg-[#F3F1E8] px-8 py-6 rounded-xl border-l-4 border-[#F56400] shadow-lg">
+<h3 class="text-xl font-bold mb-2">Still have questions?</h3>
+<p class="text-gray-700 mb-4">Our support team is ready to help you get started</p>
+<a href="mailto:support@eproai.com" class="inline-block btn-primary px-6 py-3 rounded-lg font-medium shadow-md">
+Contact Support
+</a>
+</div>
 </div>
 </div>
 </div>
 </section>
 
-<!-- Generate Success Modal -->
-<div id="generate-success-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-<div class="bg-white rounded-xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
-<button onclick="closeGenerateSuccessModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-  </svg>
-</button>
-
-<!-- Decorative corner gradients -->
-<div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#F56400] to-transparent opacity-5 rounded-bl-full"></div>
-<div class="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-[#F56400] to-transparent opacity-5 rounded-tr-full"></div>
-
-<div class="text-center mb-6 relative z-10">
-  <div class="inline-flex items-center justify-center w-16 h-16 primary-gradient rounded-full mb-4 shadow-lg">
-    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-    </svg>
-  </div>
-  <h2 class="text-2xl font-bold text-[#F56400]">Listing Generated Successfully!</h2>
-  <p class="text-gray-600 mt-2">Your listing has been created with all optimized content.</p>
-</div>
-
-<div class="bg-[#F3F1E8] rounded-lg p-5 mb-6 border-l-4 border-[#F56400] shadow-inner">
-  <div class="flex justify-between items-center mb-2">
-    <span class="text-gray-700 font-medium">Process:</span>
-    <span id="success-process" class="font-medium text-[#F56400]">Professional</span>
-  </div>
-  <div class="flex justify-between items-center mb-2">
-    <span class="text-gray-700 font-medium">E-Power used:</span>
-    <span id="success-tokens" class="font-medium">2</span>
-  </div>
-  <div class="flex justify-between items-center">
-    <span class="text-gray-700 font-medium">E-Power remaining:</span>
-    <span id="success-tokens-remaining" class="font-medium">8</span>
-  </div>
-</div>
-
-<!-- Before/After Comparison -->
-<div class="mb-6 rounded-lg overflow-hidden border border-gray-200 shadow-lg">
-  <div class="bg-gray-800 text-white text-xs py-1 px-3">
-    Before & After Comparison
-  </div>
-  <div class="comparison-slider h-40 w-full" style="--slider-position: 50%;">
-    <div class="before bg-gray-100 flex items-center justify-center">
-      <img src="/api/placeholder/400/320" class="object-contain h-full" alt="Product before">
-      <span class="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded opacity-70">Before</span>
-    </div>
-    <div class="after bg-gray-50 flex items-center justify-center">
-      <img src="/api/placeholder/400/320" class="object-contain h-full" alt="Product after">
-      <span class="absolute top-2 right-2 bg-[#F56400] text-white text-xs px-2 py-1 rounded opacity-70">After</span>
-    </div>
-    <div class="slider"></div>
-  </div>
-</div>
-
-<div class="space-y-3 mb-6">
-  <a href="#" id="downloadResultsBtn" class="flex items-center justify-center w-full py-3 btn-primary rounded-lg font-medium shadow-md">
-    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-    </svg>
-    Download Results
-  </a>
-  
-  <button onclick="closeGenerateSuccessModal()" class="w-full py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
-    Create Another Listing
-  </button>
-</div>
-
-<!-- Share Your Results -->
-<div class="text-center text-sm text-gray-500">
-  <p>Love the results? Share them!</p>
-  <div class="flex justify-center space-x-4 mt-2">
-    <a href="#" class="text-gray-400 hover:text-[#F56400]">
-      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-      </svg>
-    </a>
-    <a href="#" class="text-gray-400 hover:text-[#F56400]">
-      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 9.99 9.99 0 01-3.127 1.195 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-      </svg>
-    </a>
-    <a href="#" class="text-gray-400 hover:text-[#F56400]">
-      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-      </svg>
-    </a>
-  </div>
-</div>
-</div>
-</div>
-
 <!-- Footer -->
 <footer class="bg-gray-900 text-white py-12 px-6">
-  <div class="container mx-auto max-w-6xl">
-    <div class="grid md:grid-cols-3 gap-8">
-      <div>
-        <div class="flex items-center mb-4">
-          <div class="text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-300">
-            <span class="text-2xl font-bold">ePro</span>
-            <span class="text-xl font-bold ml-1">AI</span>
-          </div>
-          <span class="ml-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full">BETA</span>
-        </div>
-        <p class="text-gray-400 mb-6">
-          Transforming Etsy stores with AI-powered product listings and optimized content.
-        </p>
-        <div class="flex space-x-4">
-          <a href="#" class="text-gray-400 hover:text-white transition-colors">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 9.99 9.99 0 01-3.127 1.195 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-
-      <div>
-        <h3 class="text-lg font-bold mb-4">Resources</h3>
-        <ul class="space-y-2">
-          <li><a href="#calculator-section" class="text-gray-400 hover:text-white transition-colors">ROI Calculator</a></li>
-          <li><a href="#pricing-section" class="text-gray-400 hover:text-white transition-colors">E-Power Packages</a></li>
-          <li><a href="#faq-section" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="text-lg font-bold mb-4">Help</h3>
-        <ul class="space-y-2">
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a></li>
-          <li><a href="mailto:support@eproai.com" class="text-gray-400 hover:text-white transition-colors">Contact Support</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-      <p>&copy; 2025 ePro AI. All rights reserved. Operated by Aetophis.</p>
-    </div>
+<div class="container mx-auto max-w-6xl">
+<div class="grid md:grid-cols-3 gap-8">
+<div>
+<div class="flex items-center mb-4">
+  <div class="text-transparent bg-clip-text bg-gradient-to-r from-[#F56400] to-yellow-300">
+    <span class="text-2xl font-bold">ePro</span>
+    <span class="text-xl font-bold ml-1">AI</span>
   </div>
+  <span class="ml-2 bg-gray-700 text-white text-xs px-2 py-1 rounded-full">BETA</span>
+</div>
+<p class="text-gray-400 mb-6">
+  Transforming Etsy stores with AI-powered product listings and optimized content.
+</p>
+<div class="flex space-x-4">
+  <a href="#" class="text-gray-400 hover:text-white transition-colors">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+    </svg>
+  </a>
+  <a href="#" class="text-gray-400 hover:text-white transition-colors">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 9.99 9.99 0 01-3.127 1.195 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+    </svg>
+  </a>
+</div>
+</div>
+
+<div>
+<h3 class="text-lg font-bold mb-4">Resources</h3>
+<ul class="space-y-2">
+  <li><a href="#calculator-section" class="text-gray-400 hover:text-white transition-colors">ROI Calculator</a></li>
+  <li><a href="#pricing-section" class="text-gray-400 hover:text-white transition-colors">E-Power Packages</a></li>
+  <li><a href="#faq-section" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+</ul>
+</div>
+
+<div>
+<h3 class="text-lg font-bold mb-4">Help</h3>
+<ul class="space-y-2">
+  <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+  <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+  <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a></li>
+  <li><a href="mailto:support@eproai.com" class="text-gray-400 hover:text-white transition-colors">Contact Support</a></li>
+</ul>
+</div>
+</div>
+
+<div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+<p>&copy; 2025 ePro AI. All rights reserved. Operated by Aetophis.</p>
+</div>
+</div>
 </footer>
 
 <!-- JavaScript -->
@@ -2258,7 +2146,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const userDropdown = document.getElementById('user-dropdown');
   
   if (userDropdownToggle && userDropdown) {
-    userDropdownToggle.addEventListener('click', function() {
+    userDropdownToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
       userDropdown.classList.toggle('show');
     });
     
@@ -2297,9 +2187,6 @@ function selectProcess(process, tokens, element) {
   // Update display
   document.getElementById('selectedProcessDisplay').textContent = `${process.charAt(0).toUpperCase() + process.slice(1)} (${tokens}E)`;
   document.getElementById('selectedProcessDisplay2').textContent = process.charAt(0).toUpperCase() + process.slice(1);
-  document.getElementById('actionTokens').textContent = tokens;
-  document.getElementById('actionTokensDisplay').textContent = tokens;
-  document.getElementById('fixedActionTokens').textContent = tokens;
   
   // Update bulk processing info
   const selectedProcessBulk = document.getElementById('selectedProcessBulk');
@@ -2310,16 +2197,17 @@ function selectProcess(process, tokens, element) {
   // Update bulk tokens required
   updateBulkTokensRequired();
   
-  // Reset all process options
+  // Visual updates for the selected card
   const options = document.querySelectorAll('.process-option');
   options.forEach(opt => {
+    // Reset styling but keep card visible
     opt.classList.remove('border-[#F56400]', 'shadow-lg', 'scale-105', 'selected');
     
     // Reset buttons
     const btn = opt.querySelector('.process-select-btn');
     if (btn) {
-      btn.classList.remove('bg-gradient-to-r', 'from-[#F56400]', 'to-[#F2994A]', 'text-white');
-      btn.classList.add('bg-gradient-to-r', 'from-gray-100', 'to-gray-200', 'text-gray-700');
+      btn.classList.remove('bg-[#F56400]', 'text-white');
+      btn.classList.add('text-gray-700');
     }
   });
   
@@ -2330,8 +2218,8 @@ function selectProcess(process, tokens, element) {
     // Update button
     const btn = element.querySelector('.process-select-btn');
     if (btn) {
-      btn.classList.remove('bg-gradient-to-r', 'from-gray-100', 'to-gray-200', 'text-gray-700');
-      btn.classList.add('bg-gradient-to-r', 'from-[#F56400]', 'to-[#F2994A]', 'text-white');
+      btn.classList.remove('text-gray-700');
+      btn.classList.add('bg-[#F56400]', 'text-white');
     }
   }
   
@@ -2347,7 +2235,6 @@ function updateBulkTokensRequired() {
   const tokensPerListing = window.selectedProcess.tokens;
   
   document.getElementById('bulkListingCount').textContent = bulkRows;
-  document.getElementById('actionTokensCSV').textContent = tokensPerListing;
   document.getElementById('bulkTokensRequired').textContent = bulkRows * tokensPerListing;
 }
 
@@ -2383,18 +2270,18 @@ function addBulkRow() {
       <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#F56400]" placeholder="Bridal Dresses">
     </td>
     <td class="px-3 py-2">
-  <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#F56400]" placeholder="Logo URL">
-</td>
-<td class="px-3 py-2">
-  <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#F56400]" placeholder="Shop name">
-</td>
-<td class="px-3 py-2 text-center">
-  <button type="button" class="text-red-500 hover:text-red-700" onclick="removeBulkRow(this)">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-    </svg>
-  </button>
-</td>
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#F56400]" placeholder="Logo URL">
+    </td>
+    <td class="px-3 py-2">
+      <input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#F56400]" placeholder="Shop name">
+    </td>
+    <td class="px-3 py-2 text-center">
+      <button type="button" class="text-red-500 hover:text-red-700" onclick="removeBulkRow(this)">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+        </svg>
+      </button>
+    </td>
   `;
   
   tableBody.appendChild(newRow);
@@ -2776,16 +2663,7 @@ function generateListing() {
     // Hide loading
     hideLoading();
     
-    // Show success modal
-    const successModal = document.getElementById('generate-success-modal');
-    document.getElementById('success-process').textContent = window.selectedProcess.name.charAt(0).toUpperCase() + window.selectedProcess.name.slice(1);
-    document.getElementById('success-tokens').textContent = requiredTokens;
-    document.getElementById('success-tokens-remaining').textContent = remainingTokens;
-    
-    if (successModal) {
-      successModal.classList.remove('hidden');
-      setupComparisonSliders(); // Re-initialize sliders in the modal
-    }
+    showToast('Listing generated successfully!', 'success');
   }, 2000);
 }
 
@@ -2822,14 +2700,6 @@ function hideLoading() {
   const loadingOverlay = document.getElementById('loading-overlay');
   if (loadingOverlay) {
     loadingOverlay.classList.add('hidden');
-  }
-}
-
-// Success modal
-function closeGenerateSuccessModal() {
-  const modal = document.getElementById('generate-success-modal');
-  if (modal) {
-    modal.classList.add('hidden');
   }
 }
 
@@ -2915,6 +2785,93 @@ function selectCustomCategory() {
   }
 }
 
+// Custom token purchase validation
+function purchaseCustomTokens() {
+  let amount;
+  
+  // Loop until valid input or cancel
+  while (true) {
+    amount = prompt('How many E-Power units would you like to purchase? (Minimum 10)', '10');
+    
+    // User cancelled prompt
+    if (amount === null) {
+      return;
+    }
+    
+    // Validate input
+    const numAmount = parseInt(amount);
+    if (!isNaN(numAmount) && numAmount >= 10) {
+      break;
+    }
+    
+    alert('Please enter a valid amount (minimum 10 units)');
+  }
+  
+  const tokens = parseInt(amount);
+  const cost = tokens; // $1 per token
+  
+  // Show loading indicator
+  showLoading(`Processing purchase of ${tokens} E-Power units...`);
+  
+  // Simulate payment API call
+  setTimeout(() => {
+    // Add tokens
+    const userTokens = parseInt(localStorage.getItem('epro_tokens') || '10');
+    const newTokens = userTokens + tokens;
+    
+    // Update token displays
+    localStorage.setItem('epro_tokens', newTokens.toString());
+    document.querySelectorAll('#token-display, #token-display-dashboard').forEach(element => {
+      element.textContent = newTokens;
+    });
+    
+    // Hide loading indicator
+    hideLoading();
+    
+    // Show success toast
+    showToast(`Successfully purchased ${tokens}E for $${cost}!`, 'success');
+  }, 2000);
+}
+
+function purchaseTokens(package) {
+  // Define packages
+  const packages = {
+    starter: { tokens: 50, price: 47.50 },
+    growth: { tokens: 100, price: 90 },
+    pro: { tokens: 250, price: 200 },
+    empire: { tokens: 500, price: 350 }
+  };
+  
+  const selectedPackage = packages[package];
+  
+  if (!selectedPackage) {
+    showToast('Invalid package selected', 'error');
+    return;
+  }
+  
+  // Show loading indicator
+  showLoading(`Processing ${selectedPackage.tokens}E purchase...`);
+  
+  // Simulate payment API call
+  setTimeout(() => {
+    // Add tokens
+    const userTokens = parseInt(localStorage.getItem('epro_tokens') || '10');
+    const newTokens = userTokens + selectedPackage.tokens;
+    
+    // Update token displays
+    localStorage.setItem('epro_tokens', newTokens.toString());
+    document.querySelectorAll('#token-display, #token-display-dashboard').forEach(element => {
+      element.textContent = newTokens;
+    });
+    
+    // Hide loading indicator
+    hideLoading();
+    
+    // Show success toast
+    showToast(`${selectedPackage.tokens}E purchased successfully for $${selectedPackage.price.toFixed(2)}!`, 'success');
+  }, 2000);
+}
+
 // Initialize on load
 document.addEventListener('DOMContentLoaded', function() {
   // Check username
@@ -2940,6 +2897,272 @@ document.addEventListener('DOMContentLoaded', function() {
     element.textContent = userTokens;
   });
 });
+
+// ROI Calculator functionality (Preserved from original)
+document.addEventListener('DOMContentLoaded', function() {
+  // DOM Elements
+  const listingsPerMonth = document.getElementById('listingsPerMonth');
+  const minutesPerListing = document.getElementById('minutesPerListing');
+  const vaListingsPerMonth = document.getElementById('vaListingsPerMonth');
+  const useVAYes = document.getElementById('useVAYes');
+  const useVANo = document.getElementById('useVANo');
+  const vaYesLabel = document.getElementById('vaYesLabel');
+  const vaNoLabel = document.getElementById('vaNoLabel');
+  const vaSalary = document.getElementById('vaSalary');
+  const hourlyRate = document.getElementById('hourlyRate');
+  const toolsCost = document.getElementById('toolsCost');
+  const eproAiPlan = document.getElementById('eproAiPlan');
+  
+  // Display Elements
+  const displayMonthlyListings = document.getElementById('displayMonthlyListings');
+  const displayCurrentHours = document.getElementById('displayCurrentHours');
+  const displayEproHours = document.getElementById('displayEproHours');
+  const displayTimeSaved = document.getElementById('displayTimeSaved');
+  const displayEproCost = document.getElementById('displayEproCost');
+  const displayVaCost = document.getElementById('displayVaCost');
+  const displayToolSavings = document.getElementById('displayToolSavings');
+  const displayTimeSavingsValue = document.getElementById('displayTimeSavingsValue');
+  const netBenefit = document.getElementById('netBenefit');
+  const timeChangeIndicator = document.getElementById('timeChangeIndicator');
+  const benefitChangeIndicator = document.getElementById('benefitChangeIndicator');
+  const yearlyNetBenefit = document.getElementById('yearlyNetBenefit');
+  const yearlyTimeSaved = document.getElementById('yearlyTimeSaved');
+  const vacationDays = document.getElementById('vacationDays');
+  const calcProgress = document.getElementById('calcProgress');
+  const perListing = document.getElementById('perListing');
+  const recalculating = document.getElementById('recalculating');
+  
+  // Section Elements
+  const timeAnalysisSection = document.getElementById('timeAnalysisSection');
+  const timeSavingsValueRow = document.getElementById('timeSavingsValueRow');
+  const yearlyTimeRow = document.getElementById('yearlyTimeRow');
+  const vacationDaysRow = document.getElementById('vacationDaysRow');
+  const vaCostRow = document.getElementById('vaCostRow');
+  
+  // Container Elements
+  const minutesPerListingContainer = document.getElementById('minutesPerListingContainer');
+  const vaListingsPerMonthContainer = document.getElementById('vaListingsPerMonthContainer');
+  const vaRateContainer = document.getElementById('vaRateContainer');
+  const hourlyRateContainer = document.getElementById('hourlyRateContainer');
+  
+  // Constants
+  const EPRO_AI_MINUTES_PER_LISTING = 2;
+  const MINUTES_PER_HOUR = 60;
+  const MONTHS_PER_YEAR = 12;
+  const HOURS_PER_WORKDAY = 8;
+  
+  // Animation settings
+  let progressInterval;
+  
+  function showRecalculating() {
+    if (recalculating) {
+      recalculating.style.display = 'inline-block';
+      
+      // Progress animation
+      let progress = 0;
+      if (progressInterval) clearInterval(progressInterval);
+      
+      progressInterval = setInterval(() => {
+        progress += 5;
+        if (calcProgress) calcProgress.style.width = `${progress}%`;
+        
+        if (progress >= 100) {
+          clearInterval(progressInterval);
+          setTimeout(() => {
+            if (recalculating) recalculating.style.display = 'none';
+          }, 200);
+        }
+      }, 25);
+    }
+  }
+  
+  function calculateROI() {
+    if (!listingsPerMonth) return;
+    
+    // Get values from inputs
+    const listings = parseInt(listingsPerMonth.value) || 10;
+    const minutes = parseInt(minutesPerListing?.value || 60);
+    const vaListings = parseInt(vaListingsPerMonth?.value || 30);
+    const vaSalaryValue = parseInt(vaSalary?.value || 250);
+    const hourlyRateValue = parseInt(hourlyRate?.value || 25);
+    const toolsCostValue = parseInt(toolsCost?.value || 30);
+    const eproRate = parseInt(eproAiPlan?.value || 2);
+    
+    // Determine which mode we're in - VA or self-managed
+    const isVAMode = useVAYes && useVAYes.checked;
+    
+    // Calculate values based on the mode
+    let currentHours, eproHours, timeSaved, monthlyListings;
+    
+    if (isVAMode) {
+      // VA mode logic
+      monthlyListings = vaListings;
+      currentHours = 0; // Not relevant for VA mode
+      eproHours = (monthlyListings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
+      timeSaved = 0; // No time saved for owner in VA mode
+    } else {
+      // Self-managed mode logic
+      monthlyListings = listings;
+      currentHours = (listings * minutes) / MINUTES_PER_HOUR;
+      eproHours = (listings * EPRO_AI_MINUTES_PER_LISTING) / MINUTES_PER_HOUR;
+      timeSaved = currentHours - eproHours;
+    }
+    
+    // Calculate cost savings
+    const eproCost = monthlyListings * eproRate;
+    const vaCost = isVAMode ? vaSalaryValue : 0;
+    const toolSavings = toolsCostValue;
+    const timeSavingsValue = timeSaved * hourlyRateValue;
+    
+    // Calculate net benefit
+    let benefit;
+    
+    if (isVAMode) {
+      // For VA users, benefit = VA cost + tool savings - ePro AI cost
+      benefit = vaCost + toolSavings - eproCost;
+    } else {
+      // For self-doers, benefit = time savings value + tool savings - ePro AI cost
+      benefit = timeSavingsValue + toolSavings - eproCost;
+    }
+    
+    // Annual calculations
+    const yearlyBenefit = benefit * MONTHS_PER_YEAR;
+    const yearlyTimeSavedValue = timeSaved * MONTHS_PER_YEAR;
+    const workdaysSaved = yearlyTimeSavedValue / HOURS_PER_WORKDAY;
+    
+    // Update DOM with calculated values
+    if (displayMonthlyListings) displayMonthlyListings.textContent = monthlyListings;
+    
+    // Time analysis updates - only relevant for self-managed mode
+    if (!isVAMode) {
+      if (displayCurrentHours) displayCurrentHours.textContent = currentHours.toFixed(1);
+      if (displayEproHours) displayEproHours.textContent = eproHours.toFixed(1);
+      if (displayTimeSaved) displayTimeSaved.textContent = timeSaved.toFixed(1);
+      
+      const timeChangePercentage = currentHours > 0 ? Math.round(timeSaved / currentHours * 100) : 0;
+      if (timeChangeIndicator) timeChangeIndicator.textContent = `↑ ${timeChangePercentage}%`;
+      
+      if (displayTimeSavingsValue) displayTimeSavingsValue.textContent = `$${timeSavingsValue.toFixed(2)}`;
+      
+      if (yearlyTimeSaved) yearlyTimeSaved.textContent = yearlyTimeSavedValue.toFixed(1);
+      if (vacationDays) vacationDays.textContent = workdaysSaved.toFixed(1);
+    }
+    
+    // Cost-related updates
+    if (displayEproCost) displayEproCost.textContent = `$${eproCost}`;
+    if (perListing) perListing.textContent = `($${eproRate}/listing)`;
+    if (displayVaCost) displayVaCost.textContent = `$${vaCost}`;
+    if (displayToolSavings) displayToolSavings.textContent = `$${toolSavings}`;
+    if (netBenefit) netBenefit.textContent = `$${benefit.toFixed(2)}`;
+    
+    // Update benefit indicator with a proper calculation
+    if (benefitChangeIndicator) {
+      const previousCost = vaCost + toolsCostValue + (currentHours * hourlyRateValue);
+      const newCost = eproCost;
+      const savingsPercent = previousCost > 0 ? Math.round((previousCost - newCost) / previousCost * 100) : 0;
+      benefitChangeIndicator.textContent = `↑ ${savingsPercent}%`;
+    }
+    
+    // Update yearly calculations
+    if (yearlyNetBenefit) yearlyNetBenefit.textContent = `$${yearlyBenefit.toFixed(2)}`;
+    
+    // Show/hide sections based on mode
+    if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
+    if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
+    if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
+    if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
+    if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
+    
+    // Make sure the progress bar completes
+    if (calcProgress) calcProgress.style.width = '100%';
+  }
+  
+  // Initialize UI based on selected mode
+  function updateUIBasedOnMode() {
+    const isVAMode = useVAYes && useVAYes.checked;
+    
+    // Update styles for radio buttons
+    if (vaYesLabel) {
+      vaYesLabel.classList.toggle('bg-[#F56400]', isVAMode);
+      vaYesLabel.classList.toggle('text-white', isVAMode);
+      vaYesLabel.classList.toggle('border-[#F56400]', isVAMode);
+    }
+    
+    if (vaNoLabel) {
+      vaNoLabel.classList.toggle('bg-[#F56400]', !isVAMode);
+      vaNoLabel.classList.toggle('text-white', !isVAMode);
+      vaNoLabel.classList.toggle('border-[#F56400]', !isVAMode);
+    }
+    
+    // Show/hide VA specific fields
+    if (vaRateContainer) vaRateContainer.classList.toggle('hidden', !isVAMode);
+    if (vaListingsPerMonthContainer) vaListingsPerMonthContainer.classList.toggle('hidden', !isVAMode);
+    
+    // Show/hide owner specific fields
+    if (minutesPerListingContainer) minutesPerListingContainer.classList.toggle('hidden', isVAMode);
+    if (hourlyRateContainer) hourlyRateContainer.classList.toggle('hidden', isVAMode);
+    if (listingsPerMonth) listingsPerMonth.parentElement.parentElement.classList.toggle('hidden', isVAMode);
+    
+    // Show/hide sections
+    if (timeAnalysisSection) timeAnalysisSection.style.display = isVAMode ? 'none' : 'block';
+    if (timeSavingsValueRow) timeSavingsValueRow.style.display = isVAMode ? 'none' : 'flex';
+    if (yearlyTimeRow) yearlyTimeRow.style.display = isVAMode ? 'none' : 'flex';
+    if (vacationDaysRow) vacationDaysRow.style.display = isVAMode ? 'none' : 'block';
+    if (vaCostRow) vaCostRow.style.display = isVAMode ? 'flex' : 'none';
+  }
+  
+  // Add event listeners for form inputs
+  // User type selection
+  if (useVAYes) {
+    useVAYes.addEventListener('change', function() {
+      if (this.checked) {
+        updateUIBasedOnMode();
+        showRecalculating();
+        setTimeout(calculateROI, 300);
+      }
+    });
+  }
+  
+  if (useVANo) {
+    useVANo.addEventListener('change', function() {
+      if (this.checked) {
+        updateUIBasedOnMode();
+        showRecalculating();
+        setTimeout(calculateROI, 300);
+      }
+    });
+  }
+  
+  // Number inputs
+  const inputIds = [
+    'listingsPerMonth', 
+    'minutesPerListing', 
+    'vaListingsPerMonth', 
+    'vaSalary', 
+    'hourlyRate', 
+    'toolsCost'
+  ];
+  
+  inputIds.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.addEventListener('input', function() {
+        showRecalculating();
+        setTimeout(calculateROI, 300);
+      });
+    }
+  });
+  
+  // Plan selection
+  if (eproAiPlan) {
+    eproAiPlan.addEventListener('change', function() {
+      showRecalculating();
+      setTimeout(calculateROI, 300);
+    });
+  }
+  
+  // Initialize the UI and calculations
+  updateUIBasedOnMode();
+  calculateROI();
+});
 </script>
-</body>
-</html>
