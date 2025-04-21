@@ -2172,18 +2172,30 @@ document.addEventListener('DOMContentLoaded', function() {
   // Set up bulk CSV interface
   setupBulkCsvInterface();
 });
-
 // Simple toggle function for the dropdown
 function toggleDropdown() {
   var dropdown = document.getElementById("user-dropdown");
+  
+  // Toggle dropdown visibility
   if (dropdown.style.display === "none" || dropdown.style.display === "") {
     dropdown.style.display = "block";
+    
+    // Add a small delay before adding the document click handler
+    setTimeout(function() {
+      // Use one-time event listener that removes itself after closing the dropdown
+      document.addEventListener("click", function closeDropdown(event) {
+        var toggle = document.getElementById("user-dropdown-toggle");
+        
+        if (!toggle.contains(event.target) && !dropdown.contains(event.target)) {
+          dropdown.style.display = "none";
+          document.removeEventListener("click", closeDropdown);
+        }
+      });
+    }, 0);
   } else {
     dropdown.style.display = "none";
   }
-}
-
-// Process selection function
+}// Process selection function
 function selectProcess(process, tokens, element) {
   // Update selected process
   window.selectedProcess = {
