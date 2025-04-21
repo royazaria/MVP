@@ -663,7 +663,7 @@
           
           <!-- User dropdown -->
           <div class="relative">
-            <div id="user-dropdown-toggle" class="flex items-center space-x-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-lg transition-all duration-300">
+            <div id="user-dropdown-toggle" class="flex items-center space-x-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-lg transition-all duration-300" onclick="toggleDropdown(event)">
               <div id="user-avatar" class="w-8 h-8 rounded-full primary-gradient text-white flex items-center justify-center font-medium">
                 RL
               </div>
@@ -2172,29 +2172,46 @@ document.addEventListener('DOMContentLoaded', function() {
   // Set up bulk CSV interface
   setupBulkCsvInterface();
 });
+// Global variable to track if dropdown is open
+let dropdownIsOpen = false;
+
 // Simple toggle function for the dropdown
-function toggleDropdown() {
+function toggleDropdown(event) {
   var dropdown = document.getElementById("user-dropdown");
   
-  // Toggle dropdown visibility
-  if (dropdown.style.display === "none" || dropdown.style.display === "") {
+  if (!dropdownIsOpen) {
+    // Show dropdown
     dropdown.style.display = "block";
+    dropdownIsOpen = true;
     
-    // Add a small delay before adding the document click handler
+    // Add event listener to detect clicks outside
     setTimeout(function() {
-      // Use one-time event listener that removes itself after closing the dropdown
-      document.addEventListener("click", function closeDropdown(event) {
-        var toggle = document.getElementById("user-dropdown-toggle");
-        
-        if (!toggle.contains(event.target) && !dropdown.contains(event.target)) {
-          dropdown.style.display = "none";
-          document.removeEventListener("click", closeDropdown);
-        }
-      });
-    }, 0);
+      document.addEventListener("click", closeDropdownOnClickOutside);
+    }, 10);
   } else {
+    // Hide dropdown
     dropdown.style.display = "none";
+    dropdownIsOpen = false;
+    document.removeEventListener("click", closeDropdownOnClickOutside);
   }
+  
+  // Stop event propagation
+  if (event) {
+    event.stopPropagation();
+  }
+}
+
+// Function to close dropdown when clicking outside
+function closeDropdownOnClickOutside(event) {
+  var dropdown = document.getElementById("user-dropdown");
+  var toggle = document.getElementById("user-dropdown-toggle");
+  
+  if (!toggle.contains(event.target) && !dropdown.contains(event.target)) {
+    dropdown.style.display = "none";
+    dropdownIsOpen = false;
+    document.removeEventListener("click", closeDropdownOnClickOutside);
+  }
+}
 }// Process selection function
 function selectProcess(process, tokens, element) {
   // Update selected process
