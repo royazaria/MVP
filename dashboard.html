@@ -663,7 +663,7 @@
           
           <!-- User dropdown -->
           <div class="relative">
-            <div id="user-dropdown-toggle" class="flex items-center space-x-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-lg transition-all duration-300" onclick="toggleDropdown()">
+            <div id="user-dropdown-toggle" class="flex items-center space-x-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-lg transition-all duration-300">
               <div id="user-avatar" class="w-8 h-8 rounded-full primary-gradient text-white flex items-center justify-center font-medium">
                 RL
               </div>
@@ -2136,29 +2136,27 @@ Contact Support
 
 <!-- JavaScript -->
 <script>
-// Simple toggle function for the dropdown
-function toggleDropdown() {
-  var dropdown = document.getElementById("user-dropdown");
-  if (dropdown.style.display === "none" || dropdown.style.display === "") {
-    dropdown.style.display = "block";
-  } else {
-    dropdown.style.display = "none";
-  }
+  // Initialize dropdown on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Set up dropdown functionality
+  const userDropdownToggle = document.getElementById('user-dropdown-toggle');
+  const userDropdown = document.getElementById('user-dropdown');
   
-  // Close dropdown when clicking outside
-  document.addEventListener("click", function closeDropdown(event) {
-    var toggle = document.getElementById("user-dropdown-toggle");
-    var dropdown = document.getElementById("user-dropdown");
+  if (userDropdownToggle && userDropdown) {
+    userDropdownToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleDropdown();
+    });
     
-    if (!toggle.contains(event.target) && !dropdown.contains(event.target)) {
-      dropdown.style.display = "none";
-      document.removeEventListener("click", closeDropdown);
-    }
-  });
-  
-  // Prevent the click from propagating to the document
-  event.stopPropagation();
-}
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!userDropdownToggle.contains(e.target) && !userDropdown.contains(e.target)) {
+        userDropdown.style.display = 'none';
+      }
+    });
+  }
+
   // Initialize image upload functionality
   setupImageUpload();
   
@@ -2174,6 +2172,16 @@ function toggleDropdown() {
   // Set up bulk CSV interface
   setupBulkCsvInterface();
 });
+
+// Simple toggle function for the dropdown
+function toggleDropdown() {
+  var dropdown = document.getElementById("user-dropdown");
+  if (dropdown.style.display === "none" || dropdown.style.display === "") {
+    dropdown.style.display = "block";
+  } else {
+    dropdown.style.display = "none";
+  }
+}
 
 // Process selection function
 function selectProcess(process, tokens, element) {
