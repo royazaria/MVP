@@ -1,6 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js";
+
+  // ← your config
+  const firebaseConfig = {
+    apiKey: "AIzaSy…",
+    authDomain: "epro-ai-auth.firebaseapp.com",
+    projectId: "epro-ai-auth",
+    /* …rest of your config… */
+  };
+
+  // Initialize
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Expose handleSignup to the global scope so your `onsubmit="handleSignup"` can see it
+  window.handleSignup = async function handleSignup(evt) {
+    evt.preventDefault();
+    const submitBtn = document.getElementById('submit-button');
+    const origText  = submitBtn.textContent;
+
+    // Grab inputs
+    const fullName     = document.getElementById('full_name').value;
+    const email        = document.getElementById('email').value;
+    const businessType = document.getElementById('business_type').value;
+
+    // Basic validation
+    if (!fullName || !email || !businessType) {
+      document.getElementById('form-error').classList.remove('hidden');
+      return;
+    }
+
+    // UI: loading state
+    submitBtn.textContent = 'Creating account…';
+    submitBtn.disabled   = true;
+    document.getElementById('form-error').classList.add('hidden');
+    document.getElementById('form-success').classList.add('hidden');
+
+    try {
+      // Sign up with email/password
+      const cred = await createUserWithEmailAndPassword(auth, email, businessType);
+      console.log("Firebase user:", cred.user);
+
+      // UI: success message
+      document.getElementById('form-success').classList.remove('hidden');
+
+      // (Optional) write user to your Sheet via google.script.run or your /exec endpoint here,
+      // passing cred.user.uid or cred.user.email as proof-of-authentication.
+
+      setTimeout(() => {
+        window.location.href = 'dashboard.html'; 
+      }, 1200);
+
+    } catch(err) {
+      console.error(err);
+      document.getElementById('form-error').classList.remove('hidden');
+    } finally {
+      submitBtn.textContent = origText;
+      submitBtn.disabled    = false;
+    }
+  };
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up - ePro AI</title>
